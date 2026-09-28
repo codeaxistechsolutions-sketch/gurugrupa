@@ -1,0 +1,1907 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Document Management | GuruKrupa</title>
+
+    <!-- Bootstrap -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <!-- Bootstrap Icons -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+        rel="stylesheet"
+    >
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: #F5F7FB;
+            color: #111827;
+            font-family: Arial, sans-serif;
+        }
+
+        /* =====================================================
+           TOPBAR
+        ===================================================== */
+
+        .topbar {
+            height: 70px;
+            background: #ffffff;
+            border-bottom: 1px solid #E2E8F0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            padding: 0 25px;
+        }
+
+        .brand-icon {
+            width: 42px;
+            height: 42px;
+            background: #2563EB;
+            color: #ffffff;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            margin-right: 12px;
+        }
+
+        .brand-title {
+            font-size: 17px;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .brand-subtitle {
+            font-size: 12px;
+            color: #64748B;
+            margin: 2px 0 0;
+        }
+
+        /* =====================================================
+           SIDEBAR
+        ===================================================== */
+
+        .sidebar {
+            width: 250px;
+            position: fixed;
+            top: 70px;
+            left: 0;
+            bottom: 0;
+            background: #172554;
+            padding: 20px 12px;
+            overflow-y: auto;
+        }
+
+        .sidebar a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #CBD5E1;
+            text-decoration: none;
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin-bottom: 5px;
+            font-size: 14px;
+            transition: 0.2s;
+        }
+
+        .sidebar a:hover {
+            background: #1E3A8A;
+            color: #ffffff;
+        }
+
+        .sidebar a.active {
+            background: #2563EB;
+            color: #ffffff;
+        }
+
+        .sidebar a i {
+            font-size: 17px;
+        }
+
+        .sidebar-divider {
+            height: 1px;
+            background: rgba(255,255,255,0.12);
+            margin: 15px 5px;
+        }
+
+        /* =====================================================
+           MAIN CONTENT
+        ===================================================== */
+
+        .main-content {
+            margin-left: 250px;
+            padding: 95px 25px 30px;
+        }
+
+        .page-title {
+            font-size: 25px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .page-subtitle {
+            color: #64748B;
+            font-size: 14px;
+            margin-bottom: 25px;
+        }
+
+        /* =====================================================
+           STAT CARDS
+        ===================================================== */
+
+        .stat-card {
+            background: #ffffff;
+            border: 1px solid #E2E8F0;
+            border-radius: 12px;
+            padding: 20px;
+            height: 100%;
+        }
+
+        .stat-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .stat-icon.blue {
+            background: #DBEAFE;
+            color: #2563EB;
+        }
+
+        .stat-icon.yellow {
+            background: #FEF3C7;
+            color: #D97706;
+        }
+
+        .stat-icon.green {
+            background: #DCFCE7;
+            color: #16A34A;
+        }
+
+        .stat-icon.red {
+            background: #FEE2E2;
+            color: #DC2626;
+        }
+
+        .stat-label {
+            font-size: 13px;
+            color: #64748B;
+            margin-top: 15px;
+        }
+
+        .stat-number {
+            font-size: 27px;
+            font-weight: 700;
+            margin-top: 3px;
+        }
+
+        /* =====================================================
+           FILTER CARD
+        ===================================================== */
+
+        .filter-card {
+            background: #ffffff;
+            border: 1px solid #E2E8F0;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 25px;
+        }
+
+        .form-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: #334155;
+        }
+
+        .form-control,
+        .form-select {
+            min-height: 42px;
+            border: 1px solid #CBD5E1;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            border-color: #2563EB;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.10);
+        }
+
+        .btn-search {
+            background: #2563EB;
+            color: #ffffff;
+            border: none;
+            min-height: 42px;
+            border-radius: 8px;
+            padding: 0 18px;
+        }
+
+        .btn-search:hover {
+            background: #1D4ED8;
+            color: #ffffff;
+        }
+
+        .btn-reset {
+            background: #F8FAFC;
+            color: #334155;
+            border: 1px solid #CBD5E1;
+            min-height: 42px;
+            border-radius: 8px;
+            padding: 0 18px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-reset:hover {
+            background: #F1F5F9;
+            color: #111827;
+        }
+
+        /* =====================================================
+           TABLE
+        ===================================================== */
+
+        .table-card {
+            background: #ffffff;
+            border: 1px solid #E2E8F0;
+            border-radius: 12px;
+            margin-top: 25px;
+            overflow: hidden;
+        }
+
+        .table-header {
+            padding: 18px 20px;
+            border-bottom: 1px solid #E2E8F0;
+        }
+
+        .table-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .table-responsive {
+            overflow-x: auto;
+        }
+
+        table {
+            min-width: 1050px;
+        }
+
+        thead th {
+            background: #F8FAFC;
+            color: #475569;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            white-space: nowrap;
+            padding: 14px 15px;
+            border-bottom: 1px solid #E2E8F0;
+        }
+
+        tbody td {
+            padding: 15px;
+            font-size: 13px;
+            vertical-align: middle;
+            border-bottom: 1px solid #F1F5F9;
+        }
+
+        tbody tr:hover {
+            background: #F8FAFC;
+        }
+
+        .document-id {
+            font-weight: 700;
+            color: #2563EB;
+        }
+
+        .student-name {
+            font-weight: 600;
+        }
+
+        .student-email {
+            font-size: 12px;
+            color: #64748B;
+            margin-top: 3px;
+        }
+
+        .file-name {
+            max-width: 220px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            font-weight: 600;
+        }
+
+        .file-icon {
+            color: #2563EB;
+            margin-right: 6px;
+        }
+
+        /* =====================================================
+           STATUS BADGES
+        ===================================================== */
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 6px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .status-pending {
+            background: #FEF3C7;
+            color: #92400E;
+        }
+
+        .status-approved {
+            background: #DCFCE7;
+            color: #166534;
+        }
+
+        .status-rejected {
+            background: #FEE2E2;
+            color: #991B1B;
+        }
+
+        /* =====================================================
+           ACTION BUTTONS
+        ===================================================== */
+
+        .action-buttons {
+            display: flex;
+            gap: 6px;
+            white-space: nowrap;
+        }
+
+        .action-btn {
+            width: 34px;
+            height: 34px;
+            border-radius: 7px;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .btn-view {
+            background: #E0F2FE;
+            color: #0369A1;
+        }
+
+        .btn-download {
+            background: #EEF2FF;
+            color: #4F46E5;
+            text-decoration: none;
+        }
+
+        .btn-approve {
+            background: #DCFCE7;
+            color: #15803D;
+        }
+
+        .btn-reject {
+            background: #FEE2E2;
+            color: #DC2626;
+        }
+
+        .action-btn:hover {
+            opacity: 0.8;
+        }
+
+        /* =====================================================
+           EMPTY STATE
+        ===================================================== */
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #64748B;
+        }
+
+        .empty-state i {
+            font-size: 45px;
+            color: #94A3B8;
+        }
+
+        .empty-state h5 {
+            margin-top: 15px;
+            color: #334155;
+        }
+
+        /* =====================================================
+           MODAL
+        ===================================================== */
+
+        .modal-header {
+            border-bottom: 1px solid #E2E8F0;
+        }
+
+        .modal-title {
+            font-weight: 700;
+        }
+
+        .detail-label {
+            font-size: 12px;
+            color: #64748B;
+            margin-bottom: 3px;
+        }
+
+        .detail-value {
+            font-size: 14px;
+            font-weight: 600;
+            color: #111827;
+            word-break: break-word;
+        }
+
+        .document-preview {
+            width: 100%;
+            height: 500px;
+            border: 1px solid #E2E8F0;
+            border-radius: 8px;
+            background: #F8FAFC;
+        }
+
+        .remark-box {
+            background: #F8FAFC;
+            border: 1px solid #E2E8F0;
+            border-radius: 8px;
+            padding: 12px;
+            color: #475569;
+            font-size: 13px;
+            white-space: pre-wrap;
+        }
+
+        /* =====================================================
+           RESPONSIVE
+        ===================================================== */
+
+        @media (max-width: 991px) {
+
+            .sidebar {
+                width: 210px;
+            }
+
+            .main-content {
+                margin-left: 210px;
+            }
+
+        }
+
+        @media (max-width: 767px) {
+
+            .topbar {
+                padding: 0 15px;
+            }
+
+            .brand-subtitle {
+                display: none;
+            }
+
+            .sidebar {
+                position: static;
+                width: 100%;
+                height: auto;
+                padding: 10px;
+            }
+
+            .sidebar a {
+                display: inline-flex;
+                margin-right: 5px;
+            }
+
+            .main-content {
+                margin-left: 0;
+                padding: 25px 15px;
+            }
+
+            .topbar {
+                position: static;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     TOPBAR
+========================================================= -->
+
+<div class="topbar">
+
+    <div class="brand-icon">
+        <i class="bi bi-mortarboard-fill"></i>
+    </div>
+
+    <div>
+
+        <div class="brand-title">
+            GuruKrupa
+        </div>
+
+        <div class="brand-subtitle">
+            Student Project Registration & Management Portal
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     SIDEBAR
+========================================================= -->
+
+<div class="sidebar">
+
+    <a href="{% url 'admin_dashboard' %}">
+        <i class="bi bi-speedometer2"></i>
+        Dashboard
+    </a>
+
+    <a href="{% url 'admin_students' %}">
+        <i class="bi bi-people-fill"></i>
+        Students
+    </a>
+
+    <a href="{% url 'admin_applications' %}">
+        <i class="bi bi-file-earmark-text-fill"></i>
+        Applications
+    </a>
+
+    <a href="{% url 'admin_quotations' %}">
+        <i class="bi bi-receipt-cutoff"></i>
+        Quotations
+    </a>
+
+    <a href="{% url 'admin_payments' %}">
+        <i class="bi bi-credit-card-fill"></i>
+        Payments
+    </a>
+
+    <a href="{% url 'admin_projects' %}">
+        <i class="bi bi-kanban-fill"></i>
+        Projects
+    </a>
+
+    <a
+        href="{% url 'admin_documents' %}"
+        class="active"
+    >
+        <i class="bi bi-folder-fill"></i>
+        Documents
+    </a>
+
+    <div class="sidebar-divider"></div>
+
+    <a href="/">
+        <i class="bi bi-globe2"></i>
+        View Website
+    </a>
+
+    <a href="{% url 'admin_logout' %}">
+        <i class="bi bi-box-arrow-right"></i>
+        Logout
+    </a>
+
+</div>
+
+
+<!-- =========================================================
+     MAIN CONTENT
+========================================================= -->
+
+<div class="main-content">
+
+
+    <div class="page-title">
+        Documents
+    </div>
+
+    <div class="page-subtitle">
+        Review and manage student uploaded documents.
+    </div>
+
+
+    <!-- =====================================================
+         STATISTICS
+    ===================================================== -->
+
+    <div class="row g-3">
+
+
+        <!-- Total -->
+
+        <div class="col-xl-3 col-md-6">
+
+            <div class="stat-card">
+
+                <div class="stat-icon blue">
+                    <i class="bi bi-folder2-open"></i>
+                </div>
+
+                <div class="stat-label">
+                    Total Documents
+                </div>
+
+                <div class="stat-number">
+                    {{ total_documents }}
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Pending -->
+
+        <div class="col-xl-3 col-md-6">
+
+            <div class="stat-card">
+
+                <div class="stat-icon yellow">
+                    <i class="bi bi-hourglass-split"></i>
+                </div>
+
+                <div class="stat-label">
+                    Pending Review
+                </div>
+
+                <div class="stat-number">
+                    {{ pending_documents }}
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Approved -->
+
+        <div class="col-xl-3 col-md-6">
+
+            <div class="stat-card">
+
+                <div class="stat-icon green">
+                    <i class="bi bi-check-circle-fill"></i>
+                </div>
+
+                <div class="stat-label">
+                    Approved
+                </div>
+
+                <div class="stat-number">
+                    {{ approved_documents }}
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Rejected -->
+
+        <div class="col-xl-3 col-md-6">
+
+            <div class="stat-card">
+
+                <div class="stat-icon red">
+                    <i class="bi bi-x-circle-fill"></i>
+                </div>
+
+                <div class="stat-label">
+                    Rejected
+                </div>
+
+                <div class="stat-number">
+                    {{ rejected_documents }}
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         FILTER
+    ===================================================== -->
+
+    <div class="filter-card">
+
+        <form
+            method="GET"
+            action="{% url 'admin_documents' %}"
+        >
+
+            <div class="row g-3 align-items-end">
+
+
+                <!-- Search -->
+
+                <div class="col-lg-4">
+
+                    <label class="form-label">
+                        Search Document
+                    </label>
+
+                    <input
+                        type="text"
+                        name="search"
+                        class="form-control"
+                        placeholder="Document ID, student, email, file..."
+                        value="{{ search }}"
+                    >
+
+                </div>
+
+
+                <!-- Document Type -->
+
+                <div class="col-lg-3">
+
+                    <label class="form-label">
+                        Document Type
+                    </label>
+
+                    <select
+                        name="document_type"
+                        class="form-select"
+                    >
+
+                        <option value="">
+                            All Document Types
+                        </option>
+
+                        {% for value, label in document_types %}
+
+                            <option
+                                value="{{ value }}"
+                                {% if document_type == value %}
+                                    selected
+                                {% endif %}
+                            >
+                                {{ label }}
+                            </option>
+
+                        {% endfor %}
+
+                    </select>
+
+                </div>
+
+
+                <!-- Status -->
+
+                <div class="col-lg-3">
+
+                    <label class="form-label">
+                        Document Status
+                    </label>
+
+                    <select
+                        name="status"
+                        class="form-select"
+                    >
+
+                        <option value="">
+                            All Status
+                        </option>
+
+                        {% for value, label in status_choices %}
+
+                            <option
+                                value="{{ value }}"
+                                {% if status == value %}
+                                    selected
+                                {% endif %}
+                            >
+                                {{ label }}
+                            </option>
+
+                        {% endfor %}
+
+                    </select>
+
+                </div>
+
+
+                <!-- Buttons -->
+
+                <div class="col-lg-2">
+
+                    <div class="d-flex gap-2">
+
+                        <button
+                            type="submit"
+                            class="btn-search flex-fill"
+                        >
+                            <i class="bi bi-search me-1"></i>
+                            Search
+                        </button>
+
+                        <a
+                            href="{% url 'admin_documents' %}"
+                            class="btn-reset"
+                            title="Reset"
+                        >
+                            <i class="bi bi-arrow-counterclockwise"></i>
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </form>
+
+    </div>
+
+
+    <!-- =====================================================
+         DOCUMENT TABLE
+    ===================================================== -->
+
+    <div class="table-card">
+
+
+        <div class="table-header d-flex justify-content-between align-items-center">
+
+            <div>
+
+                <h5 class="table-title">
+                    Student Documents
+                </h5>
+
+                <small class="text-muted">
+                    Uploaded documents requiring review and management.
+                </small>
+
+            </div>
+
+            <span class="badge bg-light text-dark">
+                {{ documents|length }} Records
+            </span>
+
+        </div>
+
+
+        <div class="table-responsive">
+
+            {% if documents %}
+
+            <table class="table mb-0">
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Document ID
+                        </th>
+
+                        <th>
+                            Student
+                        </th>
+
+                        <th>
+                            Document
+                        </th>
+
+                        <th>
+                            Type
+                        </th>
+
+                        <th>
+                            Upload Date
+                        </th>
+
+                        <th>
+                            Status
+                        </th>
+
+                        <th>
+                            Action
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    {% for document in documents %}
+
+                    <tr>
+
+
+                        <!-- =================================================
+                             DOCUMENT ID
+                        ================================================= -->
+
+                        <td>
+
+                            <div class="document-id">
+
+                                {% if document.document_id %}
+                                    {{ document.document_id }}
+                                {% else %}
+                                    DOC-2026-{{ document.id|stringformat:"04d" }}
+                                {% endif %}
+
+                            </div>
+
+                        </td>
+
+
+                        <!-- =================================================
+                             STUDENT
+                        ================================================= -->
+
+                        <td>
+
+                            <div class="student-name">
+
+                                {% if document.student.get_full_name %}
+                                    {{ document.student.get_full_name }}
+                                {% else %}
+                                    {{ document.student.username }}
+                                {% endif %}
+
+                            </div>
+
+                            <div class="student-email">
+
+                                {{ document.student.email }}
+
+                            </div>
+
+                        </td>
+
+
+                        <!-- =================================================
+                             FILE
+                        ================================================= -->
+
+                        <td>
+
+                            <div
+                                class="file-name"
+                                title="{{ document.file.name }}"
+                            >
+
+                                <i class="bi bi-file-earmark-text file-icon"></i>
+
+                                {{ document.file.name|cut:"students/documents/" }}
+
+                            </div>
+
+                        </td>
+
+
+                        <!-- =================================================
+                             TYPE
+                        ================================================= -->
+
+                        <td>
+
+                            {{ document.get_document_type_display }}
+
+                        </td>
+
+
+                        <!-- =================================================
+                             UPLOAD DATE
+                        ================================================= -->
+
+                        <td>
+
+                            {{ document.uploaded_at|date:"d M Y, h:i A" }}
+
+                        </td>
+
+
+                        <!-- =================================================
+                             STATUS
+                        ================================================= -->
+
+                        <td>
+
+                            {% if document.status == 'Approved' %}
+
+                                <span class="status-badge status-approved">
+
+                                    <i class="bi bi-check-circle me-1"></i>
+
+                                    Approved
+
+                                </span>
+
+                            {% elif document.status == 'Rejected' %}
+
+                                <span class="status-badge status-rejected">
+
+                                    <i class="bi bi-x-circle me-1"></i>
+
+                                    Rejected
+
+                                </span>
+
+                            {% else %}
+
+                                <span class="status-badge status-pending">
+
+                                    <i class="bi bi-clock me-1"></i>
+
+                                    Pending Review
+
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+
+                        <!-- =================================================
+                             ACTIONS
+                        ================================================= -->
+
+                        <td>
+
+                            <div class="action-buttons">
+
+
+                                <!-- =================================================
+                                     VIEW
+                                ================================================= -->
+
+                                <button
+                                    type="button"
+                                    class="action-btn btn-view"
+                                    title="View"
+                                    data-document-id="{% if document.document_id %}{{ document.document_id }}{% else %}DOC-2026-{{ document.id|stringformat:'04d' }}{% endif %}"
+                                    data-student="{% if document.student.get_full_name %}{{ document.student.get_full_name|escape }}{% else %}{{ document.student.username|escape }}{% endif %}"
+                                    data-email="{{ document.student.email|escape }}"
+                                    data-document-type="{{ document.get_document_type_display|escape }}"
+                                    data-file-name="{{ document.file.name|cut:'students/documents/'|escape }}"
+                                    data-upload-date="{{ document.uploaded_at|date:'d M Y, h:i A' }}"
+                                    data-status="{{ document.status|escape }}"
+                                    data-remark="{{ document.admin_remark|default:''|escape }}"
+                                    data-file-url="{% if document.file %}{{ document.file.url }}{% endif %}"
+                                    onclick="openViewModal(this)"
+                                >
+
+                                    <i class="bi bi-eye"></i>
+
+                                </button>
+
+
+                                <!-- =================================================
+                                     DOWNLOAD
+                                ================================================= -->
+
+                                {% if document.file and document.document_id %}
+
+                                <a
+                                    href="{% url 'admin_document_download' document.document_id %}"
+                                    class="action-btn btn-download"
+                                    title="Download"
+                                >
+
+                                    <i class="bi bi-download"></i>
+
+                                </a>
+
+                                {% endif %}
+
+
+                                <!-- =================================================
+                                     APPROVE
+                                ================================================= -->
+
+                                {% if document.status != 'Approved' and document.document_id %}
+
+                                <button
+                                    type="button"
+                                    class="action-btn btn-approve"
+                                    title="Approve"
+                                    data-document-id="{{ document.document_id }}"
+                                    data-action="Approved"
+                                    onclick="openActionModal(this)"
+                                >
+
+                                    <i class="bi bi-check-lg"></i>
+
+                                </button>
+
+                                {% endif %}
+
+
+                                <!-- =================================================
+                                     REJECT
+                                ================================================= -->
+
+                                {% if document.status != 'Rejected' and document.document_id %}
+
+                                <button
+                                    type="button"
+                                    class="action-btn btn-reject"
+                                    title="Reject"
+                                    data-document-id="{{ document.document_id }}"
+                                    data-action="Rejected"
+                                    onclick="openActionModal(this)"
+                                >
+
+                                    <i class="bi bi-x-lg"></i>
+
+                                </button>
+
+                                {% endif %}
+
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+            {% else %}
+
+
+            <!-- =================================================
+                 EMPTY STATE
+            ================================================= -->
+
+            <div class="empty-state">
+
+                <i class="bi bi-folder-x"></i>
+
+                <h5>
+                    No Documents Found
+                </h5>
+
+                <p>
+                    No student documents match your current filters.
+                </p>
+
+            </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     VIEW DOCUMENT MODAL
+========================================================= -->
+
+<div
+    class="modal fade"
+    id="viewDocumentModal"
+    tabindex="-1"
+    aria-hidden="true"
+>
+
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+
+        <div class="modal-content">
+
+
+            <div class="modal-header">
+
+                <h5 class="modal-title">
+
+                    <i class="bi bi-file-earmark-text me-2"></i>
+
+                    Document Details
+
+                </h5>
+
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                ></button>
+
+            </div>
+
+
+            <div class="modal-body">
+
+                <div class="row g-4">
+
+
+                    <!-- =================================================
+                         DETAILS
+                    ================================================= -->
+
+                    <div class="col-lg-5">
+
+                        <div class="row g-3">
+
+
+                            <div class="col-6">
+
+                                <div class="detail-label">
+                                    Document ID
+                                </div>
+
+                                <div
+                                    class="detail-value"
+                                    id="viewDocumentId"
+                                ></div>
+
+                            </div>
+
+
+                            <div class="col-6">
+
+                                <div class="detail-label">
+                                    Status
+                                </div>
+
+                                <div
+                                    class="detail-value"
+                                    id="viewStatus"
+                                ></div>
+
+                            </div>
+
+
+                            <div class="col-12">
+
+                                <div class="detail-label">
+                                    Student
+                                </div>
+
+                                <div
+                                    class="detail-value"
+                                    id="viewStudent"
+                                ></div>
+
+                            </div>
+
+
+                            <div class="col-12">
+
+                                <div class="detail-label">
+                                    Email
+                                </div>
+
+                                <div
+                                    class="detail-value"
+                                    id="viewEmail"
+                                ></div>
+
+                            </div>
+
+
+                            <div class="col-12">
+
+                                <div class="detail-label">
+                                    Document Type
+                                </div>
+
+                                <div
+                                    class="detail-value"
+                                    id="viewDocumentType"
+                                ></div>
+
+                            </div>
+
+
+                            <div class="col-12">
+
+                                <div class="detail-label">
+                                    File Name
+                                </div>
+
+                                <div
+                                    class="detail-value"
+                                    id="viewFileName"
+                                ></div>
+
+                            </div>
+
+
+                            <div class="col-12">
+
+                                <div class="detail-label">
+                                    Upload Date
+                                </div>
+
+                                <div
+                                    class="detail-value"
+                                    id="viewUploadDate"
+                                ></div>
+
+                            </div>
+
+
+                            <div class="col-12">
+
+                                <div class="detail-label">
+                                    Admin Remark
+                                </div>
+
+                                <div
+                                    class="remark-box"
+                                    id="viewRemark"
+                                >
+                                    No remark added.
+                                </div>
+
+                            </div>
+
+
+                            <div class="col-12">
+
+                                <a
+                                    href="#"
+                                    id="viewDownloadButton"
+                                    class="btn btn-primary"
+                                    target="_blank"
+                                >
+
+                                    <i class="bi bi-download me-1"></i>
+
+                                    Open / Download Document
+
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =================================================
+                         PREVIEW
+                    ================================================= -->
+
+                    <div class="col-lg-7">
+
+                        <div class="detail-label mb-2">
+                            Document Preview
+                        </div>
+
+                        <iframe
+                            id="documentPreview"
+                            class="document-preview"
+                            src=""
+                        ></iframe>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     APPROVE / REJECT MODAL
+========================================================= -->
+
+<div
+    class="modal fade"
+    id="actionModal"
+    tabindex="-1"
+    aria-hidden="true"
+>
+
+    <div class="modal-dialog modal-dialog-centered">
+
+        <div class="modal-content">
+
+
+            <div class="modal-header">
+
+                <h5 class="modal-title">
+
+                    <i class="bi bi-shield-check me-2"></i>
+
+                    Document Action
+
+                </h5>
+
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                ></button>
+
+            </div>
+
+
+            <form
+                method="POST"
+                id="actionForm"
+            >
+
+                {% csrf_token %}
+
+                <div class="modal-body">
+
+
+                    <input
+                        type="hidden"
+                        name="action"
+                        id="actionValue"
+                    >
+
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Document ID
+                        </label>
+
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="actionDocumentId"
+                            readonly
+                        >
+
+                    </div>
+
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+
+                            Admin Remark
+
+                            <span
+                                id="remarkRequired"
+                                class="text-danger"
+                            ></span>
+
+                        </label>
+
+                        <textarea
+                            name="admin_remark"
+                            id="adminRemark"
+                            class="form-control"
+                            rows="4"
+                            placeholder="Enter admin remark..."
+                        ></textarea>
+
+                    </div>
+
+
+                </div>
+
+
+                <div class="modal-footer">
+
+                    <button
+                        type="button"
+                        class="btn btn-light"
+                        data-bs-dismiss="modal"
+                    >
+                        Cancel
+                    </button>
+
+                    <button
+                        type="submit"
+                        id="actionSubmitButton"
+                        class="btn btn-success"
+                    >
+                        Submit
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     BOOTSTRAP JS
+========================================================= -->
+
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+></script>
+
+
+<script>
+
+/* =========================================================
+   VIEW DOCUMENT MODAL
+========================================================= */
+
+function openViewModal(button) {
+
+    const documentId =
+        button.getAttribute("data-document-id");
+
+    const student =
+        button.getAttribute("data-student");
+
+    const email =
+        button.getAttribute("data-email");
+
+    const documentType =
+        button.getAttribute("data-document-type");
+
+    const fileName =
+        button.getAttribute("data-file-name");
+
+    const uploadDate =
+        button.getAttribute("data-upload-date");
+
+    const status =
+        button.getAttribute("data-status");
+
+    const remark =
+        button.getAttribute("data-remark");
+
+    const fileUrl =
+        button.getAttribute("data-file-url");
+
+
+    document.getElementById(
+        "viewDocumentId"
+    ).innerText =
+        documentId || "N/A";
+
+
+    document.getElementById(
+        "viewStudent"
+    ).innerText =
+        student || "N/A";
+
+
+    document.getElementById(
+        "viewEmail"
+    ).innerText =
+        email || "N/A";
+
+
+    document.getElementById(
+        "viewDocumentType"
+    ).innerText =
+        documentType || "N/A";
+
+
+    document.getElementById(
+        "viewFileName"
+    ).innerText =
+        fileName || "N/A";
+
+
+    document.getElementById(
+        "viewUploadDate"
+    ).innerText =
+        uploadDate || "N/A";
+
+
+    document.getElementById(
+        "viewRemark"
+    ).innerText =
+        remark || "No remark added.";
+
+
+    document.getElementById(
+        "viewStatus"
+    ).innerText =
+        status || "Pending Review";
+
+
+    const preview =
+        document.getElementById(
+            "documentPreview"
+        );
+
+
+    const downloadButton =
+        document.getElementById(
+            "viewDownloadButton"
+        );
+
+
+    /* =====================================================
+       FILE PREVIEW
+    ===================================================== */
+
+    if (fileUrl) {
+
+        preview.src = fileUrl;
+
+        downloadButton.href = fileUrl;
+
+        downloadButton.style.display =
+            "inline-flex";
+
+    } else {
+
+        preview.src = "";
+
+        downloadButton.removeAttribute(
+            "href"
+        );
+
+        downloadButton.style.display =
+            "none";
+
+    }
+
+
+    /* =====================================================
+       SHOW MODAL
+    ===================================================== */
+
+    const modalElement =
+        document.getElementById(
+            "viewDocumentModal"
+        );
+
+
+    const modal =
+        bootstrap.Modal.getOrCreateInstance(
+            modalElement
+        );
+
+
+    modal.show();
+
+}
+
+
+/* =========================================================
+   APPROVE / REJECT MODAL
+========================================================= */
+
+function openActionModal(button) {
+
+    const documentId =
+        button.getAttribute(
+            "data-document-id"
+        );
+
+    const action =
+        button.getAttribute(
+            "data-action"
+        );
+
+
+    if (!documentId) {
+
+        alert(
+            "Document ID not found."
+        );
+
+        return;
+
+    }
+
+
+    document.getElementById(
+        "actionDocumentId"
+    ).value =
+        documentId;
+
+
+    document.getElementById(
+        "actionValue"
+    ).value =
+        action;
+
+
+    document.getElementById(
+        "adminRemark"
+    ).value =
+        "";
+
+
+    const remarkField =
+        document.getElementById(
+            "adminRemark"
+        );
+
+
+    const remarkRequired =
+        document.getElementById(
+            "remarkRequired"
+        );
+
+
+    const submitButton =
+        document.getElementById(
+            "actionSubmitButton"
+        );
+
+
+    /* =====================================================
+       REJECT
+    ===================================================== */
+
+    if (action === "Rejected") {
+
+        remarkField.required =
+            true;
+
+        remarkRequired.innerText =
+            " * Required";
+
+        submitButton.className =
+            "btn btn-danger";
+
+        submitButton.innerHTML =
+            '<i class="bi bi-x-circle me-1"></i> Reject Document';
+
+    }
+
+
+    /* =====================================================
+       APPROVE
+    ===================================================== */
+
+    else {
+
+        remarkField.required =
+            false;
+
+        remarkRequired.innerText =
+            "";
+
+        submitButton.className =
+            "btn btn-success";
+
+        submitButton.innerHTML =
+            '<i class="bi bi-check-circle me-1"></i> Approve Document';
+
+    }
+
+
+    /* =====================================================
+       DJANGO ACTION URL
+    ===================================================== */
+
+    const baseUrl =
+        "{% url 'admin_document_action' 'PLACEHOLDER' %}";
+
+
+    document.getElementById(
+        "actionForm"
+    ).action =
+        baseUrl.replace(
+            "PLACEHOLDER",
+            encodeURIComponent(documentId)
+        );
+
+
+    /* =====================================================
+       SHOW ACTION MODAL
+    ===================================================== */
+
+    const modalElement =
+        document.getElementById(
+            "actionModal"
+        );
+
+
+    const modal =
+        bootstrap.Modal.getOrCreateInstance(
+            modalElement
+        );
+
+
+    modal.show();
+
+}
+
+
+/* =========================================================
+   CLEAR PREVIEW WHEN MODAL CLOSES
+========================================================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        const viewModal =
+            document.getElementById(
+                "viewDocumentModal"
+            );
+
+
+        if (viewModal) {
+
+            viewModal.addEventListener(
+                "hidden.bs.modal",
+                function () {
+
+                    const preview =
+                        document.getElementById(
+                            "documentPreview"
+                        );
+
+                    const downloadButton =
+                        document.getElementById(
+                            "viewDownloadButton"
+                        );
+
+                    preview.src = "";
+
+                    downloadButton.removeAttribute(
+                        "href"
+                    );
+
+                }
+            );
+
+        }
+
+    }
+);
+
+</script>
+
+
+</body>
+
+</html>

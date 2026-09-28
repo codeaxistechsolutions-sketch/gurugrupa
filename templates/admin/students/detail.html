@@ -1,0 +1,1476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Student Details | Code Axis TechSolutions LLP</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+        rel="stylesheet"
+    >
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: #F5F7FB;
+            color: #111827;
+            font-family: Arial, sans-serif;
+        }
+
+        /* =========================
+           TOPBAR
+        ========================= */
+
+        .topbar {
+            height: 70px;
+            background: #ffffff;
+            border-bottom: 1px solid #E2E8F0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 25px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .brand-icon {
+            width: 38px;
+            height: 38px;
+            background: #2563EB;
+            color: white;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .admin-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .admin-avatar {
+            width: 38px;
+            height: 38px;
+            background: #DBEAFE;
+            color: #2563EB;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        /* =========================
+           SIDEBAR
+        ========================= */
+
+        .sidebar {
+            width: 250px;
+            position: fixed;
+            top: 70px;
+            left: 0;
+            bottom: 0;
+            background: #172554;
+            padding: 20px 14px;
+            overflow-y: auto;
+        }
+
+        .sidebar-title {
+            color: #94A3B8;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 10px 14px;
+            letter-spacing: 1px;
+        }
+
+        .sidebar a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 14px;
+            margin-bottom: 5px;
+            border-radius: 8px;
+            color: #CBD5E1;
+            text-decoration: none;
+            font-size: 14px;
+            transition: 0.2s;
+        }
+
+        .sidebar a:hover {
+            background: #1E3A8A;
+            color: #ffffff;
+        }
+
+        .sidebar a.active {
+            background: #2563EB;
+            color: #ffffff;
+        }
+
+        .sidebar a i {
+            font-size: 17px;
+        }
+
+        .sidebar-divider {
+            height: 1px;
+            background: rgba(255,255,255,0.10);
+            margin: 18px 5px;
+        }
+
+        /* =========================
+           MAIN CONTENT
+        ========================= */
+
+        .main-content {
+            margin-left: 250px;
+            padding: 95px 30px 30px;
+        }
+
+        .page-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 25px;
+        }
+
+        .page-title {
+            margin: 0;
+            font-size: 27px;
+            font-weight: 700;
+        }
+
+        .page-subtitle {
+            margin-top: 6px;
+            color: #64748B;
+            font-size: 14px;
+        }
+
+        /* =========================
+           BUTTON
+        ========================= */
+
+        .btn-primary-custom {
+            background: #2563EB;
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 7px;
+            font-size: 14px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+        }
+
+        .btn-primary-custom:hover {
+            background: #1D4ED8;
+            color: white;
+        }
+
+        /* =========================
+           CARDS
+        ========================= */
+
+        .card-box {
+            background: #ffffff;
+            border: 1px solid #E2E8F0;
+            border-radius: 12px;
+            padding: 22px;
+            margin-bottom: 22px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title i {
+            color: #2563EB;
+        }
+
+        /* =========================
+           PROFILE
+        ========================= */
+
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .profile-avatar {
+            width: 75px;
+            height: 75px;
+            background: #DBEAFE;
+            color: #2563EB;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            font-weight: 700;
+        }
+
+        .profile-name {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .profile-id {
+            color: #64748B;
+            font-size: 14px;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            background: #DCFCE7;
+            color: #16A34A;
+        }
+
+        /* =========================
+           DETAILS
+        ========================= */
+
+        .detail-item {
+            margin-bottom: 18px;
+        }
+
+        .detail-label {
+            color: #64748B;
+            font-size: 12px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        .detail-value {
+            font-size: 14px;
+            font-weight: 600;
+            color: #111827;
+            word-break: break-word;
+        }
+
+        /* =========================
+           TABLE
+        ========================= */
+
+        .table {
+            margin-bottom: 0;
+        }
+
+        .table thead th {
+            background: #F5F7FB;
+            color: #64748B;
+            font-size: 12px;
+            font-weight: 700;
+            border-bottom: 1px solid #E2E8F0;
+            padding: 13px;
+        }
+
+        .table tbody td {
+            padding: 14px 13px;
+            font-size: 13px;
+            vertical-align: middle;
+            border-bottom: 1px solid #E2E8F0;
+        }
+
+        .table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .project-status {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .status-pending {
+            background: #FEF3C7;
+            color: #F59E0B;
+        }
+
+        .status-progress {
+            background: #DBEAFE;
+            color: #2563EB;
+        }
+
+        .status-completed {
+            background: #DCFCE7;
+            color: #16A34A;
+        }
+
+        .status-hold {
+            background: #FEE2E2;
+            color: #EF4444;
+        }
+
+        .status-rejected {
+            background: #FEE2E2;
+            color: #EF4444;
+        }
+
+        .status-accepted {
+            background: #DCFCE7;
+            color: #16A34A;
+        }
+
+        /* =========================
+           EMPTY
+        ========================= */
+
+        .empty-box {
+            text-align: center;
+            padding: 35px 15px;
+            color: #64748B;
+        }
+
+        .empty-box i {
+            font-size: 35px;
+            margin-bottom: 10px;
+        }
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 991px) {
+
+            .sidebar {
+                width: 210px;
+            }
+
+            .main-content {
+                margin-left: 210px;
+            }
+
+        }
+
+        @media (max-width: 767px) {
+
+            .sidebar {
+                position: static;
+                width: 100%;
+                height: auto;
+                margin-top: 70px;
+            }
+
+            .topbar {
+                position: fixed;
+            }
+
+            .main-content {
+                margin-left: 0;
+                padding: 20px;
+            }
+
+            .page-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+
+            .profile-header {
+                align-items: flex-start;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<!-- =========================
+     TOPBAR
+========================= -->
+
+<div class="topbar">
+
+    <div class="brand">
+
+        <div class="brand-icon">
+            <i class="bi bi-mortarboard-fill"></i>
+        </div>
+
+        <span>Code Axis TechSolutions LLP</span>
+
+    </div>
+
+    <div class="admin-info">
+
+        <div class="admin-avatar">
+            <i class="bi bi-person-fill"></i>
+        </div>
+
+        <span>Administrator</span>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     SIDEBAR
+========================= -->
+
+<div class="sidebar">
+
+    <div class="sidebar-title">
+        Main Menu
+    </div>
+
+    <a href="{% url 'admin_dashboard' %}">
+        <i class="bi bi-speedometer2"></i>
+        Dashboard
+    </a>
+
+    <a href="{% url 'admin_students' %}" class="active">
+        <i class="bi bi-people"></i>
+        Students
+    </a>
+
+    <a href="#">
+        <i class="bi bi-file-earmark-text"></i>
+        Applications
+    </a>
+
+    <a href="#">
+        <i class="bi bi-receipt"></i>
+        Quotations
+    </a>
+
+    <a href="#">
+        <i class="bi bi-credit-card"></i>
+        Payments
+    </a>
+
+    <a href="#">
+        <i class="bi bi-kanban"></i>
+        Projects
+    </a>
+
+    <a href="#">
+        <i class="bi bi-folder2-open"></i>
+        Documents
+    </a>
+
+    <a href="#">
+        <i class="bi bi-bar-chart"></i>
+        Reports
+    </a>
+
+    <div class="sidebar-divider"></div>
+
+    <a href="/">
+        <i class="bi bi-globe"></i>
+        View Website
+    </a>
+
+    <a href="{% url 'admin_logout' %}">
+        <i class="bi bi-box-arrow-right"></i>
+        Logout
+    </a>
+
+</div>
+
+
+<!-- =========================
+     MAIN CONTENT
+========================= -->
+
+<div class="main-content">
+
+    <!-- HEADER -->
+
+    <div class="page-header">
+
+        <div>
+
+            <h1 class="page-title">
+                Student Details
+            </h1>
+
+            <div class="page-subtitle">
+                Complete information of registered student
+            </div>
+
+        </div>
+
+        <a href="{% url 'admin_students' %}" class="btn-primary-custom">
+
+            <i class="bi bi-arrow-left"></i>
+
+            Back to Students
+
+        </a>
+
+    </div>
+
+
+    <!-- =========================
+         PROFILE HEADER
+    ========================= -->
+
+    <div class="card-box">
+
+        <div class="profile-header">
+
+            <div class="profile-avatar">
+
+                {% if student.full_name %}
+                    {{ student.full_name|first|upper }}
+                {% else %}
+                    S
+                {% endif %}
+
+            </div>
+
+            <div>
+
+                <div class="profile-name">
+                    {{ student.full_name }}
+                </div>
+
+                <div class="profile-id">
+                    Student ID:
+                    <strong>{{ student.application_id }}</strong>
+                </div>
+
+                <div class="mt-2">
+
+                    {% if student.user.is_active %}
+
+                        <span class="status-badge">
+                            Active
+                        </span>
+
+                    {% else %}
+
+                        <span
+                            class="status-badge"
+                            style="background:#FEE2E2;color:#EF4444;"
+                        >
+                            Inactive
+                        </span>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         PERSONAL DETAILS
+    ========================= -->
+
+    <div class="card-box">
+
+        <div class="section-title">
+
+            <i class="bi bi-person-vcard"></i>
+
+            Personal Details
+
+        </div>
+
+        <div class="row">
+
+            <div class="col-lg-4 col-md-6">
+
+                <div class="detail-item">
+
+                    <div class="detail-label">
+                        Full Name
+                    </div>
+
+                    <div class="detail-value">
+                        {{ student.full_name|default:"-" }}
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-lg-4 col-md-6">
+
+                <div class="detail-item">
+
+                    <div class="detail-label">
+                        Email
+                    </div>
+
+                    <div class="detail-value">
+                        {{ student.user.email|default:"-" }}
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-lg-4 col-md-6">
+
+                <div class="detail-item">
+
+                    <div class="detail-label">
+                        Mobile
+                    </div>
+
+                    <div class="detail-value">
+                        {{ student.mobile|default:"-" }}
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-lg-4 col-md-6">
+
+                <div class="detail-item">
+
+                    <div class="detail-label">
+                        Gender
+                    </div>
+
+                    <div class="detail-value">
+                        {{ student.gender|default:"-" }}
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-lg-4 col-md-6">
+
+                <div class="detail-item">
+
+                    <div class="detail-label">
+                        District
+                    </div>
+
+                    <div class="detail-value">
+                        {{ student.district|default:"-" }}
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-lg-4 col-md-6">
+
+                <div class="detail-item">
+
+                    <div class="detail-label">
+                        State
+                    </div>
+
+                    <div class="detail-value">
+                        {{ student.state|default:"-" }}
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-12">
+
+                <div class="detail-item">
+
+                    <div class="detail-label">
+                        Address
+                    </div>
+
+                    <div class="detail-value">
+                        {{ student.address|default:"-" }}
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         ACADEMIC DETAILS
+    ========================= -->
+
+    <div class="card-box">
+
+        <div class="section-title">
+
+            <i class="bi bi-mortarboard"></i>
+
+            Academic Details
+
+        </div>
+
+        {% if academic %}
+
+        <div class="row">
+
+            <div class="col-lg-4 col-md-6">
+
+                <div class="detail-item">
+
+                    <div class="detail-label">
+                        Course
+                    </div>
+
+                    <div class="detail-value">
+                        {{ academic.course|default:"-" }}
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-lg-4 col-md-6">
+
+                <div class="detail-item">
+
+                    <div class="detail-label">
+                        Branch
+                    </div>
+
+                    <div class="detail-value">
+                        {{ academic.branch|default:"-" }}
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-lg-4 col-md-6">
+
+                <div class="detail-item">
+
+                    <div class="detail-label">
+                        College
+                    </div>
+
+                    <div class="detail-value">
+                        {{ academic.college|default:"-" }}
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-lg-4 col-md-6">
+
+                <div class="detail-item">
+
+                    <div class="detail-label">
+                        University
+                    </div>
+
+                    <div class="detail-value">
+                        {{ academic.university|default:"-" }}
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-lg-4 col-md-6">
+
+                <div class="detail-item">
+
+                    <div class="detail-label">
+                        Current Year
+                    </div>
+
+                    <div class="detail-value">
+                        {{ academic.current_year|default:"-" }}
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-lg-4 col-md-6">
+
+                <div class="detail-item">
+
+                    <div class="detail-label">
+                        Semester
+                    </div>
+
+                    <div class="detail-value">
+                        {{ academic.semester|default:"-" }}
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-lg-4 col-md-6">
+
+                <div class="detail-item">
+
+                    <div class="detail-label">
+                        Academic Year
+                    </div>
+
+                    <div class="detail-value">
+                        {{ academic.academic_year|default:"-" }}
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-lg-4 col-md-6">
+
+                <div class="detail-item">
+
+                    <div class="detail-label">
+                        Expected Passing Year
+                    </div>
+
+                    <div class="detail-value">
+                        {{ academic.expected_passing_year|default:"-" }}
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% else %}
+
+        <div class="empty-box">
+
+            <i class="bi bi-mortarboard"></i>
+
+            <div>
+                Academic information not available.
+            </div>
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+
+    <!-- =========================
+         EDUCATIONAL HISTORY
+    ========================= -->
+
+    {% if academic %}
+
+    <div class="card-box">
+
+        <div class="section-title">
+
+            <i class="bi bi-book"></i>
+
+            Educational History
+
+        </div>
+
+        <div class="row">
+
+            <div class="col-lg-4 col-md-6">
+
+                <div class="detail-item">
+
+                    <div class="detail-label">
+                        10th Board
+                    </div>
+
+                    <div class="detail-value">
+                        {{ academic.tenth_board|default:"-" }}
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+
+                <div class="detail-item">
+
+                    <div class="detail-label">
+                        10th Passing Year
+                    </div>
+
+                    <div class="detail-value">
+                        {{ academic.tenth_passing_year|default:"-" }}
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+
+                <div class="detail-item">
+
+                    <div class="detail-label">
+                        10th Percentage
+                    </div>
+
+                    <div class="detail-value">
+                        {{ academic.tenth_percentage|default:"-" }}
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-lg-4 col-md-6">
+
+                <div class="detail-item">
+
+                    <div class="detail-label">
+                        12th Board
+                    </div>
+
+                    <div class="detail-value">
+                        {{ academic.twelfth_board|default:"-" }}
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+
+                <div class="detail-item">
+
+                    <div class="detail-label">
+                        12th Passing Year
+                    </div>
+
+                    <div class="detail-value">
+                        {{ academic.twelfth_passing_year|default:"-" }}
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+
+                <div class="detail-item">
+
+                    <div class="detail-label">
+                        12th Percentage
+                    </div>
+
+                    <div class="detail-value">
+                        {{ academic.twelfth_percentage|default:"-" }}
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-lg-4 col-md-6">
+
+                <div class="detail-item">
+
+                    <div class="detail-label">
+                        Graduation Degree
+                    </div>
+
+                    <div class="detail-value">
+                        {{ academic.graduation_degree|default:"-" }}
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+
+                <div class="detail-item">
+
+                    <div class="detail-label">
+                        Specialization
+                    </div>
+
+                    <div class="detail-value">
+                        {{ academic.graduation_specialization|default:"-" }}
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+
+                <div class="detail-item">
+
+                    <div class="detail-label">
+                        Graduation Percentage
+                    </div>
+
+                    <div class="detail-value">
+                        {{ academic.graduation_percentage|default:"-" }}
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    {% endif %}
+
+
+    <!-- =========================
+         PROJECT DETAILS
+    ========================= -->
+
+    <div class="card-box">
+
+        <div class="section-title">
+
+            <i class="bi bi-kanban"></i>
+
+            Project Details
+
+        </div>
+
+        {% if projects %}
+
+        <div class="table-responsive">
+
+            <table class="table">
+
+                <thead>
+
+                    <tr>
+
+                        <th>Project</th>
+
+                        <th>Type</th>
+
+                        <th>Domain</th>
+
+                        <th>Technology</th>
+
+                        <th>Status</th>
+
+                        <th>Progress</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    {% for project in projects %}
+
+                    <tr>
+
+                        <td>
+                            <strong>
+                                {{ project.project_title }}
+                            </strong>
+                        </td>
+
+                        <td>
+                            {{ project.project_type|default:"-" }}
+                        </td>
+
+                        <td>
+                            {{ project.domain|default:"-" }}
+                        </td>
+
+                        <td>
+                            {{ project.technology|default:"-" }}
+                        </td>
+
+                        <td>
+
+                            {% if project.status == "Pending" %}
+
+                                <span class="project-status status-pending">
+                                    Pending
+                                </span>
+
+                            {% elif project.status == "In Progress" %}
+
+                                <span class="project-status status-progress">
+                                    In Progress
+                                </span>
+
+                            {% elif project.status == "Completed" %}
+
+                                <span class="project-status status-completed">
+                                    Completed
+                                </span>
+
+                            {% elif project.status == "On Hold" %}
+
+                                <span class="project-status status-hold">
+                                    On Hold
+                                </span>
+
+                            {% else %}
+
+                                <span class="project-status">
+                                    {{ project.status }}
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+                        <td>
+
+                            <strong>
+                                {{ project.progress }}%
+                            </strong>
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        {% else %}
+
+        <div class="empty-box">
+
+            <i class="bi bi-kanban"></i>
+
+            <div>
+                No project information available.
+            </div>
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+
+    <!-- =========================
+         QUOTATIONS
+    ========================= -->
+
+    <div class="card-box">
+
+        <div class="section-title">
+
+            <i class="bi bi-receipt"></i>
+
+            Quotations
+
+        </div>
+
+        {% if quotations %}
+
+        <div class="table-responsive">
+
+            <table class="table">
+
+                <thead>
+
+                    <tr>
+
+                        <th>Quotation No.</th>
+
+                        <th>Project</th>
+
+                        <th>Date</th>
+
+                        <th>Total Amount</th>
+
+                        <th>Status</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    {% for quotation in quotations %}
+
+                    <tr>
+
+                        <td>
+                            <strong>
+                                {{ quotation.quotation_number }}
+                            </strong>
+                        </td>
+
+                        <td>
+                            {{ quotation.project.project_title }}
+                        </td>
+
+                        <td>
+                            {{ quotation.quotation_date|date:"d M Y" }}
+                        </td>
+
+                        <td>
+                            ₹{{ quotation.total_amount }}
+                        </td>
+
+                        <td>
+
+                            {% if quotation.status == "Accepted" %}
+
+                                <span class="project-status status-accepted">
+                                    Accepted
+                                </span>
+
+                            {% elif quotation.status == "Rejected" %}
+
+                                <span class="project-status status-rejected">
+                                    Rejected
+                                </span>
+
+                            {% else %}
+
+                                <span class="project-status status-pending">
+                                    Pending Acceptance
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        {% else %}
+
+        <div class="empty-box">
+
+            <i class="bi bi-receipt"></i>
+
+            <div>
+                No quotation information available.
+            </div>
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+
+    <!-- =========================
+         PAYMENTS
+    ========================= -->
+
+    <div class="card-box">
+
+        <div class="section-title">
+
+            <i class="bi bi-credit-card"></i>
+
+            Payment Details
+
+        </div>
+
+        {% if payments %}
+
+        <div class="table-responsive">
+
+            <table class="table">
+
+                <thead>
+
+                    <tr>
+
+                        <th>Transaction Reference</th>
+
+                        <th>Payment Method</th>
+
+                        <th>Amount</th>
+
+                        <th>Status</th>
+
+                        <th>Payment Date</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    {% for payment in payments %}
+
+                    <tr>
+
+                        <td>
+                            <strong>
+                                {{ payment.transaction_reference }}
+                            </strong>
+                        </td>
+
+                        <td>
+                            {{ payment.payment_method }}
+                        </td>
+
+                        <td>
+                            ₹{{ payment.amount }}
+                        </td>
+
+                        <td>
+
+                            {% if payment.payment_status == "Paid" %}
+
+                                <span class="project-status status-accepted">
+                                    Paid
+                                </span>
+
+                            {% elif payment.payment_status == "Failed" %}
+
+                                <span class="project-status status-rejected">
+                                    Failed
+                                </span>
+
+                            {% else %}
+
+                                <span class="project-status status-pending">
+                                    Pending
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+                        <td>
+
+                            {% if payment.payment_date %}
+                                {{ payment.payment_date|date:"d M Y, h:i A" }}
+                            {% else %}
+                                -
+                            {% endif %}
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        {% else %}
+
+        <div class="empty-box">
+
+            <i class="bi bi-credit-card"></i>
+
+            <div>
+                No payment information available.
+            </div>
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+
+    <!-- =========================
+         FOOTER
+    ========================= -->
+
+    <div class="text-center mt-4 mb-3">
+
+        <small style="color:#64748B;">
+            © 2026 Code Axis TechSolutions LLP.
+            All rights reserved.
+        </small>
+
+    </div>
+
+</div>
+
+
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+</script>
+
+</body>
+</html>

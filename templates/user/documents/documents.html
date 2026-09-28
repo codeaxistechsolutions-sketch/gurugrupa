@@ -1,0 +1,1755 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Documents | Student Project Portal</title>
+
+<link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet">
+
+<link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+<style>
+
+:root {
+    --background: #F5F7FB;
+    --sidebar: #172554;
+    --navbar: #FFFFFF;
+    --primary: #2563EB;
+    --secondary: #4F46E5;
+    --card: #FFFFFF;
+    --text: #111827;
+    --secondary-text: #64748B;
+    --border: #E2E8F0;
+    --success: #16A34A;
+    --warning: #F59E0B;
+    --danger: #EF4444;
+    --info: #0EA5E9;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: var(--background);
+    color: var(--text);
+    font-family: Arial, sans-serif;
+}
+
+/* ================= SIDEBAR ================= */
+
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    background: var(--sidebar);
+    color: white;
+    padding: 20px 15px;
+    overflow-y: auto;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px;
+    margin-bottom: 25px;
+}
+
+.logo-icon {
+    width: 45px;
+    height: 45px;
+    background: var(--primary);
+    border-radius: 10px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.logo h5 {
+    margin: 0;
+    font-size: 14px;
+}
+
+.logo small {
+    color: #CBD5E1;
+}
+
+.menu-title {
+    color: #94A3B8;
+    font-size: 11px;
+    margin: 20px 10px 8px;
+    text-transform: uppercase;
+}
+
+.sidebar a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    color: #CBD5E1;
+    text-decoration: none;
+
+    padding: 11px 12px;
+    margin-bottom: 4px;
+
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+.sidebar a:hover,
+.sidebar a.active {
+    background: var(--primary);
+    color: white;
+}
+
+.sidebar a i {
+    font-size: 17px;
+}
+
+/* ================= MAIN ================= */
+
+.main {
+    margin-left: 250px;
+    min-height: 100vh;
+}
+
+/* ================= NAVBAR ================= */
+
+.navbar-custom {
+    height: 70px;
+    background: var(--navbar);
+    border-bottom: 1px solid var(--border);
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 30px;
+}
+
+.navbar-custom h4 {
+    margin: 0;
+    font-size: 20px;
+}
+
+.student-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+}
+
+.profile-circle {
+    width: 40px;
+    height: 40px;
+
+    background: #DBEAFE;
+    color: var(--primary);
+
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-weight: bold;
+}
+
+/* ================= CONTENT ================= */
+
+.content {
+    padding: 30px;
+}
+
+.breadcrumb-text {
+    color: var(--secondary-text);
+    font-size: 14px;
+    margin-bottom: 25px;
+}
+
+/* ================= INFO ================= */
+
+.info-note {
+    background: #EFF6FF;
+    border: 1px solid #BFDBFE;
+    color: #1E40AF;
+
+    padding: 14px 16px;
+    border-radius: 8px;
+
+    font-size: 13px;
+    margin-bottom: 25px;
+}
+
+/* ================= DJANGO MESSAGES ================= */
+
+.message-box {
+    margin-bottom: 20px;
+}
+
+.message {
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.message.success {
+    background: #DCFCE7;
+    color: #166534;
+    border: 1px solid #BBF7D0;
+}
+
+.message.error {
+    background: #FEE2E2;
+    color: #991B1B;
+    border: 1px solid #FECACA;
+}
+
+.message.warning {
+    background: #FEF3C7;
+    color: #92400E;
+    border: 1px solid #FDE68A;
+}
+
+.message.info {
+    background: #E0F2FE;
+    color: #075985;
+    border: 1px solid #BAE6FD;
+}
+
+/* ================= CARD ================= */
+
+.card-box {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+
+    padding: 25px;
+    margin-bottom: 25px;
+}
+
+.section-heading {
+    font-size: 17px;
+    font-weight: 600;
+
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+
+    margin-bottom: 20px;
+}
+
+.section-heading i {
+    color: var(--primary);
+    margin-right: 7px;
+}
+
+/* ================= DOCUMENT REQUIREMENTS ================= */
+
+.requirement-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 15px;
+
+    border: 1px solid var(--border);
+    border-radius: 8px;
+
+    margin-bottom: 10px;
+
+    background: #FFFFFF;
+}
+
+.requirement-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.requirement-icon {
+    width: 42px;
+    height: 42px;
+
+    background: #EFF6FF;
+    color: var(--primary);
+
+    border-radius: 8px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 20px;
+}
+
+.requirement-info strong {
+    font-size: 14px;
+}
+
+.requirement-info small {
+    display: block;
+    color: var(--secondary-text);
+    margin-top: 3px;
+}
+
+/* ================= UPLOAD BOX ================= */
+
+.upload-box {
+    border: 2px dashed #CBD5E1;
+    border-radius: 10px;
+
+    padding: 35px 20px;
+    text-align: center;
+
+    background: #F8FAFC;
+    transition: 0.2s;
+}
+
+.upload-box:hover {
+    border-color: var(--primary);
+    background: #EFF6FF;
+}
+
+.upload-icon {
+    font-size: 42px;
+    color: var(--primary);
+    margin-bottom: 10px;
+}
+
+.upload-box h5 {
+    font-size: 16px;
+    margin-bottom: 7px;
+}
+
+.upload-box p {
+    color: var(--secondary-text);
+    font-size: 13px;
+    margin-bottom: 15px;
+}
+
+.choose-btn {
+    background: var(--primary);
+    color: white;
+    border: none;
+
+    padding: 10px 20px;
+    border-radius: 7px;
+
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.choose-btn:hover {
+    background: #1D4ED8;
+}
+
+/* ================= UPLOADED DOCUMENTS ================= */
+
+.document-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 15px;
+
+    border: 1px solid var(--border);
+    border-radius: 8px;
+
+    margin-bottom: 10px;
+
+    background: #FFFFFF;
+}
+
+.document-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.file-icon {
+    width: 42px;
+    height: 42px;
+
+    background: #EFF6FF;
+    color: var(--primary);
+
+    border-radius: 8px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 20px;
+}
+
+.document-info strong {
+    font-size: 14px;
+}
+
+.document-info small {
+    display: block;
+    color: var(--secondary-text);
+    margin-top: 3px;
+}
+
+/* ================= TEMPLATE BUTTON ================= */
+
+.template-btn {
+    background: white;
+    color: var(--primary);
+
+    border: 1px solid var(--primary);
+
+    padding: 7px 12px;
+
+    border-radius: 6px;
+
+    font-size: 13px;
+    text-decoration: none;
+}
+
+.template-btn:hover {
+    background: #EFF6FF;
+    color: var(--primary);
+}
+
+/* ================= STATUS ================= */
+
+.status {
+    padding: 5px 10px;
+    border-radius: 20px;
+
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.uploaded {
+    background: #DCFCE7;
+    color: var(--success);
+}
+
+.not-uploaded {
+    background: #FEF3C7;
+    color: #B45309;
+}
+
+.rejected {
+    background: #FEE2E2;
+    color: #B91C1C;
+}
+
+/* ================= CONTINUE ================= */
+
+.continue-btn {
+    background: var(--primary);
+    color: white;
+
+    border: none;
+
+    padding: 11px 22px;
+
+    border-radius: 7px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.continue-btn:hover {
+    background: #1D4ED8;
+}
+
+/* ================= EMPTY STATE ================= */
+
+.empty-documents {
+    text-align: center;
+    padding: 30px;
+    color: var(--secondary-text);
+}
+
+.empty-documents i {
+    font-size: 42px;
+    color: #94A3B8;
+}
+
+.empty-documents p {
+    margin-top: 10px;
+    margin-bottom: 0;
+}
+
+/* ================= MOBILE ================= */
+
+@media(max-width: 768px) {
+
+    .sidebar {
+        width: 210px;
+    }
+
+    .main {
+        margin-left: 210px;
+    }
+
+    .content {
+        padding: 20px;
+    }
+
+    .requirement-row,
+    .document-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+<!-- =====================================================
+     SIDEBAR
+===================================================== -->
+
+<div class="sidebar">
+
+    <div class="logo">
+
+        <div class="logo-icon">
+            CA
+        </div>
+
+        <div>
+            <h5>GuruKrupa</h5>
+            <small>Student Portal</small>
+        </div>
+
+    </div>
+
+
+    <div class="menu-title">
+        Main Menu
+    </div>
+
+
+    <a href="{% url 'user_dashboard' %}">
+        <i class="bi bi-grid"></i>
+        Dashboard
+    </a>
+
+
+    <a href="{% url 'user_profile' %}">
+        <i class="bi bi-person"></i>
+        My Profile
+    </a>
+
+
+    <a href="{% url 'user_documents' %}" class="active">
+        <i class="bi bi-file-earmark-text"></i>
+        Documents
+    </a>
+
+
+    <a href="{% url 'user_academic' %}">
+        <i class="bi bi-mortarboard"></i>
+        Academic & Qualification
+    </a>
+
+
+    <a href="{% url 'user_project_details' %}">
+        <i class="bi bi-folder"></i>
+        Project Details
+    </a>
+
+
+    <div class="menu-title">
+        Project Process
+    </div>
+
+
+    <a href="{% url 'user_quotation' %}">
+        <i class="bi bi-receipt"></i>
+        Quotation
+    </a>
+
+
+    <a href="{% url 'user_payment' %}">
+        <i class="bi bi-credit-card"></i>
+        Payment
+    </a>
+
+
+    <a href="{% url 'track_application' %}">
+        <i class="bi bi-graph-up"></i>
+        Track Application
+    </a>
+
+
+    <div class="menu-title">
+        Account
+    </div>
+
+
+    <a href="{% url 'home' %}">
+        <i class="bi bi-house"></i>
+        View Website
+    </a>
+
+
+    <a href="{% url 'user_logout' %}">
+        <i class="bi bi-box-arrow-right"></i>
+        Logout
+    </a>
+
+</div>
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<div class="main">
+
+
+    <!-- NAVBAR -->
+
+    <div class="navbar-custom">
+
+        <h4>
+            Documents
+        </h4>
+
+
+        <div class="student-info">
+
+            <strong>
+                {{ request.user.profile.full_name|default:request.user.username }}
+            </strong>
+
+            <div class="profile-circle">
+                {{ request.user.username|slice:":2"|upper }}
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- CONTENT -->
+
+    <div class="content">
+
+
+        <div class="breadcrumb-text">
+            Dashboard / Documents
+        </div>
+
+
+
+        <!-- =====================================================
+             DJANGO MESSAGES
+        ====================================================== -->
+
+        {% if messages %}
+
+        <div class="message-box">
+
+            {% for message in messages %}
+
+                <div class="message {{ message.tags }}">
+
+                    <i class="bi bi-info-circle"></i>
+
+                    {{ message }}
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+        {% endif %}
+
+
+
+        <!-- INFO -->
+
+        <div class="info-note">
+
+            <i class="bi bi-info-circle"></i>
+
+            Upload your required academic and project-related documents.
+            These documents may be reviewed by the project administration team.
+
+        </div>
+
+
+
+        <!-- =====================================================
+             REQUIRED DOCUMENTS
+        ====================================================== -->
+
+        <div class="card-box">
+
+            <div class="section-heading">
+
+                <i class="bi bi-file-earmark-check"></i>
+
+                Required Documents
+
+            </div>
+
+
+            <!-- COLLEGE ID -->
+
+            <div class="requirement-row">
+
+                <div class="requirement-info">
+
+                    <div class="requirement-icon">
+                        <i class="bi bi-person-vcard"></i>
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            College ID Card
+                        </strong>
+
+                        <small>
+                            Valid college identification document
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+                {% if documents %}
+
+                    {% for document in documents %}
+
+                        {% if document.document_type == "college_id" %}
+
+                            {% if document.status == "Approved" %}
+
+                                <span class="status uploaded">
+                                    Approved
+                                </span>
+
+                            {% elif document.status == "Rejected" %}
+
+                                <span class="status rejected">
+                                    Rejected
+                                </span>
+
+                            {% else %}
+
+                                <span class="status not-uploaded">
+                                    Pending Review
+                                </span>
+
+                            {% endif %}
+
+                        {% endif %}
+
+                    {% empty %}
+
+                        <span class="status not-uploaded">
+                            Required
+                        </span>
+
+                    {% endfor %}
+
+                {% else %}
+
+                    <span class="status not-uploaded">
+                        Required
+                    </span>
+
+                {% endif %}
+
+            </div>
+
+
+
+            <!-- BONAFIDE -->
+
+            <div class="requirement-row">
+
+                <div class="requirement-info">
+
+                    <div class="requirement-icon">
+                        <i class="bi bi-file-earmark-person"></i>
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Bonafide Certificate
+                        </strong>
+
+                        <small>
+                            Current college bonafide certificate
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+                {% if documents %}
+
+                    {% for document in documents %}
+
+                        {% if document.document_type == "bonafide" %}
+
+                            {% if document.status == "Approved" %}
+
+                                <span class="status uploaded">
+                                    Approved
+                                </span>
+
+                            {% elif document.status == "Rejected" %}
+
+                                <span class="status rejected">
+                                    Rejected
+                                </span>
+
+                            {% else %}
+
+                                <span class="status not-uploaded">
+                                    Pending Review
+                                </span>
+
+                            {% endif %}
+
+                        {% endif %}
+
+                    {% empty %}
+
+                        <span class="status not-uploaded">
+                            Required
+                        </span>
+
+                    {% endfor %}
+
+                {% else %}
+
+                    <span class="status not-uploaded">
+                        Required
+                    </span>
+
+                {% endif %}
+
+            </div>
+
+
+
+            <!-- MARKSHEET -->
+
+            <div class="requirement-row">
+
+                <div class="requirement-info">
+
+                    <div class="requirement-icon">
+                        <i class="bi bi-file-earmark-text"></i>
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Academic Marksheet
+                        </strong>
+
+                        <small>
+                            Latest semester / year marksheet
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+                {% if documents %}
+
+                    {% for document in documents %}
+
+                        {% if document.document_type == "marksheet" %}
+
+                            {% if document.status == "Approved" %}
+
+                                <span class="status uploaded">
+                                    Approved
+                                </span>
+
+                            {% elif document.status == "Rejected" %}
+
+                                <span class="status rejected">
+                                    Rejected
+                                </span>
+
+                            {% else %}
+
+                                <span class="status not-uploaded">
+                                    Pending Review
+                                </span>
+
+                            {% endif %}
+
+                        {% endif %}
+
+                    {% empty %}
+
+                        <span class="status not-uploaded">
+                            Required
+                        </span>
+
+                    {% endfor %}
+
+                {% else %}
+
+                    <span class="status not-uploaded">
+                        Required
+                    </span>
+
+                {% endif %}
+
+            </div>
+
+
+
+            <!-- PROJECT PROPOSAL -->
+
+            <div class="requirement-row">
+
+                <div class="requirement-info">
+
+                    <div class="requirement-icon">
+                        <i class="bi bi-folder2-open"></i>
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Project Proposal / Synopsis
+                        </strong>
+
+                        <small>
+                            Project proposal or synopsis document
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+                {% if documents %}
+
+                    {% for document in documents %}
+
+                        {% if document.document_type == "project_proposal" %}
+
+                            {% if document.status == "Approved" %}
+
+                                <span class="status uploaded">
+                                    Approved
+                                </span>
+
+                            {% elif document.status == "Rejected" %}
+
+                                <span class="status rejected">
+                                    Rejected
+                                </span>
+
+                            {% else %}
+
+                                <span class="status not-uploaded">
+                                    Pending Review
+                                </span>
+
+                            {% endif %}
+
+                        {% endif %}
+
+                    {% empty %}
+
+                        <span class="status not-uploaded">
+                            Required
+                        </span>
+
+                    {% endfor %}
+
+                {% else %}
+
+                    <span class="status not-uploaded">
+                        Required
+                    </span>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =====================================================
+             UPLOAD DOCUMENTS
+        ====================================================== -->
+
+        <div class="card-box">
+
+            <div class="section-heading">
+
+                <i class="bi bi-cloud-arrow-up"></i>
+
+                Upload Documents
+
+            </div>
+
+
+            <form
+                method="POST"
+                enctype="multipart/form-data"
+                action="{% url 'user_documents' %}">
+
+                {% csrf_token %}
+
+
+                <div class="row g-4">
+
+
+                    <!-- COLLEGE ID -->
+
+                    <div class="col-md-6">
+
+                        <label class="form-label fw-semibold">
+
+                            College ID Card
+                            <span style="color:#EF4444;">*</span>
+
+                        </label>
+
+
+                        <div class="upload-box">
+
+                            <div class="upload-icon">
+                                <i class="bi bi-person-vcard"></i>
+                            </div>
+
+
+                            <h5>
+                                Upload College ID
+                            </h5>
+
+
+                            <p>
+                                PDF, JPG or PNG — Max 5 MB
+                            </p>
+
+
+                            <input
+                                type="file"
+                                name="college_id"
+                                id="collegeId"
+                                class="d-none"
+                                accept=".pdf,.jpg,.jpeg,.png">
+
+
+                            <button
+                                type="button"
+                                class="choose-btn"
+                                onclick="document.getElementById('collegeId').click()">
+
+                                <i class="bi bi-upload"></i>
+
+                                Choose File
+
+                            </button>
+
+
+                            <div
+                                id="collegeIdName"
+                                class="mt-3"
+                                style="font-size:13px;color:#64748B;">
+
+                                No file selected
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- BONAFIDE -->
+
+                    <div class="col-md-6">
+
+                        <label class="form-label fw-semibold">
+
+                            Bonafide Certificate
+                            <span style="color:#EF4444;">*</span>
+
+                        </label>
+
+
+                        <div class="upload-box">
+
+                            <div class="upload-icon">
+                                <i class="bi bi-file-earmark-check"></i>
+                            </div>
+
+
+                            <h5>
+                                Upload Bonafide
+                            </h5>
+
+
+                            <p>
+                                PDF, JPG or PNG — Max 5 MB
+                            </p>
+
+
+                            <input
+                                type="file"
+                                name="bonafide"
+                                id="bonafide"
+                                class="d-none"
+                                accept=".pdf,.jpg,.jpeg,.png">
+
+
+                            <button
+                                type="button"
+                                class="choose-btn"
+                                onclick="document.getElementById('bonafide').click()">
+
+                                <i class="bi bi-upload"></i>
+
+                                Choose File
+
+                            </button>
+
+
+                            <div
+                                id="bonafideName"
+                                class="mt-3"
+                                style="font-size:13px;color:#64748B;">
+
+                                No file selected
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- MARKSHEET -->
+
+                    <div class="col-md-6">
+
+                        <label class="form-label fw-semibold">
+
+                            Academic Marksheet
+
+                        </label>
+
+
+                        <div class="upload-box">
+
+                            <div class="upload-icon">
+                                <i class="bi bi-mortarboard"></i>
+                            </div>
+
+
+                            <h5>
+                                Upload Marksheet
+                            </h5>
+
+
+                            <p>
+                                PDF, JPG or PNG — Max 5 MB
+                            </p>
+
+
+                            <input
+                                type="file"
+                                name="marksheet"
+                                id="marksheet"
+                                class="d-none"
+                                accept=".pdf,.jpg,.jpeg,.png">
+
+
+                            <button
+                                type="button"
+                                class="choose-btn"
+                                onclick="document.getElementById('marksheet').click()">
+
+                                <i class="bi bi-upload"></i>
+
+                                Choose File
+
+                            </button>
+
+
+                            <div
+                                id="marksheetName"
+                                class="mt-3"
+                                style="font-size:13px;color:#64748B;">
+
+                                No file selected
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- PROJECT PROPOSAL -->
+
+                    <div class="col-md-6">
+
+                        <label class="form-label fw-semibold">
+
+                            Project Proposal / Synopsis
+
+                        </label>
+
+
+                        <div class="upload-box">
+
+                            <div class="upload-icon">
+                                <i class="bi bi-file-earmark-text"></i>
+                            </div>
+
+
+                            <h5>
+                                Upload Project Proposal
+                            </h5>
+
+
+                            <p>
+                                PDF, DOC or DOCX — Max 5 MB
+                            </p>
+
+
+                            <input
+                                type="file"
+                                name="project_proposal"
+                                id="projectProposal"
+                                class="d-none"
+                                accept=".pdf,.doc,.docx">
+
+
+                            <button
+                                type="button"
+                                class="choose-btn"
+                                onclick="document.getElementById('projectProposal').click()">
+
+                                <i class="bi bi-upload"></i>
+
+                                Choose File
+
+                            </button>
+
+
+                            <div
+                                id="projectProposalName"
+                                class="mt-3"
+                                style="font-size:13px;color:#64748B;">
+
+                                No file selected
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="d-flex justify-content-end mt-4">
+
+                    <button
+                        type="submit"
+                        class="continue-btn">
+
+                        Save Documents
+
+                        <i class="bi bi-check2-circle"></i>
+
+                    </button>
+
+                </div>
+
+
+            </form>
+
+        </div>
+
+
+
+        <!-- =====================================================
+             UPLOADED DOCUMENTS
+        ====================================================== -->
+
+        <div class="card-box">
+
+            <div class="section-heading">
+
+                <i class="bi bi-folder-check"></i>
+
+                Uploaded Documents
+
+            </div>
+
+
+            {% if documents %}
+
+                {% for document in documents %}
+
+                <div class="document-row">
+
+                    <div class="document-info">
+
+                        <div class="file-icon">
+
+                            {% if ".pdf" in document.file.name|lower %}
+
+                                <i class="bi bi-file-earmark-pdf"></i>
+
+                            {% elif ".docx" in document.file.name|lower or ".doc" in document.file.name|lower %}
+
+                                <i class="bi bi-file-earmark-word"></i>
+
+                            {% elif ".jpg" in document.file.name|lower or ".jpeg" in document.file.name|lower or ".png" in document.file.name|lower %}
+
+                                <i class="bi bi-file-earmark-image"></i>
+
+                            {% else %}
+
+                                <i class="bi bi-file-earmark"></i>
+
+                            {% endif %}
+
+                        </div>
+
+
+                        <div>
+
+                            <strong>
+                                {{ document.get_document_type_display }}
+                            </strong>
+
+                            <small>
+                                File:
+                                {{ document.file.name|cut:"students/documents/" }}
+                            </small>
+
+                            <small>
+                                Uploaded:
+                                {{ document.uploaded_at|date:"d M Y, h:i A" }}
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="d-flex align-items-center gap-2 flex-wrap">
+
+                        {% if document.status == "Approved" %}
+
+                            <span class="status uploaded">
+                                Approved
+                            </span>
+
+                        {% elif document.status == "Rejected" %}
+
+                            <span class="status rejected">
+                                Rejected
+                            </span>
+
+                        {% else %}
+
+                            <span class="status not-uploaded">
+                                Pending Review
+                            </span>
+
+                        {% endif %}
+
+
+                        <a
+                            href="{{ document.file.url }}"
+                            target="_blank"
+                            class="template-btn">
+
+                            <i class="bi bi-eye"></i>
+                            View
+
+                        </a>
+
+
+                        <a
+                            href="{{ document.file.url }}"
+                            download
+                            class="template-btn">
+
+                            <i class="bi bi-download"></i>
+                            Download
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+                {% endfor %}
+
+            {% else %}
+
+                <div class="empty-documents">
+
+                    <i class="bi bi-folder-x"></i>
+
+                    <p>
+                        No documents uploaded yet.
+                    </p>
+
+                </div>
+
+            {% endif %}
+
+        </div>
+
+
+
+        <!-- =====================================================
+             PROJECT TEMPLATES
+        ====================================================== -->
+
+        <div class="card-box">
+
+            <div class="section-heading">
+
+                <i class="bi bi-download"></i>
+
+                Project Templates & Guidelines
+
+            </div>
+
+
+            <!-- PROJECT GUIDELINES -->
+
+            <div class="document-row">
+
+                <div class="document-info">
+
+                    <div class="file-icon">
+                        <i class="bi bi-file-earmark-pdf"></i>
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Project Guidelines
+                        </strong>
+
+                        <small>
+                            General project rules and instructions
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+                <a
+                    href="{% url 'document_view' 'project-guidelines.pdf' %}"
+                    target="_blank"
+                    class="template-btn">
+
+                    <i class="bi bi-eye"></i>
+                    View
+
+                </a>
+
+            </div>
+
+
+
+            <!-- PROJECT REPORT -->
+
+            <div class="document-row">
+
+                <div class="document-info">
+
+                    <div class="file-icon">
+                        <i class="bi bi-file-earmark-word"></i>
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Project Report Format
+                        </strong>
+
+                        <small>
+                            Project report template
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+                <a
+                    href="{% url 'document_view' 'project-report-format.docx' %}"
+                    target="_blank"
+                    class="template-btn">
+
+                    <i class="bi bi-eye"></i>
+                    View
+
+                </a>
+
+            </div>
+
+
+
+            <!-- PPT -->
+
+            <div class="document-row">
+
+                <div class="document-info">
+
+                    <div class="file-icon">
+                        <i class="bi bi-file-earmark-slides"></i>
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            PPT Presentation Format
+                        </strong>
+
+                        <small>
+                            Project presentation template
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+                <a
+                    href="{% url 'document_view' 'ppt-presentation-format.pptx' %}"
+                    target="_blank"
+                    class="template-btn">
+
+                    <i class="bi bi-eye"></i>
+                    View
+
+                </a>
+
+            </div>
+
+
+
+            <!-- CHECKLIST -->
+
+            <div class="document-row">
+
+                <div class="document-info">
+
+                    <div class="file-icon">
+                        <i class="bi bi-file-earmark-check"></i>
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Project Checklist
+                        </strong>
+
+                        <small>
+                            Final project submission checklist
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+                <a
+                    href="{% url 'document_view' 'project-checklist.pdf' %}"
+                    target="_blank"
+                    class="template-btn">
+
+                    <i class="bi bi-eye"></i>
+                    View
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =====================================================
+             CONTINUE
+        ====================================================== -->
+
+        <div class="card-box">
+
+            <div class="d-flex justify-content-between align-items-center">
+
+                <div>
+
+                    <strong>
+                        Documents completed?
+                    </strong>
+
+                    <div
+                        style="font-size:13px;color:#64748B;margin-top:4px;">
+
+                        Continue to Academic & Qualification details.
+
+                    </div>
+
+                </div>
+
+
+                <a
+                    href="{% url 'user_academic' %}"
+                    class="continue-btn"
+                    style="text-decoration:none;">
+
+                    Save & Continue
+
+                    <i class="bi bi-arrow-right"></i>
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* =====================================================
+   FILE NAME DISPLAY
+===================================================== */
+
+function showFileName(inputId, outputId) {
+
+    const input = document.getElementById(inputId);
+    const output = document.getElementById(outputId);
+
+    if (!input || !output) {
+        return;
+    }
+
+    input.addEventListener("change", function () {
+
+        if (this.files.length > 0) {
+
+            output.innerText = this.files[0].name;
+
+        } else {
+
+            output.innerText = "No file selected";
+
+        }
+
+    });
+
+}
+
+
+showFileName(
+    "collegeId",
+    "collegeIdName"
+);
+
+
+showFileName(
+    "bonafide",
+    "bonafideName"
+);
+
+
+showFileName(
+    "marksheet",
+    "marksheetName"
+);
+
+
+showFileName(
+    "projectProposal",
+    "projectProposalName"
+);
+
+
+/* =====================================================
+   AUTO HIDE SUCCESS MESSAGE
+===================================================== */
+
+setTimeout(function () {
+
+    const messages = document.querySelectorAll(".message");
+
+    messages.forEach(function (message) {
+
+        message.style.transition = "opacity 0.5s";
+
+        message.style.opacity = "0";
+
+        setTimeout(function () {
+            message.remove();
+        }, 500);
+
+    });
+
+}, 5000);
+
+</script>
+
+
+</body>
+
+</html>

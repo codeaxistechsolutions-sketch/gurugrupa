@@ -1,0 +1,4265 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Projects | GuruKrupa</title>
+
+    <!-- Bootstrap 5 -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <!-- Bootstrap Icons -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+        rel="stylesheet"
+    >
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: #F5F7FB;
+            color: #111827;
+            font-family: Arial, sans-serif;
+        }
+
+
+        /* =========================================================
+           TOPBAR
+        ========================================================= */
+
+        .topbar {
+
+            height: 70px;
+
+            background: #FFFFFF;
+
+            border-bottom: 1px solid #E2E8F0;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding: 0 25px;
+
+            position: fixed;
+
+            top: 0;
+            left: 0;
+            right: 0;
+
+            z-index: 1000;
+        }
+
+
+        .brand {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+        }
+
+
+        .brand-icon {
+
+            width: 42px;
+            height: 42px;
+
+            background: #2563EB;
+
+            color: #FFFFFF;
+
+            border-radius: 10px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            font-size: 20px;
+        }
+
+
+        .brand h5 {
+
+            margin: 0;
+
+            font-weight: 700;
+
+            color: #111827;
+        }
+
+
+        .brand small {
+
+            color: #64748B;
+        }
+
+
+        .admin-info {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+        }
+
+
+        .admin-avatar {
+
+            width: 40px;
+            height: 40px;
+
+            border-radius: 50%;
+
+            background: #172554;
+
+            color: #FFFFFF;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            font-weight: bold;
+        }
+
+
+        /* =========================================================
+           SIDEBAR
+        ========================================================= */
+
+        .sidebar {
+
+            width: 250px;
+
+            height: calc(100vh - 70px);
+
+            position: fixed;
+
+            left: 0;
+
+            top: 70px;
+
+            background: #172554;
+
+            padding: 20px 12px;
+
+            overflow-y: auto;
+
+            z-index: 999;
+        }
+
+
+        .sidebar-title {
+
+            color: #FFFFFF;
+
+            font-size: 12px;
+
+            text-transform: uppercase;
+
+            letter-spacing: 1px;
+
+            padding: 8px 14px;
+
+            opacity: 0.7;
+
+            margin-bottom: 8px;
+        }
+
+
+        .sidebar a {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            color: #CBD5E1;
+
+            text-decoration: none;
+
+            padding: 12px 14px;
+
+            border-radius: 8px;
+
+            margin-bottom: 5px;
+
+            font-size: 14px;
+
+            transition: 0.2s;
+        }
+
+
+        .sidebar a:hover {
+
+            background: #1E3A8A;
+
+            color: #FFFFFF;
+        }
+
+
+        .sidebar a.active {
+
+            background: #2563EB;
+
+            color: #FFFFFF;
+        }
+
+
+        .sidebar i {
+
+            font-size: 17px;
+        }
+
+
+        .sidebar-bottom {
+
+            margin-top: 25px;
+
+            padding-top: 15px;
+
+            border-top: 1px solid rgba(255,255,255,0.15);
+        }
+
+
+        /* =========================================================
+           MAIN CONTENT
+        ========================================================= */
+
+        .main-content {
+
+            margin-left: 250px;
+
+            padding: 100px 30px 30px;
+
+            min-height: 100vh;
+        }
+
+
+        .page-title {
+
+            font-size: 27px;
+
+            font-weight: 700;
+
+            margin-bottom: 5px;
+
+            color: #111827;
+        }
+
+
+        .page-subtitle {
+
+            color: #64748B;
+
+            margin-bottom: 25px;
+        }
+
+
+        /* =========================================================
+           STAT CARDS
+        ========================================================= */
+
+        .stat-card {
+
+            background: #FFFFFF;
+
+            border: 1px solid #E2E8F0;
+
+            border-radius: 12px;
+
+            padding: 20px;
+
+            height: 100%;
+
+            transition: 0.2s;
+        }
+
+
+        .stat-card:hover {
+
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 5px 18px rgba(15, 23, 42, 0.07);
+        }
+
+
+        .stat-icon {
+
+            width: 45px;
+            height: 45px;
+
+            border-radius: 10px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            font-size: 20px;
+
+            margin-bottom: 15px;
+        }
+
+
+        .blue {
+
+            background: #DBEAFE;
+
+            color: #2563EB;
+        }
+
+
+        .indigo {
+
+            background: #E0E7FF;
+
+            color: #4F46E5;
+        }
+
+
+        .green {
+
+            background: #DCFCE7;
+
+            color: #16A34A;
+        }
+
+
+        .yellow {
+
+            background: #FEF3C7;
+
+            color: #F59E0B;
+        }
+
+
+        .red {
+
+            background: #FEE2E2;
+
+            color: #EF4444;
+        }
+
+
+        .cyan {
+
+            background: #E0F2FE;
+
+            color: #0EA5E9;
+        }
+
+
+        .stat-title {
+
+            color: #64748B;
+
+            font-size: 14px;
+
+            margin-bottom: 5px;
+        }
+
+
+        .stat-number {
+
+            font-size: 26px;
+
+            font-weight: 700;
+
+            color: #111827;
+        }
+
+
+        /* =========================================================
+           SECTION CARD
+        ========================================================= */
+
+        .section-card {
+
+            background: #FFFFFF;
+
+            border: 1px solid #E2E8F0;
+
+            border-radius: 12px;
+
+            padding: 20px;
+
+            margin-top: 25px;
+        }
+
+
+        .section-header {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-bottom: 18px;
+        }
+
+
+        .section-header h5 {
+
+            margin: 0;
+
+            font-weight: 700;
+
+            color: #111827;
+        }
+
+
+        /* =========================================================
+           FILTER
+        ========================================================= */
+
+        .filter-box {
+
+            background: #FFFFFF;
+
+            border: 1px solid #E2E8F0;
+
+            border-radius: 10px;
+
+            padding: 15px;
+        }
+
+
+        .form-label {
+
+            font-weight: 600;
+
+            color: #334155;
+
+            margin-bottom: 7px;
+        }
+
+
+        .form-control,
+        .form-select {
+
+            border-color: #CBD5E1;
+
+            border-radius: 7px;
+
+            font-size: 14px;
+
+            min-height: 42px;
+        }
+
+
+        textarea.form-control {
+
+            min-height: 100px;
+        }
+
+
+        .form-control:focus,
+        .form-select:focus {
+
+            border-color: #2563EB;
+
+            box-shadow:
+                0 0 0 0.2rem rgba(37, 99, 235, 0.10);
+        }
+
+
+        /* =========================================================
+           TABLE
+        ========================================================= */
+
+        .table {
+
+            margin-bottom: 0;
+        }
+
+
+        .table thead th {
+
+            background: #F5F7FB;
+
+            color: #64748B;
+
+            font-size: 13px;
+
+            font-weight: 700;
+
+            border-bottom: 1px solid #E2E8F0;
+
+            white-space: nowrap;
+
+            padding: 14px 12px;
+        }
+
+
+        .table tbody td {
+
+            vertical-align: middle;
+
+            font-size: 14px;
+
+            color: #111827;
+
+            border-color: #E2E8F0;
+
+            padding: 14px 12px;
+        }
+
+
+        .table tbody tr:hover {
+
+            background: #F8FAFC;
+        }
+
+
+        /* =========================================================
+           PROJECT ID
+        ========================================================= */
+
+        .project-id {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            background: #DBEAFE;
+
+            color: #2563EB;
+
+            font-weight: 700;
+
+            padding: 6px 10px;
+
+            border-radius: 6px;
+
+            font-size: 13px;
+
+            white-space: nowrap;
+        }
+
+
+        /* =========================================================
+           BADGES
+        ========================================================= */
+
+        .badge {
+
+            padding: 6px 10px;
+
+            border-radius: 6px;
+
+            font-weight: 600;
+
+            font-size: 12px;
+        }
+
+
+        .badge-pending {
+
+            background: #FEF3C7;
+
+            color: #92400E;
+        }
+
+
+        .badge-active {
+
+            background: #DCFCE7;
+
+            color: #166534;
+        }
+
+
+        .badge-testing {
+
+            background: #E0F2FE;
+
+            color: #0369A1;
+        }
+
+
+        .badge-completed {
+
+            background: #DCFCE7;
+
+            color: #166534;
+        }
+
+
+        .badge-delayed {
+
+            background: #FEE2E2;
+
+            color: #991B1B;
+        }
+
+
+        .badge-onhold {
+
+            background: #F1F5F9;
+
+            color: #475569;
+        }
+
+
+        /* =========================================================
+           BUTTONS
+        ========================================================= */
+
+        .btn-primary-custom {
+
+            background: #2563EB;
+
+            color: #FFFFFF;
+
+            border: none;
+
+            padding: 9px 16px;
+
+            border-radius: 7px;
+
+            text-decoration: none;
+
+            font-size: 14px;
+
+            font-weight: 600;
+        }
+
+
+        .btn-primary-custom:hover {
+
+            background: #1D4ED8;
+
+            color: #FFFFFF;
+        }
+
+
+        .btn-view {
+
+            border: 1px solid #2563EB;
+
+            color: #2563EB;
+
+            background: #FFFFFF;
+
+            font-weight: 600;
+        }
+
+
+        .btn-view:hover {
+
+            background: #2563EB;
+
+            color: #FFFFFF;
+        }
+
+
+        .btn-manage {
+
+            background: #172554;
+
+            color: #FFFFFF;
+
+            border: none;
+
+            font-weight: 600;
+        }
+
+
+        .btn-manage:hover {
+
+            background: #1E3A8A;
+
+            color: #FFFFFF;
+        }
+
+
+        /* =========================================================
+           MODAL
+        ========================================================= */
+
+        .modal {
+
+            z-index: 9999;
+        }
+
+
+        .modal-dialog {
+
+            z-index: 10000;
+        }
+
+
+        .modal-header {
+
+            background: #172554;
+
+            color: #FFFFFF;
+
+            border: none;
+
+            padding: 18px 20px;
+        }
+
+
+        .modal-header .btn-close {
+
+            filter: brightness(0) invert(1);
+
+            opacity: .9;
+        }
+
+
+        .modal-title {
+
+            font-weight: 700;
+
+            font-size: 19px;
+        }
+
+
+        .modal-content {
+
+            border: none;
+
+            border-radius: 12px;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 15px 40px rgba(15, 23, 42, 0.20);
+        }
+
+
+        .modal-body {
+
+            padding: 25px;
+        }
+
+
+        /* =========================================================
+           MODAL FOOTER
+        ========================================================= */
+
+        .modal-footer {
+
+            background: #FFFFFF;
+
+            border-top: 1px solid #E2E8F0;
+
+            padding: 15px 25px;
+
+            display: flex !important;
+
+            justify-content: flex-end !important;
+
+            align-items: center;
+
+            gap: 10px;
+
+            position: relative;
+
+            z-index: 10001;
+        }
+
+
+        .modal-footer .btn {
+
+            min-width: 100px;
+
+            min-height: 42px;
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            cursor: pointer;
+        }
+
+
+        .modal-footer .btn-secondary {
+
+            background: #64748B;
+
+            border-color: #64748B;
+
+            color: #FFFFFF;
+
+            font-weight: 600;
+        }
+
+
+        .modal-footer .btn-secondary:hover {
+
+            background: #475569;
+
+            border-color: #475569;
+
+            color: #FFFFFF;
+        }
+
+
+        .modal-footer .btn-primary-custom {
+
+            background: #2563EB;
+
+            color: #FFFFFF;
+
+            border: none;
+        }
+
+
+        .modal-footer .btn-primary-custom:hover {
+
+            background: #1D4ED8;
+
+            color: #FFFFFF;
+        }
+
+
+        /* =========================================================
+           DETAIL BOX
+        ========================================================= */
+
+        .detail-label {
+
+            color: #64748B;
+
+            font-size: 12px;
+
+            font-weight: 600;
+
+            margin-bottom: 4px;
+        }
+
+
+        .detail-value {
+
+            color: #111827;
+
+            font-size: 14px;
+
+            font-weight: 500;
+
+            word-break: break-word;
+        }
+
+
+        .detail-box {
+
+            background: #F8FAFC;
+
+            border: 1px solid #E2E8F0;
+
+            border-radius: 8px;
+
+            padding: 12px;
+
+            height: 100%;
+        }
+
+
+        .description-box {
+
+            background: #F8FAFC;
+
+            border: 1px solid #E2E8F0;
+
+            border-radius: 8px;
+
+            padding: 15px;
+
+            white-space: pre-wrap;
+
+            word-break: break-word;
+
+            font-size: 14px;
+
+            color: #334155;
+        }
+
+
+        .file-link {
+
+            color: #2563EB;
+
+            text-decoration: none;
+
+            font-weight: 600;
+        }
+
+
+        .file-link:hover {
+
+            text-decoration: underline;
+        }
+
+
+        /* =========================================================
+           INFO / COMPLETION
+        ========================================================= */
+
+        .info-box {
+
+            background: #EFF6FF;
+
+            border: 1px solid #BFDBFE;
+
+            color: #1D4ED8;
+
+            border-radius: 8px;
+
+            padding: 14px;
+        }
+
+
+        .completion-box {
+
+            display: none;
+
+            background: #ECFDF5;
+
+            border: 1px solid #A7F3D0;
+
+            color: #065F46;
+
+            border-radius: 8px;
+
+            padding: 14px;
+
+            margin-top: 15px;
+        }
+
+
+        .completion-box.show {
+
+            display: block;
+        }
+
+
+        /* =========================================================
+           EMPTY
+        ========================================================= */
+
+        .empty-state {
+
+            text-align: center;
+
+            padding: 50px 20px;
+
+            color: #64748B;
+        }
+
+
+        /* =========================================================
+           RESPONSIVE
+        ========================================================= */
+
+        @media (max-width: 900px) {
+
+            .sidebar {
+
+                width: 210px;
+            }
+
+
+            .main-content {
+
+                margin-left: 210px;
+            }
+
+        }
+
+
+        @media (max-width: 700px) {
+
+            .sidebar {
+
+                display: none;
+            }
+
+
+            .main-content {
+
+                margin-left: 0;
+
+                padding:
+                    90px 15px 25px;
+            }
+
+
+            .brand small {
+
+                display: none;
+            }
+
+
+            .page-title {
+
+                font-size: 23px;
+            }
+
+
+            .modal-body {
+
+                padding: 18px;
+            }
+
+
+            .modal-footer {
+
+                padding: 12px 18px;
+            }
+
+
+            .modal-footer .btn {
+
+                min-width: 90px;
+            }
+
+        }
+
+        /* =========================================================
+   MANAGE PROJECT MODAL - FIXED FOOTER
+========================================================= */
+
+#manageProjectModal .modal-dialog {
+    max-width: 1100px;
+    height: calc(100vh - 40px);
+    margin: 20px auto;
+}
+
+#manageProjectModal .modal-content {
+    height: 100%;
+    max-height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+#manageProjectModal .modal-header {
+    flex-shrink: 0;
+}
+
+#manageProjectModal form {
+    height: calc(100% - 61px);
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+}
+
+#manageProjectModal .modal-body {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 25px;
+}
+
+#manageProjectModal .modal-footer {
+    flex-shrink: 0 !important;
+    position: relative !important;
+    bottom: auto !important;
+    z-index: 100 !important;
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    background: #ffffff !important;
+    border-top: 1px solid #E2E8F0 !important;
+    padding: 15px 25px !important;
+    min-height: 72px;
+    justify-content: flex-end !important;
+    align-items: center !important;
+    gap: 10px;
+    box-shadow: 0 -4px 15px rgba(15, 23, 42, 0.08);
+}
+
+#manageProjectModal .modal-footer button {
+    display: inline-flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    position: relative;
+    z-index: 101;
+}
+
+#manageProjectModal #updateProjectBtn {
+    background: #2563EB !important;
+    color: #FFFFFF !important;
+    border: none !important;
+    min-width: 120px;
+    min-height: 42px;
+    font-weight: 600;
+}
+
+#manageProjectModal #updateProjectBtn:hover {
+    background: #1D4ED8 !important;
+}
+
+#manageProjectModal #cancelManageBtn {
+    background: #64748B !important;
+    color: #FFFFFF !important;
+    border: 1px solid #64748B !important;
+    min-width: 100px;
+    min-height: 42px;
+    font-weight: 600;
+}
+
+#manageProjectModal #cancelManageBtn:hover {
+    background: #475569 !important;
+}
+
+/* Scrollbar */
+#manageProjectModal .modal-body::-webkit-scrollbar {
+    width: 7px;
+}
+
+#manageProjectModal .modal-body::-webkit-scrollbar-track {
+    background: #F1F5F9;
+}
+
+#manageProjectModal .modal-body::-webkit-scrollbar-thumb {
+    background: #CBD5E1;
+    border-radius: 10px;
+}
+
+#manageProjectModal .modal-body::-webkit-scrollbar-thumb:hover {
+    background: #94A3B8;
+}
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     TOPBAR
+========================================================= -->
+
+<div class="topbar">
+
+    <div class="brand">
+
+        <div class="brand-icon">
+
+            <i class="bi bi-mortarboard-fill"></i>
+
+        </div>
+
+
+        <div>
+
+            <h5>
+                GuruKrupa
+            </h5>
+
+            <small>
+                Student Project Registration & Management Portal
+            </small>
+
+        </div>
+
+    </div>
+
+
+    <div class="admin-info">
+
+        <div class="text-end d-none d-md-block">
+
+            <strong>
+
+                {% if request.user.first_name %}
+
+                    {{ request.user.first_name }}
+
+                {% else %}
+
+                    Admin
+
+                {% endif %}
+
+            </strong>
+
+            <br>
+
+            <small class="text-muted">
+                Administrator
+            </small>
+
+        </div>
+
+
+        <div class="admin-avatar">
+
+            {% if request.user.first_name %}
+
+                {{ request.user.first_name|first|upper }}
+
+            {% else %}
+
+                A
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================================
+     SIDEBAR
+========================================================= -->
+
+<div class="sidebar">
+
+    <div class="sidebar-title">
+        Main Menu
+    </div>
+
+
+    <a href="{% url 'admin_dashboard' %}">
+
+        <i class="bi bi-grid-1x2-fill"></i>
+
+        Dashboard
+
+    </a>
+
+
+    <a href="{% url 'admin_students' %}">
+
+        <i class="bi bi-people-fill"></i>
+
+        Students
+
+    </a>
+
+
+    <a href="{% url 'admin_applications' %}">
+
+        <i class="bi bi-file-earmark-text-fill"></i>
+
+        Applications
+
+    </a>
+
+
+    <a href="{% url 'admin_quotations' %}">
+
+        <i class="bi bi-receipt-cutoff"></i>
+
+        Quotations
+
+    </a>
+
+
+    <a href="{% url 'admin_payments' %}">
+
+        <i class="bi bi-credit-card-fill"></i>
+
+        Payments
+
+    </a>
+
+
+    <a href="{% url 'admin_projects' %}"
+       class="active">
+
+        <i class="bi bi-kanban-fill"></i>
+
+        Projects
+
+    </a>
+
+
+    <a href="{% url 'admin_documents' %}">
+
+        <i class="bi bi-folder-fill"></i>
+
+        Documents
+
+    </a>
+
+
+    <div class="sidebar-bottom">
+
+        <a href="/">
+
+            <i class="bi bi-globe2"></i>
+
+            View Website
+
+        </a>
+
+
+        <a href="{% url 'admin_logout' %}">
+
+            <i class="bi bi-box-arrow-right"></i>
+
+            Logout
+
+        </a>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================================
+     MAIN CONTENT
+========================================================= -->
+
+<div class="main-content">
+
+
+    <h1 class="page-title">
+        Projects
+    </h1>
+
+
+    <p class="page-subtitle">
+        Manage student projects, project assignments,
+        development stages and final deliveries.
+    </p>
+
+
+
+    <!-- =====================================================
+         MESSAGES
+    ====================================================== -->
+
+    {% if messages %}
+
+        {% for message in messages %}
+
+            <div
+                class="alert
+                {% if message.tags == 'success' %}
+                    alert-success
+                {% elif message.tags == 'error' %}
+                    alert-danger
+                {% else %}
+                    alert-info
+                {% endif %}
+                alert-dismissible fade show"
+                role="alert"
+            >
+
+                {{ message }}
+
+
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="alert"
+                ></button>
+
+            </div>
+
+        {% endfor %}
+
+    {% endif %}
+
+
+
+    <!-- =====================================================
+         STAT CARDS
+    ====================================================== -->
+
+    <div class="row g-3">
+
+
+        <div class="col-xl-3 col-md-6">
+
+            <div class="stat-card">
+
+                <div class="stat-icon blue">
+
+                    <i class="bi bi-kanban-fill"></i>
+
+                </div>
+
+
+                <div class="stat-title">
+                    Total Projects
+                </div>
+
+
+                <div class="stat-number">
+                    {{ total_projects }}
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="col-xl-3 col-md-6">
+
+            <div class="stat-card">
+
+                <div class="stat-icon green">
+
+                    <i class="bi bi-play-circle-fill"></i>
+
+                </div>
+
+
+                <div class="stat-title">
+                    Active Projects
+                </div>
+
+
+                <div class="stat-number">
+                    {{ active_projects }}
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="col-xl-3 col-md-6">
+
+            <div class="stat-card">
+
+                <div class="stat-icon yellow">
+
+                    <i class="bi bi-hourglass-split"></i>
+
+                </div>
+
+
+                <div class="stat-title">
+                    Pending Projects
+                </div>
+
+
+                <div class="stat-number">
+                    {{ pending_projects }}
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="col-xl-3 col-md-6">
+
+            <div class="stat-card">
+
+                <div class="stat-icon green">
+
+                    <i class="bi bi-check-circle-fill"></i>
+
+                </div>
+
+
+                <div class="stat-title">
+                    Completed Projects
+                </div>
+
+
+                <div class="stat-number">
+                    {{ completed_projects }}
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         FILTER
+    ====================================================== -->
+
+    <div class="section-card">
+
+        <div class="section-header">
+
+            <div>
+
+                <h5>
+                    Project Filters
+                </h5>
+
+                <small class="text-muted">
+                    Search and filter student projects
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <div class="filter-box">
+
+            <div class="row g-3">
+
+
+                <div class="col-lg-4 col-md-6">
+
+                    <label class="form-label">
+                        Search Project
+                    </label>
+
+
+                    <div class="input-group">
+
+                        <span class="input-group-text bg-white">
+
+                            <i class="bi bi-search"></i>
+
+                        </span>
+
+
+                        <input
+                            type="text"
+                            id="projectSearch"
+                            class="form-control"
+                            placeholder="Project name, student or domain..."
+                        >
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="col-lg-3 col-md-6">
+
+                    <label class="form-label">
+                        Project Status
+                    </label>
+
+
+                    <select
+                        id="statusFilter"
+                        class="form-select"
+                    >
+
+                        <option value="">
+                            All Status
+                        </option>
+
+                        <option value="Pending">
+                            Pending
+                        </option>
+
+                        <option value="Active">
+                            Active
+                        </option>
+
+                        <option value="Testing">
+                            Testing
+                        </option>
+
+                        <option value="Completed">
+                            Completed
+                        </option>
+
+                        <option value="Delayed">
+                            Delayed
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+
+                <div class="col-lg-3 col-md-6">
+
+                    <label class="form-label">
+                        Project Manager
+                    </label>
+
+
+                    <select
+                        id="managerFilter"
+                        class="form-select"
+                    >
+
+                        <option value="">
+                            All Managers
+                        </option>
+
+
+                        {% for manager in managers %}
+
+                            <option value="{{ manager }}">
+                                {{ manager }}
+                            </option>
+
+                        {% endfor %}
+
+                    </select>
+
+                </div>
+
+
+
+                <div class="col-lg-2 col-md-6 d-flex align-items-end">
+
+                    <button
+                        type="button"
+                        class="btn btn-outline-secondary w-100"
+                        id="resetFilters"
+                    >
+
+                        <i class="bi bi-arrow-counterclockwise"></i>
+
+                        Reset
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         PROJECT LIST
+    ====================================================== -->
+
+    <div class="section-card">
+
+        <div class="section-header">
+
+            <div>
+
+                <h5>
+                    Student Projects
+                </h5>
+
+                <small class="text-muted">
+                    Projects submitted from the student portal
+                </small>
+
+            </div>
+
+
+            <span class="badge bg-primary">
+
+                {{ total_projects }} Projects
+
+            </span>
+
+        </div>
+
+
+
+        <div class="table-responsive">
+
+            <table
+                class="table"
+                id="projectsTable"
+            >
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Project ID
+                        </th>
+
+                        <th>
+                            Student
+                        </th>
+
+                        <th>
+                            Project Name
+                        </th>
+
+                        <th>
+                            Domain
+                        </th>
+
+                        <th>
+                            Technology
+                        </th>
+
+                        <th>
+                            Manager
+                        </th>
+
+                        <th>
+                            Current Stage
+                        </th>
+
+                        <th>
+                            Status
+                        </th>
+
+                        <th>
+                            Action
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+
+                    {% for project in projects %}
+
+                        {% with student_name=project.student.get_full_name|default:project.student.username %}
+
+                        <tr
+                            class="project-row"
+
+                            data-project-id="{{ project.id }}"
+
+                            data-student-name="{{ student_name|default:''|escape }}"
+
+                            data-project-name="{{ project.project_title|default:''|escape }}"
+
+                            data-domain="{{ project.domain|default:''|escape }}"
+
+                            data-technology="{{ project.technology|default:''|escape }}"
+
+                            data-manager="{{ project.project_manager|default:''|escape }}"
+
+                            data-status="{{ project.project_status|default:'Pending'|escape }}"
+
+                            data-stage="{{ project.current_stage|default:'Project Assigned'|escape }}"
+
+                            data-project-type="{{ project.project_type|default:''|escape }}"
+
+                            data-guide="{{ project.guide|default:''|escape }}"
+
+                            data-team-size="{{ project.team_size|default:''|escape }}"
+
+                            data-duration="{{ project.duration|default:''|escape }}"
+
+                            data-description="{{ project.description|default:''|escape }}"
+
+                            data-requirements="{{ project.requirements|default:''|escape }}"
+
+                            data-additional="{{ project.additional|default:''|escape }}"
+
+                            data-file-description="{{ project.file_description|default:''|escape }}"
+
+                            data-additional-file-description="{{ project.additional_file_description|default:''|escape }}"
+
+                            data-source-code-required="{% if project.source_code %}Yes{% else %}No{% endif %}"
+
+                            data-documentation-required="{% if project.documentation %}Yes{% else %}No{% endif %}"
+
+                            data-ppt-required="{% if project.ppt %}Yes{% else %}No{% endif %}"
+
+                            data-guideline-url="{% if project.guideline_file %}{{ project.guideline_file.url|escape }}{% endif %}"
+
+                            data-additional-file-url="{% if project.additional_file %}{{ project.additional_file.url|escape }}{% endif %}"
+
+                            data-deadline="{% if project.deadline %}{{ project.deadline|date:'Y-m-d' }}{% endif %}"
+
+                            data-developer="{{ project.developer|default:''|escape }}"
+
+                            data-admin-remark="{{ project.admin_remark|default:''|escape }}"
+
+                            data-sent="{% if project.sent_to_student %}Yes{% else %}No{% endif %}"
+
+                            data-sent-at="{% if project.sent_at %}{{ project.sent_at|date:'d M Y, h:i A' }}{% endif %}"
+                        >
+
+
+                            <!-- PROJECT ID -->
+
+                            <td>
+
+                                <span class="project-id">
+
+                                    <i class="bi bi-hash me-1"></i>
+
+                                    PRJ-{{ project.id|stringformat:"04d" }}
+
+                                </span>
+
+                            </td>
+
+
+
+                            <!-- STUDENT -->
+
+                            <td>
+
+                                <strong>
+                                    {{ student_name }}
+                                </strong>
+
+                                <br>
+
+                                <small class="text-muted">
+                                    {{ project.student.email }}
+                                </small>
+
+                            </td>
+
+
+
+                            <!-- PROJECT NAME -->
+
+                            <td>
+
+                                <strong>
+                                    {{ project.project_title|default:"-" }}
+                                </strong>
+
+                                <br>
+
+                                <small class="text-muted">
+                                    {{ project.project_type|default:"-" }}
+                                </small>
+
+                            </td>
+
+
+
+                            <!-- DOMAIN -->
+
+                            <td>
+                                {{ project.domain|default:"-" }}
+                            </td>
+
+
+
+                            <!-- TECHNOLOGY -->
+
+                            <td>
+                                {{ project.technology|default:"-" }}
+                            </td>
+
+
+
+                            <!-- MANAGER -->
+
+                            <td>
+
+                                {% if project.project_manager %}
+
+                                    {{ project.project_manager }}
+
+                                {% else %}
+
+                                    <span class="text-muted">
+                                        Not Assigned
+                                    </span>
+
+                                {% endif %}
+
+                            </td>
+
+
+
+                            <!-- STAGE -->
+
+                            <td>
+
+                                <span class="badge badge-testing">
+
+                                    {{ project.current_stage|default:"Project Assigned" }}
+
+                                </span>
+
+                            </td>
+
+
+
+                            <!-- STATUS -->
+
+                            <td>
+
+                                {% if project.project_status == 'Pending' %}
+
+                                    <span class="badge badge-pending">
+                                        Pending
+                                    </span>
+
+                                {% elif project.project_status == 'Active' %}
+
+                                    <span class="badge badge-active">
+                                        Active
+                                    </span>
+
+                                {% elif project.project_status == 'Testing' %}
+
+                                    <span class="badge badge-testing">
+                                        Testing
+                                    </span>
+
+                                {% elif project.project_status == 'Completed' %}
+
+                                    <span class="badge badge-completed">
+                                        Completed
+                                    </span>
+
+                                {% elif project.project_status == 'Delayed' %}
+
+                                    <span class="badge badge-delayed">
+                                        Delayed
+                                    </span>
+
+                                {% elif project.project_status == 'On Hold' %}
+
+                                    <span class="badge badge-onhold">
+                                        On Hold
+                                    </span>
+
+                                {% else %}
+
+                                    <span class="badge badge-pending">
+                                        Pending
+                                    </span>
+
+                                {% endif %}
+
+                            </td>
+
+
+
+                            <!-- ACTION -->
+
+                            <td>
+
+                                <div class="d-flex gap-2">
+
+
+                                    <!-- VIEW -->
+
+                                    <button
+                                        type="button"
+                                        class="btn btn-sm btn-view view-project-btn"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#viewProjectModal"
+                                    >
+
+                                        <i class="bi bi-eye"></i>
+
+                                        View
+
+                                    </button>
+
+
+
+                                    <!-- MANAGE -->
+
+                                    <button
+                                        type="button"
+                                        class="btn btn-sm btn-manage manage-project-btn"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#manageProjectModal"
+                                    >
+
+                                        <i class="bi bi-pencil-square"></i>
+
+                                        Manage
+
+                                    </button>
+
+                                </div>
+
+                            </td>
+
+
+                        </tr>
+
+                        {% endwith %}
+
+
+                    {% empty %}
+
+                        <tr>
+
+                            <td
+                                colspan="9"
+                                class="text-center text-muted py-5"
+                            >
+
+                                <div class="empty-state">
+
+                                    <i
+                                        class="bi bi-kanban"
+                                        style="font-size: 35px;"
+                                    ></i>
+
+                                    <br><br>
+
+                                    No student projects found.
+
+                                </div>
+
+                            </td>
+
+                        </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+
+        <div
+            id="noSearchResult"
+            class="text-center text-muted py-4 d-none"
+        >
+
+            <i
+                class="bi bi-search"
+                style="font-size: 25px;"
+            ></i>
+
+            <br>
+
+            No matching projects found.
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================================
+     VIEW PROJECT MODAL
+========================================================= -->
+
+<div
+    class="modal fade"
+    id="viewProjectModal"
+    tabindex="-1"
+    aria-hidden="true"
+>
+
+    <div class="modal-dialog modal-xl modal-dialog-scrollable">
+
+        <div class="modal-content">
+
+
+            <div class="modal-header">
+
+                <h5 class="modal-title">
+
+                    <i class="bi bi-kanban-fill me-2"></i>
+
+                    Project Details
+
+                </h5>
+
+
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                ></button>
+
+            </div>
+
+
+            <div class="modal-body">
+
+
+                <h6 class="fw-bold mb-3">
+                    Basic Project Information
+                </h6>
+
+
+                <div class="row g-3">
+
+
+                    <div class="col-md-3">
+
+                        <div class="detail-box">
+
+                            <div class="detail-label">
+                                Project ID
+                            </div>
+
+                            <div
+                                class="detail-value"
+                                id="viewProjectId"
+                            >
+                                -
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-md-3">
+
+                        <div class="detail-box">
+
+                            <div class="detail-label">
+                                Student
+                            </div>
+
+                            <div
+                                class="detail-value"
+                                id="viewStudentName"
+                            >
+                                -
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-md-3">
+
+                        <div class="detail-box">
+
+                            <div class="detail-label">
+                                Project Name
+                            </div>
+
+                            <div
+                                class="detail-value"
+                                id="viewProjectName"
+                            >
+                                -
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-md-3">
+
+                        <div class="detail-box">
+
+                            <div class="detail-label">
+                                Project Type
+                            </div>
+
+                            <div
+                                class="detail-value"
+                                id="viewProjectType"
+                            >
+                                -
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-md-4">
+
+                        <div class="detail-box">
+
+                            <div class="detail-label">
+                                Domain
+                            </div>
+
+                            <div
+                                class="detail-value"
+                                id="viewDomain"
+                            >
+                                -
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-md-4">
+
+                        <div class="detail-box">
+
+                            <div class="detail-label">
+                                Technology / Tech Stack
+                            </div>
+
+                            <div
+                                class="detail-value"
+                                id="viewTechnology"
+                            >
+                                -
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-md-4">
+
+                        <div class="detail-box">
+
+                            <div class="detail-label">
+                                Guide
+                            </div>
+
+                            <div
+                                class="detail-value"
+                                id="viewGuide"
+                            >
+                                -
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-md-4">
+
+                        <div class="detail-box">
+
+                            <div class="detail-label">
+                                Team Size
+                            </div>
+
+                            <div
+                                class="detail-value"
+                                id="viewTeamSize"
+                            >
+                                -
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-md-4">
+
+                        <div class="detail-box">
+
+                            <div class="detail-label">
+                                Duration
+                            </div>
+
+                            <div
+                                class="detail-value"
+                                id="viewDuration"
+                            >
+                                -
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-md-4">
+
+                        <div class="detail-box">
+
+                            <div class="detail-label">
+                                Current Stage
+                            </div>
+
+                            <div
+                                class="detail-value"
+                                id="viewStage"
+                            >
+                                -
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-md-4">
+
+                        <div class="detail-box">
+
+                            <div class="detail-label">
+                                Project Status
+                            </div>
+
+                            <div
+                                class="detail-value"
+                                id="viewStatus"
+                            >
+                                -
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-md-4">
+
+                        <div class="detail-box">
+
+                            <div class="detail-label">
+                                Project Manager
+                            </div>
+
+                            <div
+                                class="detail-value"
+                                id="viewManager"
+                            >
+                                -
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-md-4">
+
+                        <div class="detail-box">
+
+                            <div class="detail-label">
+                                Developer
+                            </div>
+
+                            <div
+                                class="detail-value"
+                                id="viewDeveloper"
+                            >
+                                -
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-md-4">
+
+                        <div class="detail-box">
+
+                            <div class="detail-label">
+                                Deadline
+                            </div>
+
+                            <div
+                                class="detail-value"
+                                id="viewDeadline"
+                            >
+                                -
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <hr class="my-4">
+
+
+                <h6 class="fw-bold mb-3">
+                    Project Description
+                </h6>
+
+
+                <div
+                    class="description-box"
+                    id="viewDescription"
+                >
+                    -
+                </div>
+
+
+                <h6 class="fw-bold mb-3 mt-4">
+                    Project Requirements
+                </h6>
+
+
+                <div
+                    class="description-box"
+                    id="viewRequirements"
+                >
+                    -
+                </div>
+
+
+                <h6 class="fw-bold mb-3 mt-4">
+                    Additional Information
+                </h6>
+
+
+                <div
+                    class="description-box"
+                    id="viewAdditional"
+                >
+                    -
+                </div>
+
+
+                <hr class="my-4">
+
+
+                <h6 class="fw-bold mb-3">
+                    Requested Deliverables
+                </h6>
+
+
+                <div class="row g-3">
+
+
+                    <div class="col-md-4">
+
+                        <div class="detail-box">
+
+                            <div class="detail-label">
+                                Source Code
+                            </div>
+
+                            <div
+                                class="detail-value"
+                                id="viewSourceCodeRequired"
+                            >
+                                -
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-md-4">
+
+                        <div class="detail-box">
+
+                            <div class="detail-label">
+                                Documentation
+                            </div>
+
+                            <div
+                                class="detail-value"
+                                id="viewDocumentationRequired"
+                            >
+                                -
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-md-4">
+
+                        <div class="detail-box">
+
+                            <div class="detail-label">
+                                PPT
+                            </div>
+
+                            <div
+                                class="detail-value"
+                                id="viewPptRequired"
+                            >
+                                -
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <hr class="my-4">
+
+
+                <h6 class="fw-bold mb-3">
+                    Files Uploaded by Student
+                </h6>
+
+
+                <div class="row g-3">
+
+
+                    <div class="col-md-6">
+
+                        <div class="detail-box">
+
+                            <div class="detail-label">
+                                Guideline File
+                            </div>
+
+                            <div
+                                class="detail-value"
+                                id="viewGuidelineFile"
+                            >
+                                No file uploaded.
+                            </div>
+
+                            <small
+                                class="text-muted d-block mt-2"
+                                id="viewGuidelineDescription"
+                            ></small>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-md-6">
+
+                        <div class="detail-box">
+
+                            <div class="detail-label">
+                                Additional Reference File
+                            </div>
+
+                            <div
+                                class="detail-value"
+                                id="viewAdditionalFile"
+                            >
+                                No file uploaded.
+                            </div>
+
+                            <small
+                                class="text-muted d-block mt-2"
+                                id="viewAdditionalFileDescription"
+                            ></small>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <hr class="my-4">
+
+
+                <h6 class="fw-bold mb-3">
+                    Final Delivery
+                </h6>
+
+
+                <div class="detail-box">
+
+                    <div class="detail-label">
+                        Sent to Student
+                    </div>
+
+
+                    <div
+                        class="detail-value"
+                        id="viewSentStatus"
+                    >
+                        No
+                    </div>
+
+
+                    <small
+                        class="text-muted"
+                        id="viewSentAt"
+                    ></small>
+
+                </div>
+
+            </div>
+
+
+            <div class="modal-footer">
+
+                <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal"
+                >
+
+                    <i class="bi bi-x-circle me-1"></i>
+
+                    Close
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================================
+     MANAGE PROJECT MODAL
+========================================================= -->
+
+<div
+    class="modal fade"
+    id="manageProjectModal"
+    tabindex="-1"
+    aria-labelledby="manageProjectModalLabel"
+    aria-hidden="true"
+>
+
+    <div class="modal-dialog modal-xl modal-dialog-scrollable">
+
+        <div class="modal-content">
+
+
+            <!-- =====================================================
+                 HEADER
+            ====================================================== -->
+
+            <div class="modal-header">
+
+                <h5
+                    class="modal-title"
+                    id="manageProjectModalLabel"
+                >
+
+                    <i class="bi bi-pencil-square me-2"></i>
+
+                    Manage Project
+
+                </h5>
+
+
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                ></button>
+
+            </div>
+
+
+
+            <!-- =====================================================
+                 FORM
+            ====================================================== -->
+
+            <form
+                method="POST"
+                enctype="multipart/form-data"
+                id="manageProjectForm"
+            >
+
+                {% csrf_token %}
+
+
+                <div class="modal-body">
+
+
+                    <!-- =================================================
+                         PROJECT INFORMATION
+                    ================================================== -->
+
+                    <h6 class="fw-bold mb-3">
+                        Project Information
+                    </h6>
+
+
+                    <div class="row g-3">
+
+
+                        <!-- PROJECT ID -->
+
+                        <div class="col-md-3">
+
+                            <label
+                                class="detail-label"
+                                for="manageProjectId"
+                            >
+                                Project ID
+                            </label>
+
+
+                            <input
+                                type="text"
+                                id="manageProjectId"
+                                class="form-control"
+                                readonly
+                            >
+
+                        </div>
+
+
+                        <!-- STUDENT -->
+
+                        <div class="col-md-3">
+
+                            <label
+                                class="detail-label"
+                                for="manageStudentName"
+                            >
+                                Student
+                            </label>
+
+
+                            <input
+                                type="text"
+                                id="manageStudentName"
+                                class="form-control"
+                                readonly
+                            >
+
+                        </div>
+
+
+                        <!-- PROJECT NAME -->
+
+                        <div class="col-md-6">
+
+                            <label
+                                class="detail-label"
+                                for="manageProjectName"
+                            >
+                                Project Name
+                            </label>
+
+
+                            <input
+                                type="text"
+                                id="manageProjectName"
+                                class="form-control"
+                                readonly
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <hr class="my-4">
+
+
+
+                    <!-- =================================================
+                         PROJECT ASSIGNMENT
+                    ================================================== -->
+
+                    <h6 class="fw-bold mb-3">
+                        Project Assignment
+                    </h6>
+
+
+                    <div class="row g-3">
+
+
+                        <!-- MANAGER -->
+
+                        <div class="col-md-6">
+
+                            <label
+                                class="form-label"
+                                for="manageManager"
+                            >
+                                Project Manager
+                            </label>
+
+
+                            <input
+                                type="text"
+                                name="project_manager"
+                                id="manageManager"
+                                class="form-control"
+                                placeholder="Enter project manager"
+                            >
+
+                        </div>
+
+
+
+                        <!-- DEVELOPER -->
+
+                        <div class="col-md-6">
+
+                            <label
+                                class="form-label"
+                                for="manageDeveloper"
+                            >
+                                Developer
+                            </label>
+
+
+                            <input
+                                type="text"
+                                name="developer"
+                                id="manageDeveloper"
+                                class="form-control"
+                                placeholder="Enter developer name"
+                            >
+
+                        </div>
+
+
+
+                        <!-- CURRENT STAGE -->
+
+                        <div class="col-md-6">
+
+                            <label
+                                class="form-label"
+                                for="manageStage"
+                            >
+                                Current Stage
+                            </label>
+
+
+                            <select
+                                name="current_stage"
+                                id="manageStage"
+                                class="form-select"
+                                required
+                            >
+
+                                <option value="Project Assigned">
+                                    Project Assigned
+                                </option>
+
+                                <option value="Requirement Analysis">
+                                    Requirement Analysis
+                                </option>
+
+                                <option value="UI Development">
+                                    UI Development
+                                </option>
+
+                                <option value="Backend Development">
+                                    Backend Development
+                                </option>
+
+                                <option value="Database Integration">
+                                    Database Integration
+                                </option>
+
+                                <option value="Testing">
+                                    Testing
+                                </option>
+
+                                <option value="Documentation">
+                                    Documentation
+                                </option>
+
+                                <option value="Final Delivery">
+                                    Final Delivery
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+
+                        <!-- PROJECT STATUS -->
+
+                        <div class="col-md-6">
+
+                            <label
+                                class="form-label"
+                                for="manageStatus"
+                            >
+                                Project Status
+                            </label>
+
+
+                            <select
+                                name="project_status"
+                                id="manageStatus"
+                                class="form-select"
+                                required
+                            >
+
+                                <option value="Pending">
+                                    Pending
+                                </option>
+
+                                <option value="Active">
+                                    Active
+                                </option>
+
+                                <option value="Testing">
+                                    Testing
+                                </option>
+
+                                <option value="Completed">
+                                    Completed
+                                </option>
+
+                                <option value="Delayed">
+                                    Delayed
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+
+                        <!-- DEADLINE -->
+
+                        <div class="col-md-6">
+
+                            <label
+                                class="form-label"
+                                for="manageDeadline"
+                            >
+                                Deadline
+                            </label>
+
+
+                            <input
+                                type="date"
+                                name="deadline"
+                                id="manageDeadline"
+                                class="form-control"
+                            >
+
+                        </div>
+
+
+
+                        <!-- ADMIN REMARK -->
+
+                        <div class="col-md-6">
+
+                            <label
+                                class="form-label"
+                                for="manageRemark"
+                            >
+                                Admin Remark
+                            </label>
+
+
+                            <textarea
+                                name="admin_remark"
+                                id="manageRemark"
+                                class="form-control"
+                                rows="3"
+                                placeholder="Enter admin remark"
+                            ></textarea>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- =================================================
+                         COMPLETION MESSAGE
+                    ================================================== -->
+
+                    <div
+                        id="completionBox"
+                        class="completion-box"
+                    >
+
+                        <strong>
+
+                            <i class="bi bi-check-circle-fill me-1"></i>
+
+                            Project Completion
+
+                        </strong>
+
+                        <br>
+
+                        When the project status is changed to
+                        <strong>Completed</strong>,
+                        the current stage will automatically become
+                        <strong>Final Delivery</strong>.
+
+                    </div>
+
+
+                    <hr class="my-4">
+
+
+
+                    <!-- =================================================
+                         FINAL PROJECT FILES
+                    ================================================== -->
+
+                    <h6 class="fw-bold mb-3">
+                        Final Project Files
+                    </h6>
+
+
+                    <div class="info-box mb-3">
+
+                        <i class="bi bi-info-circle me-1"></i>
+
+                        Upload the final project files that should
+                        be delivered to the student.
+
+                    </div>
+
+
+                    <div class="row g-3">
+
+
+                        <!-- SOURCE CODE -->
+
+                        <div class="col-md-6">
+
+                            <label
+                                class="form-label"
+                                for="sourceCodeFile"
+                            >
+                                Final Source Code
+                            </label>
+
+
+                            <input
+                                type="file"
+                                name="source_code"
+                                id="sourceCodeFile"
+                                class="form-control"
+                            >
+
+
+                            <small
+                                class="text-muted"
+                                id="existingSourceCode"
+                            ></small>
+
+                        </div>
+
+
+
+                        <!-- DOCUMENTATION -->
+
+                        <div class="col-md-6">
+
+                            <label
+                                class="form-label"
+                                for="documentationFile"
+                            >
+                                Final Documentation
+                            </label>
+
+
+                            <input
+                                type="file"
+                                name="documentation"
+                                id="documentationFile"
+                                class="form-control"
+                            >
+
+
+                            <small
+                                class="text-muted"
+                                id="existingDocumentation"
+                            ></small>
+
+                        </div>
+
+
+
+                        <!-- PPT -->
+
+                        <div class="col-md-6">
+
+                            <label
+                                class="form-label"
+                                for="projectPptFile"
+                            >
+                                Final PPT
+                            </label>
+
+
+                            <input
+                                type="file"
+                                name="project_ppt"
+                                id="projectPptFile"
+                                class="form-control"
+                            >
+
+
+                            <small
+                                class="text-muted"
+                                id="existingPpt"
+                            ></small>
+
+                        </div>
+
+
+
+                        <!-- DATABASE -->
+
+                        <div class="col-md-6">
+
+                            <label
+                                class="form-label"
+                                for="databaseFile"
+                            >
+                                Final Database File
+                            </label>
+
+
+                            <input
+                                type="file"
+                                name="database_file"
+                                id="databaseFile"
+                                class="form-control"
+                            >
+
+
+                            <small
+                                class="text-muted"
+                                id="existingDatabase"
+                            ></small>
+
+                        </div>
+
+                    </div>
+
+
+                    <hr class="my-4">
+
+
+
+                    <!-- =================================================
+                         SEND TO STUDENT
+                    ================================================== -->
+
+                    <div class="detail-box">
+
+                        <div
+                            class="d-flex
+                                   align-items-center
+                                   justify-content-between
+                                   flex-wrap
+                                   gap-3"
+                        >
+
+                            <div>
+
+                                <strong>
+                                    Send Final Project to Student
+                                </strong>
+
+                                <br>
+
+                                <small class="text-muted">
+
+                                    Project should be in
+                                    Final Delivery stage and
+                                    Completed status.
+
+                                </small>
+
+                            </div>
+
+
+                            <button
+                                type="submit"
+                                name="send_to_student"
+                                value="1"
+                                class="btn btn-primary-custom"
+                                onclick="return confirmSendProject();"
+                            >
+
+                                <i class="bi bi-send-fill me-1"></i>
+
+                                Send to Student
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     MODAL FOOTER
+                     UPDATE + CANCEL
+                ================================================== -->
+
+                <div class="modal-footer">
+
+
+                    <!-- CANCEL BUTTON -->
+
+                    <button
+                        type="button"
+                        class="btn btn-secondary"
+                        data-bs-dismiss="modal"
+                    >
+
+                        <i class="bi bi-x-circle me-1"></i>
+
+                        Cancel
+
+                    </button>
+
+
+
+                    <!-- UPDATE BUTTON -->
+
+                    <button
+                        type="submit"
+                        name="send_to_student"
+                        value="0"
+                        class="btn btn-primary-custom"
+                    >
+
+                        <i class="bi bi-check-circle me-1"></i>
+
+                        Update
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================================
+     BOOTSTRAP JS
+========================================================= -->
+
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+</script>
+
+
+
+<script>
+
+
+/* =========================================================
+   HELPER
+========================================================= */
+
+function getProjectRow(button) {
+
+    return button.closest(".project-row");
+
+}
+
+
+function getData(row, key) {
+
+    return row.dataset[key] || "";
+
+}
+
+
+function setText(id, value) {
+
+    const element =
+        document.getElementById(id);
+
+    if (!element) {
+
+        return;
+
+    }
+
+    element.textContent =
+        value || "-";
+
+}
+
+
+
+/* =========================================================
+   VIEW PROJECT
+========================================================= */
+
+document
+    .querySelectorAll(".view-project-btn")
+    .forEach(function(button) {
+
+        button.addEventListener(
+            "click",
+            function() {
+
+                const row =
+                    getProjectRow(this);
+
+                if (!row) {
+
+                    return;
+
+                }
+
+
+                /* Project ID */
+
+                setText(
+                    "viewProjectId",
+                    "PRJ-" +
+                    String(
+                        getData(
+                            row,
+                            "projectId"
+                        )
+                    ).padStart(4, "0")
+                );
+
+
+                /* Student */
+
+                setText(
+                    "viewStudentName",
+                    getData(
+                        row,
+                        "studentName"
+                    )
+                );
+
+
+                /* Project Name */
+
+                setText(
+                    "viewProjectName",
+                    getData(
+                        row,
+                        "projectName"
+                    )
+                );
+
+
+                /* Project Type */
+
+                setText(
+                    "viewProjectType",
+                    getData(
+                        row,
+                        "projectType"
+                    )
+                );
+
+
+                /* Domain */
+
+                setText(
+                    "viewDomain",
+                    getData(
+                        row,
+                        "domain"
+                    )
+                );
+
+
+                /* Technology */
+
+                setText(
+                    "viewTechnology",
+                    getData(
+                        row,
+                        "technology"
+                    )
+                );
+
+
+                /* Guide */
+
+                setText(
+                    "viewGuide",
+                    getData(
+                        row,
+                        "guide"
+                    )
+                );
+
+
+                /* Team Size */
+
+                setText(
+                    "viewTeamSize",
+                    getData(
+                        row,
+                        "teamSize"
+                    )
+                );
+
+
+                /* Duration */
+
+                setText(
+                    "viewDuration",
+                    getData(
+                        row,
+                        "duration"
+                    )
+                );
+
+
+                /* Stage */
+
+                setText(
+                    "viewStage",
+                    getData(
+                        row,
+                        "stage"
+                    )
+                );
+
+
+                /* Status */
+
+                setText(
+                    "viewStatus",
+                    getData(
+                        row,
+                        "status"
+                    )
+                );
+
+
+                /* Manager */
+
+                setText(
+                    "viewManager",
+                    getData(
+                        row,
+                        "manager"
+                    )
+                );
+
+
+                /* Developer */
+
+                setText(
+                    "viewDeveloper",
+                    getData(
+                        row,
+                        "developer"
+                    )
+                );
+
+
+                /* Deadline */
+
+                setText(
+                    "viewDeadline",
+                    getData(
+                        row,
+                        "deadline"
+                    )
+                );
+
+
+                /* Description */
+
+                setText(
+                    "viewDescription",
+                    getData(
+                        row,
+                        "description"
+                    )
+                );
+
+
+                /* Requirements */
+
+                setText(
+                    "viewRequirements",
+                    getData(
+                        row,
+                        "requirements"
+                    )
+                );
+
+
+                /* Additional */
+
+                setText(
+                    "viewAdditional",
+                    getData(
+                        row,
+                        "additional"
+                    )
+                );
+
+
+                /* Source Code */
+
+                setText(
+                    "viewSourceCodeRequired",
+                    getData(
+                        row,
+                        "sourceCodeRequired"
+                    )
+                );
+
+
+                /* Documentation */
+
+                setText(
+                    "viewDocumentationRequired",
+                    getData(
+                        row,
+                        "documentationRequired"
+                    )
+                );
+
+
+                /* PPT */
+
+                setText(
+                    "viewPptRequired",
+                    getData(
+                        row,
+                        "pptRequired"
+                    )
+                );
+
+
+                /* =================================================
+                   GUIDELINE FILE
+                ================================================= */
+
+                const guidelineContainer =
+                    document.getElementById(
+                        "viewGuidelineFile"
+                    );
+
+
+                const guidelineUrl =
+                    getData(
+                        row,
+                        "guidelineUrl"
+                    );
+
+
+                if (guidelineUrl) {
+
+                    guidelineContainer.innerHTML =
+
+                        '<a href="' +
+                        guidelineUrl +
+                        '" target="_blank" class="file-link">' +
+
+                        '<i class="bi bi-file-earmark-arrow-down me-1"></i>' +
+
+                        'View / Download Guideline File' +
+
+                        '</a>';
+
+                }
+
+                else {
+
+                    guidelineContainer.textContent =
+                        "No file uploaded.";
+
+                }
+
+
+                setText(
+                    "viewGuidelineDescription",
+                    getData(
+                        row,
+                        "fileDescription"
+                    )
+                );
+
+
+                /* =================================================
+                   ADDITIONAL FILE
+                ================================================= */
+
+                const additionalContainer =
+                    document.getElementById(
+                        "viewAdditionalFile"
+                    );
+
+
+                const additionalUrl =
+                    getData(
+                        row,
+                        "additionalFileUrl"
+                    );
+
+
+                if (additionalUrl) {
+
+                    additionalContainer.innerHTML =
+
+                        '<a href="' +
+                        additionalUrl +
+                        '" target="_blank" class="file-link">' +
+
+                        '<i class="bi bi-file-earmark-arrow-down me-1"></i>' +
+
+                        'View / Download Additional File' +
+
+                        '</a>';
+
+                }
+
+                else {
+
+                    additionalContainer.textContent =
+                        "No file uploaded.";
+
+                }
+
+
+                setText(
+                    "viewAdditionalFileDescription",
+                    getData(
+                        row,
+                        "additionalFileDescription"
+                    )
+                );
+
+
+                /* Sent */
+
+                setText(
+                    "viewSentStatus",
+                    getData(
+                        row,
+                        "sent"
+                    )
+                );
+
+
+                setText(
+                    "viewSentAt",
+                    getData(
+                        row,
+                        "sentAt"
+                    )
+                );
+
+            }
+        );
+
+    });
+
+
+
+/* =========================================================
+   MANAGE PROJECT
+========================================================= */
+
+document
+    .querySelectorAll(".manage-project-btn")
+    .forEach(function(button) {
+
+        button.addEventListener(
+            "click",
+            function() {
+
+                const row =
+                    getProjectRow(this);
+
+                if (!row) {
+
+                    return;
+
+                }
+
+
+                const projectId =
+                    getData(
+                        row,
+                        "projectId"
+                    );
+
+
+                /* =================================================
+                   FORM ACTION
+                ================================================= */
+
+                const form =
+                    document.getElementById(
+                        "manageProjectForm"
+                    );
+
+
+                if (!form) {
+
+                    return;
+
+                }
+
+
+                /*
+                   Django URL:
+                   /admin/projects/0/update/
+
+                   JavaScript replaces 0 with
+                   actual project primary key.
+                */
+
+                form.action =
+                    "{% url 'admin_project_update' 0 %}"
+                    .replace(
+                        "/0/",
+                        "/" +
+                        projectId +
+                        "/"
+                    );
+
+
+                /* =================================================
+                   BASIC INFORMATION
+                ================================================= */
+
+                document.getElementById(
+                    "manageProjectId"
+                ).value =
+
+                    "PRJ-" +
+                    String(projectId)
+                        .padStart(4, "0");
+
+
+                document.getElementById(
+                    "manageStudentName"
+                ).value =
+
+                    getData(
+                        row,
+                        "studentName"
+                    );
+
+
+                document.getElementById(
+                    "manageProjectName"
+                ).value =
+
+                    getData(
+                        row,
+                        "projectName"
+                    );
+
+
+                /* =================================================
+                   MANAGER
+                ================================================= */
+
+                document.getElementById(
+                    "manageManager"
+                ).value =
+
+                    getData(
+                        row,
+                        "manager"
+                    );
+
+
+                /* =================================================
+                   DEVELOPER
+                ================================================= */
+
+                document.getElementById(
+                    "manageDeveloper"
+                ).value =
+
+                    getData(
+                        row,
+                        "developer"
+                    );
+
+
+                /* =================================================
+                   STAGE
+                ================================================= */
+
+                const stage =
+                    getData(
+                        row,
+                        "stage"
+                    );
+
+
+                const stageSelect =
+                    document.getElementById(
+                        "manageStage"
+                    );
+
+
+                stageSelect.value =
+                    stage ||
+                    "Project Assigned";
+
+
+                /*
+                   Safety fallback:
+                   If database contains an unexpected stage,
+                   select Project Assigned.
+                */
+
+                if (!stageSelect.value) {
+
+                    stageSelect.value =
+                        "Project Assigned";
+
+                }
+
+
+                /* =================================================
+                   STATUS
+                ================================================= */
+
+                const status =
+                    getData(
+                        row,
+                        "status"
+                    );
+
+
+                const statusSelect =
+                    document.getElementById(
+                        "manageStatus"
+                    );
+
+
+                statusSelect.value =
+                    status ||
+                    "Pending";
+
+
+                /*
+                   Safety fallback.
+                */
+
+                if (!statusSelect.value) {
+
+                    statusSelect.value =
+                        "Pending";
+
+                }
+
+
+                /* =================================================
+                   DEADLINE
+                ================================================= */
+
+                document.getElementById(
+                    "manageDeadline"
+                ).value =
+
+                    getData(
+                        row,
+                        "deadline"
+                    );
+
+
+                /* =================================================
+                   REMARK
+                ================================================= */
+
+                document.getElementById(
+                    "manageRemark"
+                ).value =
+
+                    getData(
+                        row,
+                        "adminRemark"
+                    );
+
+
+                /* =================================================
+                   EXISTING FILE INFORMATION
+                ================================================= */
+
+                setText(
+                    "existingSourceCode",
+                    ""
+                );
+
+
+                setText(
+                    "existingDocumentation",
+                    ""
+                );
+
+
+                setText(
+                    "existingPpt",
+                    ""
+                );
+
+
+                setText(
+                    "existingDatabase",
+                    ""
+                );
+
+
+                /* =================================================
+                   COMPLETION UI
+                ================================================= */
+
+                updateCompletionUI();
+
+            }
+
+        );
+
+    });
+
+
+
+/* =========================================================
+   COMPLETION UI
+========================================================= */
+
+const manageStatus =
+    document.getElementById(
+        "manageStatus"
+    );
+
+
+const manageStage =
+    document.getElementById(
+        "manageStage"
+    );
+
+
+const completionBox =
+    document.getElementById(
+        "completionBox"
+    );
+
+
+function updateCompletionUI() {
+
+    if (
+        manageStatus.value ===
+        "Completed"
+    ) {
+
+        manageStage.value =
+            "Final Delivery";
+
+
+        completionBox.classList.add(
+            "show"
+        );
+
+    }
+
+    else {
+
+        completionBox.classList.remove(
+            "show"
+        );
+
+    }
+
+}
+
+
+manageStatus.addEventListener(
+    "change",
+    updateCompletionUI
+);
+
+
+
+/* =========================================================
+   CONFIRM SEND
+========================================================= */
+
+function confirmSendProject() {
+
+    return confirm(
+        "Are you sure you want to send the final project to this student?"
+    );
+
+}
+
+
+
+/* =========================================================
+   SEARCH + FILTER
+========================================================= */
+
+const searchInput =
+    document.getElementById(
+        "projectSearch"
+    );
+
+
+const statusFilter =
+    document.getElementById(
+        "statusFilter"
+    );
+
+
+const managerFilter =
+    document.getElementById(
+        "managerFilter"
+    );
+
+
+const resetButton =
+    document.getElementById(
+        "resetFilters"
+    );
+
+
+const projectRows =
+    document.querySelectorAll(
+        ".project-row"
+    );
+
+
+const noSearchResult =
+    document.getElementById(
+        "noSearchResult"
+    );
+
+
+
+function filterProjects() {
+
+    const searchValue =
+        searchInput.value
+            .toLowerCase()
+            .trim();
+
+
+    const statusValue =
+        statusFilter.value
+            .toLowerCase()
+            .trim();
+
+
+    const managerValue =
+        managerFilter.value
+            .toLowerCase()
+            .trim();
+
+
+    let visibleCount = 0;
+
+
+    projectRows.forEach(
+        function(row) {
+
+
+            const projectName =
+                getData(
+                    row,
+                    "projectName"
+                )
+                .toLowerCase();
+
+
+            const studentName =
+                getData(
+                    row,
+                    "studentName"
+                )
+                .toLowerCase();
+
+
+            const domain =
+                getData(
+                    row,
+                    "domain"
+                )
+                .toLowerCase();
+
+
+            const technology =
+                getData(
+                    row,
+                    "technology"
+                )
+                .toLowerCase();
+
+
+            const manager =
+                getData(
+                    row,
+                    "manager"
+                )
+                .toLowerCase();
+
+
+            const status =
+                getData(
+                    row,
+                    "status"
+                )
+                .toLowerCase();
+
+
+            const searchMatch =
+
+                !searchValue ||
+
+                projectName.includes(
+                    searchValue
+                ) ||
+
+                studentName.includes(
+                    searchValue
+                ) ||
+
+                domain.includes(
+                    searchValue
+                ) ||
+
+                technology.includes(
+                    searchValue
+                );
+
+
+            const statusMatch =
+
+                !statusValue ||
+
+                status === statusValue;
+
+
+            const managerMatch =
+
+                !managerValue ||
+
+                manager === managerValue;
+
+
+            if (
+                searchMatch &&
+                statusMatch &&
+                managerMatch
+            ) {
+
+                row.style.display = "";
+
+                visibleCount++;
+
+            }
+
+            else {
+
+                row.style.display =
+                    "none";
+
+            }
+
+        }
+    );
+
+
+    if (
+        visibleCount === 0 &&
+        projectRows.length > 0
+    ) {
+
+        noSearchResult.classList.remove(
+            "d-none"
+        );
+
+    }
+
+    else {
+
+        noSearchResult.classList.add(
+            "d-none"
+        );
+
+    }
+
+}
+
+
+
+searchInput.addEventListener(
+    "input",
+    filterProjects
+);
+
+
+statusFilter.addEventListener(
+    "change",
+    filterProjects
+);
+
+
+managerFilter.addEventListener(
+    "change",
+    filterProjects
+);
+
+
+resetButton.addEventListener(
+    "click",
+    function() {
+
+        searchInput.value = "";
+
+        statusFilter.value = "";
+
+        managerFilter.value = "";
+
+        filterProjects();
+
+    }
+);
+
+</script>
+
+
+</body>
+
+</html>

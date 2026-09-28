@@ -1,0 +1,1382 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Student Dashboard | Gurukurpa Agency</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+<style>
+
+:root{
+    --bg:#F5F7FB;
+    --sidebar:#172554;
+    --navbar:#FFFFFF;
+    --primary:#2563EB;
+    --secondary:#4F46E5;
+    --card:#FFFFFF;
+    --text:#111827;
+    --muted:#64748B;
+    --border:#E2E8F0;
+    --success:#16A34A;
+    --warning:#F59E0B;
+    --danger:#EF4444;
+    --info:#0EA5E9;
+}
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+    position:fixed;
+    left:0;
+    top:0;
+    width:250px;
+    height:100vh;
+    background:var(--sidebar);
+    color:white;
+    padding:22px 15px;
+    overflow-y:auto;
+}
+
+.brand{
+    padding:5px 12px 22px;
+    border-bottom:1px solid rgba(255,255,255,0.15);
+    margin-bottom:18px;
+}
+
+.brand h4{
+    font-size:18px;
+    margin:0;
+    font-weight:700;
+}
+
+.brand p{
+    font-size:11px;
+    color:#CBD5E1;
+    margin:5px 0 0;
+}
+
+.sidebar a{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    color:#CBD5E1;
+    text-decoration:none;
+    padding:12px 14px;
+    margin:4px 0;
+    border-radius:8px;
+    font-size:14px;
+    transition:0.2s;
+}
+
+.sidebar a:hover{
+    background:rgba(255,255,255,0.10);
+    color:white;
+}
+
+.sidebar a.active{
+    background:var(--primary);
+    color:white;
+}
+
+.sidebar i{
+    font-size:17px;
+}
+
+/* MAIN */
+
+.main{
+    margin-left:250px;
+    min-height:100vh;
+}
+
+/* NAVBAR */
+
+.navbar-custom{
+    height:72px;
+    background:var(--navbar);
+    border-bottom:1px solid var(--border);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 30px;
+}
+
+.page-title h3{
+    margin:0;
+    font-size:22px;
+    font-weight:700;
+}
+
+.page-title p{
+    margin:4px 0 0;
+    color:var(--muted);
+    font-size:13px;
+}
+
+.student-info{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.student-avatar{
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    background:var(--primary);
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:bold;
+}
+
+.student-info strong{
+    font-size:14px;
+}
+
+.student-info small{
+    display:block;
+    color:var(--muted);
+    font-size:11px;
+}
+
+/* CONTENT */
+
+.content{
+    padding:30px;
+}
+
+/* WELCOME */
+
+.welcome-card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:25px;
+    margin-bottom:22px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.welcome-card h2{
+    font-size:24px;
+    font-weight:700;
+    margin:0 0 8px;
+}
+
+.welcome-card p{
+    margin:0;
+    color:var(--muted);
+    font-size:14px;
+}
+
+.application-badge{
+    background:#EFF6FF;
+    color:var(--primary);
+    padding:10px 15px;
+    border-radius:8px;
+    font-size:13px;
+    font-weight:700;
+}
+
+/* STAT CARDS */
+
+.stat-card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:20px;
+    height:100%;
+}
+
+.stat-icon{
+    width:44px;
+    height:44px;
+    border-radius:9px;
+    background:#EFF6FF;
+    color:var(--primary);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:21px;
+    margin-bottom:14px;
+}
+
+.stat-card h6{
+    color:var(--muted);
+    font-size:12px;
+    margin-bottom:6px;
+}
+
+.stat-card h4{
+    margin:0;
+    font-size:17px;
+    font-weight:700;
+}
+
+/* SECTION CARD */
+
+.card-box{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:23px;
+    height:100%;
+}
+
+.card-heading{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
+}
+
+.card-heading h4{
+    margin:0;
+    font-size:17px;
+    font-weight:700;
+}
+
+.card-heading a{
+    color:var(--primary);
+    font-size:12px;
+    text-decoration:none;
+    font-weight:600;
+}
+
+/* PROGRESS */
+
+.progress-label{
+    display:flex;
+    justify-content:space-between;
+    font-size:13px;
+    font-weight:600;
+    margin-bottom:8px;
+}
+
+.progress{
+    height:10px;
+    background:#E5E7EB;
+    border-radius:20px;
+}
+
+.progress-bar{
+    background:var(--primary);
+    border-radius:20px;
+}
+
+/* STATUS */
+
+.status-box{
+    background:#EFF6FF;
+    border:1px solid #BFDBFE;
+    border-radius:10px;
+    padding:16px;
+    display:flex;
+    gap:13px;
+    align-items:center;
+}
+
+.status-icon{
+    width:42px;
+    height:42px;
+    background:var(--primary);
+    color:white;
+    border-radius:9px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:19px;
+}
+
+.status-box h5{
+    margin:0 0 4px;
+    font-size:14px;
+    font-weight:700;
+}
+
+.status-box p{
+    margin:0;
+    color:var(--muted);
+    font-size:12px;
+}
+
+/* WORKFLOW */
+
+.workflow{
+    display:flex;
+    justify-content:space-between;
+    position:relative;
+    margin-top:25px;
+}
+
+.workflow:before{
+    content:"";
+    position:absolute;
+    top:17px;
+    left:5%;
+    right:5%;
+    height:2px;
+    background:var(--border);
+    z-index:0;
+}
+
+.workflow-step{
+    position:relative;
+    z-index:1;
+    text-align:center;
+    width:12%;
+}
+
+.step-circle{
+    width:35px;
+    height:35px;
+    border-radius:50%;
+    margin:auto;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:14px;
+    border:3px solid var(--card);
+}
+
+.workflow-step.completed .step-circle{
+    background:var(--success);
+    color:white;
+}
+
+.workflow-step.active .step-circle{
+    background:var(--primary);
+    color:white;
+    box-shadow:0 0 0 4px #DBEAFE;
+}
+
+.workflow-step.pending .step-circle{
+    background:#E2E8F0;
+    color:#64748B;
+}
+
+.workflow-step small{
+    display:block;
+    margin-top:8px;
+    font-size:10px;
+    color:var(--muted);
+}
+
+/* QUICK ACTIONS */
+
+.action-btn{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    text-decoration:none;
+    color:var(--text);
+    padding:13px;
+    border:1px solid var(--border);
+    border-radius:9px;
+    margin-bottom:10px;
+    transition:0.2s;
+}
+
+.action-btn:hover{
+    border-color:var(--primary);
+    color:var(--primary);
+    background:#F8FAFF;
+}
+
+.action-icon{
+    width:38px;
+    height:38px;
+    border-radius:8px;
+    background:#EFF6FF;
+    color:var(--primary);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.action-btn strong{
+    display:block;
+    font-size:13px;
+}
+
+.action-btn span{
+    display:block;
+    color:var(--muted);
+    font-size:11px;
+    margin-top:2px;
+}
+
+/* ACTIVITY */
+
+.activity{
+    display:flex;
+    gap:12px;
+    padding:12px 0;
+    border-bottom:1px solid var(--border);
+}
+
+.activity:last-child{
+    border-bottom:none;
+}
+
+.activity-icon{
+    width:35px;
+    height:35px;
+    min-width:35px;
+    border-radius:50%;
+    background:#DCFCE7;
+    color:var(--success);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.activity h6{
+    margin:0 0 3px;
+    font-size:13px;
+}
+
+.activity p{
+    margin:0;
+    color:var(--muted);
+    font-size:11px;
+}
+
+.activity-date{
+    font-size:10px;
+    color:var(--muted);
+}
+
+/* RESPONSIVE */
+
+@media(max-width:900px){
+
+    .sidebar{
+        width:220px;
+    }
+
+    .main{
+        margin-left:220px;
+    }
+
+    .content{
+        padding:20px;
+    }
+
+}
+
+@media(max-width:700px){
+
+    .sidebar{
+        position:relative;
+        width:100%;
+        height:auto;
+    }
+
+    .main{
+        margin-left:0;
+    }
+
+    .student-info{
+        display:none;
+    }
+
+    .welcome-card{
+        flex-direction:column;
+        align-items:flex-start;
+        gap:15px;
+    }
+
+    .workflow{
+        overflow-x:auto;
+        gap:15px;
+    }
+
+    .workflow-step{
+        min-width:80px;
+    }
+
+    .workflow:before{
+        display:none;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+
+<div class="sidebar">
+
+    <div class="brand-icon">
+        <i class="bi bi-mortarboard-fill"></i>
+        </div>
+
+    <div class="brand">
+        <h4>GuruKrupa</h4>
+        <p>Student Project Portal</p>
+    </div>
+
+
+    <!-- DASHBOARD -->
+
+    <a href="{% url 'user_dashboard' %}" class="active">
+        <i class="bi bi-grid"></i>
+        <span>Dashboard</span>
+    </a>
+
+
+    <!-- PROFILE -->
+
+    <a href="{% url 'user_profile' %}">
+        <i class="bi bi-person"></i>
+        <span>My Profile</span>
+    </a>
+
+
+    <!-- ACADEMIC -->
+
+    <a href="{% url 'user_academic' %}">
+        <i class="bi bi-mortarboard"></i>
+        <span>Academic & Qualification</span>
+    </a>
+
+
+    <!-- PROJECT -->
+
+    <a href="{% url 'user_project_details' %}">
+        <i class="bi bi-kanban"></i>
+        <span>Project Details</span>
+    </a>
+
+
+    <!-- DOCUMENTS -->
+
+    <a href="{% url 'user_documents' %}">
+        <i class="bi bi-file-earmark-arrow-up"></i>
+        <span>Documents</span>
+    </a>
+
+
+    <!-- QUOTATION -->
+
+    <a href="{% url 'user_quotation' %}">
+        <i class="bi bi-receipt"></i>
+        <span>Quotation</span>
+    </a>
+
+
+    <!-- PAYMENT -->
+
+    <a href="{% url 'user_payment' %}">
+        <i class="bi bi-credit-card"></i>
+        <span>Payment</span>
+    </a>
+
+
+    <!-- PAYMENT RECEIPT -->
+
+    <a href="{% url 'user_payment' %}">
+        <i class="bi bi-check-circle"></i>
+        <span>Payment Receipt</span>
+    </a>
+
+
+    <!-- TRACK APPLICATION -->
+
+    <a href="{% url 'track_application' %}">
+        <i class="bi bi-activity"></i>
+        <span>Track Application</span>
+    </a>
+
+
+    <!-- WEBSITE -->
+
+    <a href="{% url 'home' %}">
+        <i class="bi bi-globe2"></i>
+        <span>View Website</span>
+    </a>
+
+
+    <!-- LOGOUT -->
+
+    <a href="{% url 'user_logout' %}">
+        <i class="bi bi-box-arrow-right"></i>
+        <span>Logout</span>
+    </a>
+
+</div>
+
+
+<!-- MAIN -->
+
+<div class="main">
+
+
+    <!-- NAVBAR -->
+
+    <div class="navbar-custom">
+
+        <div class="page-title">
+
+            <h3>Student Dashboard</h3>
+
+            <p>
+                Manage your project application and track progress
+            </p>
+
+        </div>
+
+
+        <div class="student-info">
+
+            <div>
+
+                <strong>
+                    {{ profile.full_name }}
+                </strong>
+
+                <small>
+                    {{ profile.application_id }}
+                </small>
+
+            </div>
+
+
+            <div class="student-avatar">
+
+                {{ profile.full_name|first|upper }}
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- CONTENT -->
+
+    <div class="content">
+
+
+        <!-- WELCOME -->
+
+        <div class="welcome-card">
+
+            <div>
+
+                <h2>
+                    Welcome, {{ profile.full_name }} 👋
+                </h2>
+
+                <p>
+                    Manage your student project journey from registration
+                    to final delivery.
+                </p>
+
+            </div>
+
+
+            <div class="application-badge">
+
+                Application ID:
+                {{ profile.application_id }}
+
+            </div>
+
+        </div>
+
+
+        <!-- STUDENT INFORMATION -->
+
+        <div class="row g-3 mb-4">
+
+            <div class="col-md-3">
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        <i class="bi bi-person-badge"></i>
+                    </div>
+
+                    <h6>Application ID</h6>
+
+                    <h4>
+                        {{ profile.application_id }}
+                    </h4>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-3">
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        <i class="bi bi-book"></i>
+                    </div>
+
+                    <h6>Course</h6>
+
+                    <h4>
+                        {{ academic.course }}
+                    </h4>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-3">
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        <i class="bi bi-diagram-3"></i>
+                    </div>
+
+                    <h6>Branch</h6>
+
+                    <h4>
+                        {{ academic.branch }}
+                    </h4>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-3">
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        <i class="bi bi-calendar-check"></i>
+                    </div>
+
+                    <h6>Academic Year</h6>
+
+                    <h4>
+                        {{ academic.academic_year }}
+                    </h4>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- PROJECT STATUS + QUICK ACTIONS -->
+
+        <div class="row g-4 mb-4">
+
+
+            <!-- PROJECT STATUS -->
+
+            <div class="col-lg-8">
+
+                <div class="card-box">
+
+                    <div class="card-heading">
+
+                        <h4>
+                            Project Status
+                        </h4>
+
+                        <a href="{% url 'track_application' %}">
+                            View Details →
+                        </a>
+
+                    </div>
+
+
+                    <div class="status-box">
+
+                        <div class="status-icon">
+                            <i class="bi bi-code-slash"></i>
+                        </div>
+
+                        <div>
+
+                            <h5>
+                                Project Development
+                            </h5>
+
+                            <p>
+                                Your project is currently under development.
+                                The development team is working on your requirements.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div style="margin-top:22px;">
+
+                        <div class="progress-label">
+
+                            <span>
+                                Overall Progress
+                            </span>
+
+                            <span>
+                                65%
+                            </span>
+
+                        </div>
+
+
+                        <div class="progress">
+
+                            <div class="progress-bar"
+                                 style="width:65%;">
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- WORKFLOW -->
+
+                    <div class="workflow">
+
+                        <div class="workflow-step completed">
+
+                            <div class="step-circle">
+                                <i class="bi bi-check"></i>
+                            </div>
+
+                            <small>
+                                Registration
+                            </small>
+
+                        </div>
+
+
+                        <div class="workflow-step completed">
+
+                            <div class="step-circle">
+                                <i class="bi bi-check"></i>
+                            </div>
+
+                            <small>
+                                Details
+                            </small>
+
+                        </div>
+
+
+                        <div class="workflow-step completed">
+
+                            <div class="step-circle">
+                                <i class="bi bi-check"></i>
+                            </div>
+
+                            <small>
+                                Documents
+                            </small>
+
+                        </div>
+
+
+                        <div class="workflow-step completed">
+
+                            <div class="step-circle">
+                                <i class="bi bi-check"></i>
+                            </div>
+
+                            <small>
+                                Quotation
+                            </small>
+
+                        </div>
+
+
+                        <div class="workflow-step completed">
+
+                            <div class="step-circle">
+                                <i class="bi bi-check"></i>
+                            </div>
+
+                            <small>
+                                Payment
+                            </small>
+
+                        </div>
+
+
+                        <div class="workflow-step active">
+
+                            <div class="step-circle">
+                                <i class="bi bi-code-slash"></i>
+                            </div>
+
+                            <small>
+                                Development
+                            </small>
+
+                        </div>
+
+
+                        <div class="workflow-step pending">
+
+                            <div class="step-circle">
+                                <i class="bi bi-arrow-right"></i>
+                            </div>
+
+                            <small>
+                                Delivery
+                            </small>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- QUICK ACTIONS -->
+
+            <div class="col-lg-4">
+
+                <div class="card-box">
+
+                    <div class="card-heading">
+
+                        <h4>
+                            Quick Actions
+                        </h4>
+
+                    </div>
+
+
+                    <!-- PROFILE -->
+
+                    <a href="{% url 'user_profile' %}"
+                       class="action-btn">
+
+                        <div class="action-icon">
+                            <i class="bi bi-person"></i>
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                My Profile
+                            </strong>
+
+                            <span>
+                                View personal details
+                            </span>
+
+                        </div>
+
+                    </a>
+
+
+                    <!-- PROJECT -->
+
+                    <a href="{% url 'user_project_details' %}"
+                       class="action-btn">
+
+                        <div class="action-icon">
+                            <i class="bi bi-kanban"></i>
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Project Details
+                            </strong>
+
+                            <span>
+                                View project requirements
+                            </span>
+
+                        </div>
+
+                    </a>
+
+
+                    <!-- DOCUMENTS -->
+
+                    <a href="{% url 'user_documents' %}"
+                       class="action-btn">
+
+                        <div class="action-icon">
+                            <i class="bi bi-file-earmark"></i>
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Documents
+                            </strong>
+
+                            <span>
+                                Upload and view files
+                            </span>
+
+                        </div>
+
+                    </a>
+
+
+                    <!-- QUOTATION -->
+
+                    <a href="{% url 'user_quotation' %}"
+                       class="action-btn">
+
+                        <div class="action-icon">
+                            <i class="bi bi-receipt"></i>
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Quotation
+                            </strong>
+
+                            <span>
+                                View project quotation
+                            </span>
+
+                        </div>
+
+                    </a>
+
+
+                    <!-- PAYMENT -->
+
+                    <a href="{% url 'user_payment' %}"
+                       class="action-btn">
+
+                        <div class="action-icon">
+                            <i class="bi bi-credit-card"></i>
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Payment
+                            </strong>
+
+                            <span>
+                                Make project payment
+                            </span>
+
+                        </div>
+
+                    </a>
+
+
+                    <!-- TRACK -->
+
+                    <a href="{% url 'track_application' %}"
+                       class="action-btn">
+
+                        <div class="action-icon">
+                            <i class="bi bi-activity"></i>
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Track Application
+                            </strong>
+
+                            <span>
+                                Track project progress
+                            </span>
+
+                        </div>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- RECENT ACTIVITY + STUDENT INFORMATION -->
+
+        <div class="row g-4">
+
+
+            <!-- RECENT ACTIVITY -->
+
+            <div class="col-lg-7">
+
+                <div class="card-box">
+
+                    <div class="card-heading">
+
+                        <h4>
+                            Recent Activity
+                        </h4>
+
+                        <a href="{% url 'track_application' %}">
+                            View All →
+                        </a>
+
+                    </div>
+
+
+                    <!-- REGISTRATION -->
+
+                    <div class="activity">
+
+                        <div class="activity-icon">
+                            <i class="bi bi-person-check"></i>
+                        </div>
+
+                        <div>
+
+                            <h6>
+                                Registration Completed
+                            </h6>
+
+                            <p>
+                                Your student registration was successfully completed.
+                            </p>
+
+                            <span class="activity-date">
+                                {{ profile.created_at|date:"d M Y" }}
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ACADEMIC -->
+
+                    <div class="activity">
+
+                        <div class="activity-icon">
+                            <i class="bi bi-mortarboard"></i>
+                        </div>
+
+                        <div>
+
+                            <h6>
+                                Academic Details Added
+                            </h6>
+
+                            <p>
+                                Your academic information has been added successfully.
+                            </p>
+
+                            <span class="activity-date">
+                                {{ academic.created_at|date:"d M Y" }}
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- PROFILE -->
+
+                    <div class="activity">
+
+                        <div class="activity-icon">
+                            <i class="bi bi-person"></i>
+                        </div>
+
+                        <div>
+
+                            <h6>
+                                Profile Created
+                            </h6>
+
+                            <p>
+                                Your student profile is active.
+                            </p>
+
+                            <span class="activity-date">
+                                {{ profile.created_at|date:"d M Y" }}
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ACCOUNT -->
+
+                    <div class="activity">
+
+                        <div class="activity-icon">
+                            <i class="bi bi-envelope-check"></i>
+                        </div>
+
+                        <div>
+
+                            <h6>
+                                Account Created
+                            </h6>
+
+                            <p>
+                                Your student login account has been created successfully.
+                            </p>
+
+                            <span class="activity-date">
+                                {{ user.date_joined|date:"d M Y" }}
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- STUDENT INFORMATION -->
+
+            <div class="col-lg-5">
+
+                <div class="card-box">
+
+                    <div class="card-heading">
+
+                        <h4>
+                            Student Information
+                        </h4>
+
+                        <a href="{% url 'user_profile' %}">
+                            View →
+                        </a>
+
+                    </div>
+
+
+                    <div class="mb-3">
+
+                        <small style="color:var(--muted);">
+                            Full Name
+                        </small>
+
+                        <div style="font-weight:600;font-size:14px;">
+                            {{ profile.full_name }}
+                        </div>
+
+                    </div>
+
+
+                    <div class="mb-3">
+
+                        <small style="color:var(--muted);">
+                            Email
+                        </small>
+
+                        <div style="font-weight:600;font-size:14px;">
+                            {{ user.email }}
+                        </div>
+
+                    </div>
+
+
+                    <div class="mb-3">
+
+                        <small style="color:var(--muted);">
+                            Mobile
+                        </small>
+
+                        <div style="font-weight:600;font-size:14px;">
+                            {{ profile.mobile }}
+                        </div>
+
+                    </div>
+
+
+                    <div class="mb-3">
+
+                        <small style="color:var(--muted);">
+                            College
+                        </small>
+
+                        <div style="font-weight:600;font-size:14px;">
+                            {{ academic.college }}
+                        </div>
+
+                    </div>
+
+
+                    <div class="mb-3">
+
+                        <small style="color:var(--muted);">
+                            University
+                        </small>
+
+                        <div style="font-weight:600;font-size:14px;">
+                            {{ academic.university }}
+                        </div>
+
+                    </div>
+
+
+                    <div>
+
+                        <small style="color:var(--muted);">
+                            Semester
+                        </small>
+
+                        <div style="font-weight:600;font-size:14px;">
+                            {{ academic.semester }}
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

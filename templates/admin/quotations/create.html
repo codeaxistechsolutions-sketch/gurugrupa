@@ -1,0 +1,1205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Create Quotation | Code Axis TechSolutions LLP</title>
+
+    <!-- Bootstrap 5.3.3 -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <!-- Bootstrap Icons -->
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    >
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: #F5F7FB;
+            color: #111827;
+            font-family: Arial, sans-serif;
+        }
+
+        /* =========================
+           TOPBAR
+        ========================= */
+
+        .topbar {
+            height: 70px;
+            background: #ffffff;
+            border-bottom: 1px solid #E2E8F0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            padding: 0 25px;
+        }
+
+        .brand-icon {
+            width: 42px;
+            height: 42px;
+            background: #2563EB;
+            color: #ffffff;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 21px;
+            margin-right: 12px;
+        }
+
+        .brand-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .brand-subtitle {
+            font-size: 12px;
+            color: #64748B;
+            margin: 2px 0 0;
+        }
+
+        /* =========================
+           SIDEBAR
+        ========================= */
+
+        .sidebar {
+            position: fixed;
+            top: 70px;
+            left: 0;
+            bottom: 0;
+            width: 250px;
+            background: #172554;
+            padding: 20px 14px;
+            overflow-y: auto;
+        }
+
+        .sidebar a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: #CBD5E1;
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+
+        .sidebar a:hover {
+            background: #1E3A8A;
+            color: #ffffff;
+        }
+
+        .sidebar a.active {
+            background: #2563EB;
+            color: #ffffff;
+        }
+
+        .sidebar i {
+            font-size: 17px;
+        }
+
+        /* =========================
+           MAIN CONTENT
+        ========================= */
+
+        .main-content {
+            margin-left: 250px;
+            padding: 100px 30px 40px;
+        }
+
+        .page-header {
+            margin-bottom: 25px;
+        }
+
+        .page-header h2 {
+            font-size: 25px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .page-header p {
+            color: #64748B;
+            margin: 0;
+        }
+
+        /* =========================
+           FORM CARD
+        ========================= */
+
+        .form-card {
+            background: #ffffff;
+            border: 1px solid #E2E8F0;
+            border-radius: 12px;
+            padding: 30px;
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        .section-title {
+            font-size: 17px;
+            font-weight: 700;
+            border-bottom: 1px solid #E2E8F0;
+            padding-bottom: 12px;
+            margin-bottom: 22px;
+        }
+
+        .form-label {
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 7px;
+        }
+
+        .form-control,
+        .form-select {
+            min-height: 44px;
+            border-color: #CBD5E1;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            border-color: #2563EB;
+            box-shadow: 0 0 0 0.15rem rgba(37, 99, 235, 0.15);
+        }
+
+        textarea.form-control {
+            min-height: 110px;
+            resize: vertical;
+        }
+
+        .info-box {
+            background: #EFF6FF;
+            border: 1px solid #BFDBFE;
+            border-radius: 8px;
+            padding: 13px 15px;
+            color: #1E40AF;
+            font-size: 13px;
+            margin-bottom: 20px;
+        }
+
+        .selected-info {
+            display: none;
+            background: #F8FAFC;
+            border: 1px solid #E2E8F0;
+            border-radius: 8px;
+            padding: 14px 16px;
+            margin-top: 15px;
+        }
+
+        .selected-info.show {
+            display: block;
+        }
+
+        .selected-info-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: #475569;
+            margin-bottom: 5px;
+        }
+
+        .selected-info-value {
+            font-size: 15px;
+            font-weight: 600;
+            color: #111827;
+        }
+
+        .form-control[readonly] {
+            background-color: #F8FAFC;
+        }
+
+        .quotation-status {
+            display: flex;
+            align-items: center;
+            min-height: 44px;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #FEF3C7;
+            color: #92400E;
+            border: 1px solid #FDE68A;
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .button-row {
+            border-top: 1px solid #E2E8F0;
+            margin-top: 30px;
+            padding-top: 20px;
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+
+        .required-note {
+            font-size: 12px;
+            color: #64748B;
+            margin-top: 5px;
+        }
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 991px) {
+
+            .sidebar {
+                width: 220px;
+            }
+
+            .main-content {
+                margin-left: 220px;
+            }
+
+        }
+
+        @media (max-width: 768px) {
+
+            .sidebar {
+                position: static;
+                width: 100%;
+                margin-top: 70px;
+                height: auto;
+            }
+
+            .topbar {
+                position: fixed;
+            }
+
+            .main-content {
+                margin-left: 0;
+                padding: 25px 15px;
+            }
+
+            .form-card {
+                padding: 20px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     TOPBAR
+========================= -->
+
+<div class="topbar">
+
+    <div class="brand-icon">
+        <i class="bi bi-buildings"></i>
+    </div>
+
+    <div>
+
+        <p class="brand-title">
+            Code Axis TechSolutions LLP
+        </p>
+
+        <p class="brand-subtitle">
+            Student Project Registration & Management Portal
+        </p>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     SIDEBAR
+========================= -->
+
+<div class="sidebar">
+
+    <a href="{% url 'admin_dashboard' %}">
+        <i class="bi bi-speedometer2"></i>
+        Dashboard
+    </a>
+
+    <a href="{% url 'admin_students' %}">
+        <i class="bi bi-people"></i>
+        Students
+    </a>
+
+    <a href="{% url 'admin_applications' %}">
+        <i class="bi bi-file-earmark-text"></i>
+        Applications
+    </a>
+
+    <a href="{% url 'admin_quotations' %}"
+       class="active">
+        <i class="bi bi-receipt"></i>
+        Quotations
+    </a>
+
+    <a href="{% url 'admin_payments' %}">
+        <i class="bi bi-credit-card"></i>
+        Payments
+    </a>
+
+    <a href="{% url 'admin_projects' %}">
+        <i class="bi bi-kanban"></i>
+        Projects
+    </a>
+
+    <a href="{% url 'admin_documents' %}">
+        <i class="bi bi-folder2-open"></i>
+        Documents
+    </a>
+
+    <a href="/">
+        <i class="bi bi-globe"></i>
+        View Website
+    </a>
+
+    <a href="{% url 'admin_logout' %}">
+        <i class="bi bi-box-arrow-right"></i>
+        Logout
+    </a>
+
+</div>
+
+
+<!-- =========================
+     MAIN CONTENT
+========================= -->
+
+<div class="main-content">
+
+
+    <!-- PAGE HEADER -->
+
+    <div class="page-header">
+
+        <h2>
+            Create Quotation
+        </h2>
+
+        <p>
+            Create a quotation for the student's project.
+        </p>
+
+    </div>
+
+
+    <!-- =========================
+         DJANGO MESSAGES
+    ========================= -->
+
+    {% if messages %}
+
+        {% for message in messages %}
+
+            <div
+                class="alert alert-{{ message.tags }} alert-dismissible fade show"
+                role="alert"
+            >
+
+                <i class="bi bi-info-circle me-1"></i>
+
+                {{ message }}
+
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="alert"
+                ></button>
+
+            </div>
+
+        {% endfor %}
+
+    {% endif %}
+
+
+    <!-- =========================
+         FORM CARD
+    ========================= -->
+
+    <div class="form-card">
+
+
+        <!-- INFORMATION BOX -->
+
+        <div class="info-box">
+
+            <i class="bi bi-info-circle me-1"></i>
+
+            Select an Application ID. Student and project
+            information will be automatically filled.
+
+        </div>
+
+
+        <!-- =========================
+             FORM
+        ========================= -->
+
+        <form
+            method="POST"
+            action="{% url 'admin_quotation_create' %}"
+            id="quotationForm"
+        >
+
+            {% csrf_token %}
+
+
+            <!-- =========================
+                 APPLICATION INFORMATION
+            ========================= -->
+
+            <div class="section-title">
+
+                <i class="bi bi-person-vcard me-2"></i>
+
+                Application Information
+
+            </div>
+
+
+            <div class="row g-4">
+
+
+                <!-- APPLICATION ID -->
+
+                <div class="col-md-6">
+
+                    <label
+                        for="applicationId"
+                        class="form-label"
+                    >
+
+                        Application ID
+
+                        <span class="text-danger">
+                            *
+                        </span>
+
+                    </label>
+
+
+                    <select
+                        name="application_id"
+                        id="applicationId"
+                        class="form-select"
+                        required
+                    >
+
+                        <option value="">
+                            Select Application ID
+                        </option>
+
+
+                        {% for application in application_options %}
+
+                            <option
+                                value="{{ application.application_id }}"
+                                data-student-name="{{ application.student_name|escape }}"
+                                data-project-title="{{ application.project_title|escape }}"
+                                data-project-domain="{{ application.project_domain|escape }}"
+                                data-project-description="{{ application.project_description|escape }}"
+                                {% if application.has_quotation %}
+                                    disabled
+                                {% endif %}
+                            >
+
+                                {{ application.application_id }}
+                                -
+                                {{ application.student_name }}
+
+                                {% if application.has_quotation %}
+
+                                    (Quotation Already Created)
+
+                                {% endif %}
+
+                            </option>
+
+                        {% empty %}
+
+                            <option
+                                value=""
+                                disabled
+                            >
+
+                                No Application ID Available
+
+                            </option>
+
+                        {% endfor %}
+
+                    </select>
+
+
+                    <div class="required-note">
+
+                        <i class="bi bi-info-circle"></i>
+
+                        Select the student's Application ID.
+
+                    </div>
+
+                </div>
+
+
+                <!-- STUDENT -->
+
+                <div class="col-md-6">
+
+                    <label
+                        for="applicationStudent"
+                        class="form-label"
+                    >
+
+                        Student
+
+                    </label>
+
+
+                    <input
+                        type="text"
+                        id="applicationStudent"
+                        class="form-control"
+                        readonly
+                        placeholder="Student name will appear here"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <!-- =========================
+                 SELECTED APPLICATION INFO
+            ========================= -->
+
+            <div
+                id="selectedApplicationInfo"
+                class="selected-info"
+            >
+
+                <div class="row g-3">
+
+                    <div class="col-md-4">
+
+                        <div class="selected-info-title">
+                            Application ID
+                        </div>
+
+                        <div
+                            id="selectedApplicationId"
+                            class="selected-info-value"
+                        >
+                            -
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-md-4">
+
+                        <div class="selected-info-title">
+                            Student
+                        </div>
+
+                        <div
+                            id="selectedStudentName"
+                            class="selected-info-value"
+                        >
+                            -
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-md-4">
+
+                        <div class="selected-info-title">
+                            Project
+                        </div>
+
+                        <div
+                            id="selectedProjectName"
+                            class="selected-info-value"
+                        >
+                            -
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =========================
+                 PROJECT INFORMATION
+            ========================= -->
+
+            <div class="section-title mt-5">
+
+                <i class="bi bi-kanban me-2"></i>
+
+                Project Information
+
+            </div>
+
+
+            <div class="row g-4">
+
+
+                <!-- PROJECT TITLE -->
+
+                <div class="col-md-6">
+
+                    <label
+                        for="projectTitle"
+                        class="form-label"
+                    >
+
+                        Project Title
+
+                        <span class="text-danger">
+                            *
+                        </span>
+
+                    </label>
+
+
+                    <input
+                        type="text"
+                        name="project_title"
+                        id="projectTitle"
+                        class="form-control"
+                        placeholder="Project title"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- PROJECT DOMAIN -->
+
+                <div class="col-md-6">
+
+                    <label
+                        for="projectDomain"
+                        class="form-label"
+                    >
+
+                        Project Domain
+
+                    </label>
+
+
+                    <input
+                        type="text"
+                        name="project_domain"
+                        id="projectDomain"
+                        class="form-control"
+                        placeholder="Project domain"
+                    >
+
+                </div>
+
+
+                <!-- DESCRIPTION -->
+
+                <div class="col-12">
+
+                    <label
+                        for="quotationDescription"
+                        class="form-label"
+                    >
+
+                        Project Description
+
+                    </label>
+
+
+                    <textarea
+                        name="description"
+                        id="quotationDescription"
+                        class="form-control"
+                        rows="5"
+                        placeholder="Project description"
+                    ></textarea>
+
+                </div>
+
+            </div>
+
+
+            <!-- =========================
+                 QUOTATION DETAILS
+            ========================= -->
+
+            <div class="section-title mt-5">
+
+                <i class="bi bi-currency-rupee me-2"></i>
+
+                Quotation Details
+
+            </div>
+
+
+            <div class="row g-4">
+
+
+                <!-- AMOUNT -->
+
+                <div class="col-md-6">
+
+                    <label
+                        for="quotationAmount"
+                        class="form-label"
+                    >
+
+                        Total Amount
+
+                        <span class="text-danger">
+                            *
+                        </span>
+
+                    </label>
+
+
+                    <div class="input-group">
+
+                        <span class="input-group-text">
+                            ₹
+                        </span>
+
+
+                        <input
+                            type="number"
+                            name="amount"
+                            id="quotationAmount"
+                            class="form-control"
+                            min="0"
+                            step="0.01"
+                            placeholder="Enter total amount"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="required-note">
+
+                        Enter the total quotation amount.
+
+                    </div>
+
+                </div>
+
+
+                <!-- STATUS -->
+
+                <div class="col-md-6">
+
+                    <label class="form-label">
+                        Status
+                    </label>
+
+
+                    <div class="quotation-status">
+
+                        <span class="status-badge">
+
+                            <i class="bi bi-clock-history"></i>
+
+                            Pending
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ADMIN REMARK -->
+
+                <div class="col-12">
+
+                    <label
+                        for="adminRemark"
+                        class="form-label"
+                    >
+
+                        Admin Remark
+
+                    </label>
+
+
+                    <textarea
+                        name="admin_remark"
+                        id="adminRemark"
+                        class="form-control"
+                        rows="4"
+                        placeholder="Enter any remark for the student..."
+                    ></textarea>
+
+                </div>
+
+            </div>
+
+
+            <!-- =========================
+                 BUTTONS
+            ========================= -->
+
+            <div class="button-row">
+
+
+                <!-- CANCEL -->
+
+                <a
+                    href="{% url 'admin_quotations' %}"
+                    class="btn btn-light border"
+                >
+
+                    <i class="bi bi-arrow-left me-1"></i>
+
+                    Cancel
+
+                </a>
+
+
+                <!-- CREATE -->
+
+                <button
+                    type="submit"
+                    class="btn btn-primary px-4"
+                    id="createQuotationBtn"
+                >
+
+                    <i class="bi bi-check2-circle me-1"></i>
+
+                    Create Quotation
+
+                </button>
+
+            </div>
+
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     BOOTSTRAP JS
+========================= -->
+
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+</script>
+
+
+<!-- =========================
+     AUTO FILL JAVASCRIPT
+========================= -->
+
+<script>
+
+document.addEventListener(
+    'DOMContentLoaded',
+    function () {
+
+        const applicationSelect =
+            document.getElementById(
+                'applicationId'
+            );
+
+        const studentInput =
+            document.getElementById(
+                'applicationStudent'
+            );
+
+        const projectTitle =
+            document.getElementById(
+                'projectTitle'
+            );
+
+        const projectDomain =
+            document.getElementById(
+                'projectDomain'
+            );
+
+        const description =
+            document.getElementById(
+                'quotationDescription'
+            );
+
+        const selectedInfo =
+            document.getElementById(
+                'selectedApplicationInfo'
+            );
+
+        const selectedApplicationId =
+            document.getElementById(
+                'selectedApplicationId'
+            );
+
+        const selectedStudentName =
+            document.getElementById(
+                'selectedStudentName'
+            );
+
+        const selectedProjectName =
+            document.getElementById(
+                'selectedProjectName'
+            );
+
+        const quotationForm =
+            document.getElementById(
+                'quotationForm'
+            );
+
+        const createQuotationBtn =
+            document.getElementById(
+                'createQuotationBtn'
+            );
+
+
+        /* =====================================
+           APPLICATION CHANGE
+        ===================================== */
+
+        applicationSelect.addEventListener(
+            'change',
+            function () {
+
+                const selectedOption =
+                    this.options[
+                        this.selectedIndex
+                    ];
+
+
+                /* -----------------------------
+                   NO APPLICATION SELECTED
+                ----------------------------- */
+
+                if (
+                    !selectedOption ||
+                    !selectedOption.value
+                ) {
+
+                    studentInput.value = '';
+
+                    projectTitle.value = '';
+
+                    projectDomain.value = '';
+
+                    description.value = '';
+
+                    selectedApplicationId.textContent = '-';
+
+                    selectedStudentName.textContent = '-';
+
+                    selectedProjectName.textContent = '-';
+
+                    selectedInfo.classList.remove(
+                        'show'
+                    );
+
+                    return;
+
+                }
+
+
+                /* -----------------------------
+                   GET DATA ATTRIBUTES
+                ----------------------------- */
+
+                const studentName =
+                    selectedOption.dataset.studentName
+                    || '';
+
+                const projectTitleValue =
+                    selectedOption.dataset.projectTitle
+                    || '';
+
+                const projectDomainValue =
+                    selectedOption.dataset.projectDomain
+                    || '';
+
+                const projectDescription =
+                    selectedOption.dataset.projectDescription
+                    || '';
+
+
+                /* -----------------------------
+                   AUTO FILL FORM
+                ----------------------------- */
+
+                studentInput.value =
+                    studentName;
+
+                projectTitle.value =
+                    projectTitleValue;
+
+                projectDomain.value =
+                    projectDomainValue;
+
+                description.value =
+                    projectDescription;
+
+
+                /* -----------------------------
+                   APPLICATION SUMMARY
+                ----------------------------- */
+
+                selectedApplicationId.textContent =
+                    selectedOption.value;
+
+                selectedStudentName.textContent =
+                    studentName || '-';
+
+                selectedProjectName.textContent =
+                    projectTitleValue || 'Project details not available';
+
+
+                selectedInfo.classList.add(
+                    'show'
+                );
+
+            }
+        );
+
+
+        /* =====================================
+           FORM SUBMIT PROTECTION
+        ===================================== */
+
+        quotationForm.addEventListener(
+            'submit',
+            function (event) {
+
+                const applicationId =
+                    applicationSelect.value.trim();
+
+                const amount =
+                    document
+                        .getElementById(
+                            'quotationAmount'
+                        )
+                        .value.trim();
+
+                const title =
+                    projectTitle.value.trim();
+
+
+                /* Application validation */
+
+                if (!applicationId) {
+
+                    event.preventDefault();
+
+                    alert(
+                        'Please select Application ID.'
+                    );
+
+                    applicationSelect.focus();
+
+                    return;
+
+                }
+
+
+                /* Project title validation */
+
+                if (!title) {
+
+                    event.preventDefault();
+
+                    alert(
+                        'Please enter Project Title.'
+                    );
+
+                    projectTitle.focus();
+
+                    return;
+
+                }
+
+
+                /* Amount validation */
+
+                if (
+                    !amount ||
+                    Number(amount) < 0
+                ) {
+
+                    event.preventDefault();
+
+                    alert(
+                        'Please enter a valid Total Amount.'
+                    );
+
+                    document
+                        .getElementById(
+                            'quotationAmount'
+                        )
+                        .focus();
+
+                    return;
+
+                }
+
+
+                /* -----------------------------
+                   PREVENT DOUBLE SUBMIT
+                ----------------------------- */
+
+                createQuotationBtn.disabled = true;
+
+                createQuotationBtn.innerHTML =
+                    '<span class="spinner-border spinner-border-sm me-2"></span>' +
+                    'Creating Quotation...';
+
+            }
+        );
+
+
+    }
+);
+
+</script>
+
+
+</body>
+
+</html>

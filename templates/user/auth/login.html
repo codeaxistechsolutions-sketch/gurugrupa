@@ -1,0 +1,1127 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Student Login</title>
+
+    <!-- Bootstrap 5 -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <style>
+
+        :root {
+            --background: #F5F7FB;
+            --primary: #2563EB;
+            --card: #FFFFFF;
+            --text: #111827;
+            --border: #CBD5E1;
+            --danger: #EF4444;
+            --info: #0EA5E9;
+            --secondary-text: #64748B;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: var(--background);
+            color: var(--text);
+        }
+
+        .main-wrapper {
+            min-height: 100vh;
+        }
+
+        /* ==============================
+           TOP NAVBAR
+        ============================== */
+
+        .top-navbar {
+            height: 76px;
+            background: #FFFFFF;
+            border-bottom: 1px solid #E2E8F0;
+            display: flex;
+            align-items: center;
+            padding: 0 35px;
+        }
+
+        .navbar-title {
+            font-size: 21px;
+            font-weight: 600;
+            color: #374151;
+        }
+
+        .navbar-subtitle {
+            color: var(--secondary-text);
+            font-size: 13px;
+            margin-left: 10px;
+        }
+
+        /* ==============================
+           PAGE CONTENT
+        ============================== */
+
+        .page-content {
+            padding: 35px 30px 50px;
+            min-height: calc(100vh - 76px);
+        }
+
+        /* ==============================
+           LOGIN CARD
+        ============================== */
+
+        .login-card {
+            max-width: 720px;
+            margin: 5px auto 30px;
+            background: var(--card);
+            border: 1px solid #E2E8F0;
+            border-radius: 4px;
+            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15);
+            overflow: hidden;
+        }
+
+        .login-card-header {
+            background: #F8FAFC;
+            border-top: 4px solid var(--info);
+            border-bottom: 1px solid #D1D5DB;
+            padding: 13px 20px;
+            text-align: center;
+        }
+
+        .login-card-header h4 {
+            margin: 0;
+            font-size: 17px;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .login-card-body {
+            padding: 22px 28px 25px;
+        }
+
+        /* ==============================
+           INFORMATION BOX
+        ============================== */
+
+        .login-info {
+            border: 1px solid #BFDBFE;
+            background: #F8FBFF;
+            border-radius: 4px;
+            padding: 14px 20px;
+            margin-bottom: 20px;
+            color: #0F3B70;
+            font-size: 13px;
+        }
+
+        .login-info ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        .login-info li {
+            margin-bottom: 6px;
+        }
+
+        .login-info li:last-child {
+            margin-bottom: 0;
+        }
+
+        /* ==============================
+           DJANGO MESSAGES
+        ============================== */
+
+        .django-messages {
+            margin-bottom: 18px;
+        }
+
+        /* ==============================
+           FORM
+        ============================== */
+
+        .form-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 7px;
+        }
+
+        .required {
+            color: var(--danger);
+        }
+
+        .form-control,
+        .form-select {
+            min-height: 40px;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            font-size: 13px;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 0.15rem rgba(37, 99, 235, 0.12);
+        }
+
+        /* ==============================
+           SHOW PASSWORD
+        ============================== */
+
+        .show-password {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            margin-top: 7px;
+            font-size: 12px;
+            color: var(--primary);
+            cursor: pointer;
+        }
+
+        /* ==============================
+           CAPTCHA
+        ============================== */
+
+        .captcha-row {
+            display: flex;
+            gap: 18px;
+            align-items: end;
+            margin-top: 20px;
+        }
+
+        .captcha-box-wrapper {
+            flex: 1;
+        }
+
+        .captcha-input-wrapper {
+            flex: 1;
+        }
+
+        .captcha-image {
+            height: 74px;
+            border: 1px solid var(--border);
+
+            background:
+                radial-gradient(circle, #111827 1px, transparent 1.5px),
+                radial-gradient(circle, #64748B 1px, transparent 1.5px),
+                #F8FAFC;
+
+            background-size: 9px 9px, 13px 13px;
+            background-position: 0 0, 4px 5px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            position: relative;
+            overflow: hidden;
+        }
+
+        .captcha-image::before {
+            content: "";
+            position: absolute;
+            width: 120%;
+            height: 2px;
+            background: #94A3B8;
+            transform: rotate(-8deg);
+            opacity: 0.7;
+        }
+
+        .captcha-text {
+            position: relative;
+            z-index: 2;
+            font-size: 29px;
+            font-weight: 700;
+            font-style: italic;
+            letter-spacing: 7px;
+            color: #111827;
+            transform: rotate(-4deg);
+            text-shadow: 1px 1px #94A3B8;
+            user-select: none;
+        }
+
+        .refresh-captcha {
+            display: inline-block;
+            margin-top: 5px;
+            font-size: 12px;
+            color: var(--primary);
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .refresh-captcha:hover {
+            text-decoration: underline;
+        }
+
+        /* ==============================
+           BUTTONS
+        ============================== */
+
+        .button-row {
+            display: flex;
+            gap: 10px;
+            margin-top: 25px;
+        }
+
+        .login-btn,
+        .cancel-btn {
+            flex: 1;
+            height: 42px;
+            border: none;
+            border-radius: 4px;
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .login-btn,
+        .cancel-btn {
+            background: var(--info);
+        }
+
+        .login-btn:hover,
+        .cancel-btn:hover {
+            background: #0284C7;
+        }
+
+        /* ==============================
+           LINKS
+        ============================== */
+
+        .login-links {
+            text-align: center;
+            margin-top: 18px;
+            font-size: 13px;
+        }
+
+        .login-links a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .login-links a:hover {
+            text-decoration: underline;
+        }
+
+        .login-links p {
+            margin-bottom: 8px;
+        }
+
+        /* ==============================
+           FOOTER
+        ============================== */
+
+        .footer {
+            text-align: center;
+            padding: 16px;
+            background: white;
+            border-top: 1px solid #E2E8F0;
+            color: var(--secondary-text);
+            font-size: 12px;
+        }
+
+        /* ==============================
+           MOBILE
+        ============================== */
+
+        @media (max-width: 600px) {
+
+            .top-navbar {
+                padding: 0 15px;
+            }
+
+            .navbar-title {
+                font-size: 17px;
+            }
+
+            .navbar-subtitle {
+                display: none;
+            }
+
+            .page-content {
+                padding: 25px 15px;
+            }
+
+            .login-card-body {
+                padding: 18px 16px 22px;
+            }
+
+            .captcha-row {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 12px;
+            }
+
+            .button-row {
+                flex-direction: column;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+<div class="main-wrapper">
+
+
+    <!-- ==============================
+         TOP NAVBAR
+    ============================== -->
+
+    <nav class="top-navbar">
+
+        <div class="navbar-title">
+            Student Project Portal
+        </div>
+
+        <div class="navbar-subtitle">
+            Student Login System
+        </div>
+
+    </nav>
+
+
+    <!-- ==============================
+         PAGE CONTENT
+    ============================== -->
+
+    <main class="page-content">
+
+        <div class="login-card">
+
+
+            <!-- CARD HEADER -->
+
+            <div class="login-card-header">
+
+                <h4>
+                    Student Log In
+                </h4>
+
+            </div>
+
+
+            <!-- CARD BODY -->
+
+            <div class="login-card-body">
+
+
+                <!-- INFORMATION -->
+
+                <div class="login-info">
+
+                    <ul>
+
+                        <li>
+                            Use your registered email or username and password to login.
+                            Do not create a new account if you already have an account.
+                        </li>
+
+                        <li>
+                            Only one account per student is allowed.
+                        </li>
+
+                    </ul>
+
+                </div>
+
+
+                <!-- ==============================
+                     DJANGO MESSAGES
+                ============================== -->
+
+                {% if messages %}
+
+                    <div class="django-messages">
+
+                        {% for message in messages %}
+
+                            <div
+                                class="alert
+                                {% if message.tags == 'error' %}
+                                    alert-danger
+                                {% else %}
+                                    alert-{{ message.tags }}
+                                {% endif %}
+                                alert-dismissible fade show"
+                                role="alert"
+                            >
+
+                                {{ message }}
+
+                                <button
+                                    type="button"
+                                    class="btn-close"
+                                    data-bs-dismiss="alert"
+                                ></button>
+
+                            </div>
+
+                        {% endfor %}
+
+                    </div>
+
+                {% endif %}
+
+
+                <!-- ==============================
+                     LOGIN FORM
+                ============================== -->
+
+                <form
+                    method="POST"
+                    action="{% url 'user_login' %}"
+                    id="loginForm"
+                >
+
+                    {% csrf_token %}
+
+
+                    <!-- LOGIN BY -->
+
+                    <div class="mb-3">
+
+                        <label
+                            for="loginBy"
+                            class="form-label"
+                        >
+
+                            Login By
+
+                            <span class="required">
+                                *
+                            </span>
+
+                        </label>
+
+
+                        <select
+                            id="loginBy"
+                            name="login_by"
+                            class="form-select"
+                            required
+                        >
+
+                            <option value="">
+                                -- Select --
+                            </option>
+
+                            <option value="email">
+                                Email Address
+                            </option>
+
+                            <option value="username">
+                                User Name
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- LOGIN VALUE -->
+
+                    <div class="mb-3">
+
+                        <label
+                            for="loginValue"
+                            class="form-label"
+                            id="loginValueLabel"
+                        >
+
+                            Email / User Name
+
+                            <span class="required">
+                                *
+                            </span>
+
+                        </label>
+
+
+                        <input
+                            type="text"
+                            id="loginValue"
+                            name="login_value"
+                            class="form-control"
+                            placeholder="Enter your login details"
+                            autocomplete="username"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- PASSWORD -->
+
+                    <div class="mb-1">
+
+                        <label
+                            for="loginPassword"
+                            class="form-label"
+                        >
+
+                            Password
+
+                            <span class="required">
+                                *
+                            </span>
+
+                        </label>
+
+
+                        <input
+                            type="password"
+                            id="loginPassword"
+                            name="password"
+                            class="form-control"
+                            placeholder="Enter Password"
+                            autocomplete="current-password"
+                            required
+                        >
+
+
+                        <label class="show-password">
+
+                            <input
+                                type="checkbox"
+                                id="showPassword"
+                            >
+
+                            Show Password
+
+                        </label>
+
+                    </div>
+
+
+                    <!-- CAPTCHA -->
+
+                    <div class="captcha-row">
+
+
+                        <!-- CAPTCHA IMAGE -->
+
+                        <div class="captcha-box-wrapper">
+
+                            <label class="form-label">
+                                Captcha
+                            </label>
+
+
+                            <div class="captcha-image">
+
+                                <span
+                                    class="captcha-text"
+                                    id="captchaText"
+                                >
+                                    79242
+                                </span>
+
+                            </div>
+
+
+                            <a
+                                href="#"
+                                class="refresh-captcha"
+                                id="refreshCaptcha"
+                            >
+                                ↻ Refresh Captcha
+                            </a>
+
+                        </div>
+
+
+                        <!-- CAPTCHA INPUT -->
+
+                        <div class="captcha-input-wrapper">
+
+                            <label
+                                for="captchaInput"
+                                class="form-label"
+                            >
+
+                                Enter captcha text as shown in image
+
+                                <span class="required">
+                                    *
+                                </span>
+
+                            </label>
+
+
+                            <input
+                                type="text"
+                                id="captchaInput"
+                                name="captcha"
+                                class="form-control"
+                                placeholder="Enter Captcha Text"
+                                autocomplete="off"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- BUTTONS -->
+
+                    <div class="button-row">
+
+
+                        <button
+                            type="submit"
+                            class="login-btn"
+                        >
+
+                            Log In
+
+                        </button>
+
+
+                        <button
+                            type="button"
+                            class="cancel-btn"
+                            id="cancelBtn"
+                        >
+
+                            Cancel
+
+                        </button>
+
+                    </div>
+
+                </form>
+
+
+                <!-- LINKS -->
+
+                <div class="login-links">
+
+
+                    <p>
+
+                        Don't remember password?
+
+                        <a
+                            href="{% url 'user_forgot_password' %}"
+                            id="forgotPassword"
+                        >
+                            Forgot Password
+                        </a>
+
+                    </p>
+
+
+                    <p>
+
+                        Don't have an account?
+
+                        <a href="{% url 'user_register' %}">
+                            Create Account
+                        </a>
+
+                    </p>
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <!-- FOOTER -->
+
+    <footer class="footer">
+
+        <div>
+            © 2026 Student Project Portal
+        </div>
+
+        <div>
+            Student Project Registration & Management Portal
+        </div>
+
+    </footer>
+
+</div>
+
+
+<!-- Bootstrap JS -->
+
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+</script>
+
+
+<script>
+
+    /* ==============================
+       LOGIN BY CHANGE
+    ============================== */
+
+    const loginBy =
+        document.getElementById("loginBy");
+
+    const loginValue =
+        document.getElementById("loginValue");
+
+    const loginValueLabel =
+        document.getElementById("loginValueLabel");
+
+
+    loginBy.addEventListener("change", function () {
+
+        const selectedValue = this.value;
+
+
+        /* EMAIL */
+
+        if (selectedValue === "email") {
+
+            loginValueLabel.innerHTML =
+                'Email Address <span class="required">*</span>';
+
+            loginValue.placeholder =
+                "Enter Email Address";
+
+            loginValue.type =
+                "email";
+
+            loginValue.inputMode =
+                "email";
+
+            loginValue.maxLength = 100;
+
+            loginValue.value = "";
+
+        }
+
+
+        /* USERNAME */
+
+        else if (selectedValue === "username") {
+
+            loginValueLabel.innerHTML =
+                'User Name <span class="required">*</span>';
+
+            loginValue.placeholder =
+                "Enter User Name";
+
+            loginValue.type =
+                "text";
+
+            loginValue.inputMode =
+                "text";
+
+            loginValue.maxLength = 150;
+
+            loginValue.value = "";
+
+        }
+
+
+        /* DEFAULT */
+
+        else {
+
+            loginValueLabel.innerHTML =
+                'Email / User Name <span class="required">*</span>';
+
+            loginValue.placeholder =
+                "Enter your login details";
+
+            loginValue.type =
+                "text";
+
+            loginValue.inputMode =
+                "text";
+
+            loginValue.removeAttribute("maxlength");
+
+            loginValue.value = "";
+
+        }
+
+        loginValue.focus();
+
+    });
+
+
+    /* ==============================
+       SHOW PASSWORD
+    ============================== */
+
+    const showPassword =
+        document.getElementById("showPassword");
+
+    const loginPassword =
+        document.getElementById("loginPassword");
+
+
+    showPassword.addEventListener("change", function () {
+
+        if (this.checked) {
+
+            loginPassword.type = "text";
+
+        } else {
+
+            loginPassword.type = "password";
+
+        }
+
+    });
+
+
+    /* ==============================
+       CAPTCHA
+    ============================== */
+
+    let currentCaptcha = "79242";
+
+
+    function generateCaptcha() {
+
+        currentCaptcha =
+            Math.floor(
+                10000 + Math.random() * 90000
+            ).toString();
+
+
+        document.getElementById(
+            "captchaText"
+        ).textContent = currentCaptcha;
+
+    }
+
+
+    document
+        .getElementById("refreshCaptcha")
+        .addEventListener("click", function (event) {
+
+            event.preventDefault();
+
+            generateCaptcha();
+
+        });
+
+
+    /* ==============================
+       FORM VALIDATION
+       
+       IMPORTANT:
+       Django POST will happen only
+       if frontend validation passes.
+    ============================== */
+
+    document
+        .getElementById("loginForm")
+        .addEventListener("submit", function (event) {
+
+
+            const selectedLoginBy =
+                loginBy.value;
+
+            const loginValueText =
+                loginValue.value.trim();
+
+            const password =
+                loginPassword.value;
+
+            const captcha =
+                document
+                    .getElementById("captchaInput")
+                    .value
+                    .trim();
+
+
+            /* LOGIN BY */
+
+            if (selectedLoginBy === "") {
+
+                event.preventDefault();
+
+                alert(
+                    "Please select Login By."
+                );
+
+                return;
+
+            }
+
+
+            /* LOGIN VALUE */
+
+            if (loginValueText === "") {
+
+                event.preventDefault();
+
+                alert(
+                    "Please enter your login details."
+                );
+
+                return;
+
+            }
+
+
+            /* EMAIL VALIDATION */
+
+            if (selectedLoginBy === "email") {
+
+                const emailPattern =
+                    /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+
+                if (!emailPattern.test(loginValueText)) {
+
+                    event.preventDefault();
+
+                    alert(
+                        "Please enter a valid Email Address."
+                    );
+
+                    return;
+
+                }
+
+            }
+
+
+            /* PASSWORD */
+
+            if (password === "") {
+
+                event.preventDefault();
+
+                alert(
+                    "Please enter your password."
+                );
+
+                return;
+
+            }
+
+
+            /* CAPTCHA */
+
+            if (captcha === "") {
+
+                event.preventDefault();
+
+                alert(
+                    "Please enter Captcha."
+                );
+
+                return;
+
+            }
+
+
+            if (captcha !== currentCaptcha) {
+
+                event.preventDefault();
+
+                alert(
+                    "Invalid Captcha. Please try again."
+                );
+
+
+                generateCaptcha();
+
+
+                document.getElementById(
+                    "captchaInput"
+                ).value = "";
+
+
+                return;
+
+            }
+
+
+            /*
+                IMPORTANT:
+
+                येथे event.preventDefault()
+                नाही.
+
+                त्यामुळे form Django ला POST होईल.
+            */
+
+        });
+
+
+    /* ==============================
+       CANCEL
+    ============================== */
+
+    document
+        .getElementById("cancelBtn")
+        .addEventListener("click", function () {
+
+
+            document
+                .getElementById("loginForm")
+                .reset();
+
+
+            loginPassword.type =
+                "password";
+
+
+            loginValueLabel.innerHTML =
+                'Email / User Name <span class="required">*</span>';
+
+
+            loginValue.placeholder =
+                "Enter your login details";
+
+
+            loginValue.type =
+                "text";
+
+
+            loginValue.inputMode =
+                "text";
+
+
+            loginValue.removeAttribute(
+                "maxlength"
+            );
+
+
+            generateCaptcha();
+
+        });
+
+
+</script>
+
+
+</body>
+
+</html>

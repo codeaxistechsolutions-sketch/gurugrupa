@@ -1,0 +1,1768 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Students | GuruKrupa </title>
+
+<!-- Bootstrap 5 -->
+<link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+>
+
+<!-- Bootstrap Icons -->
+<link
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+    rel="stylesheet"
+>
+
+<style>
+
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        background: #F5F7FB;
+        color: #111827;
+        font-family: Arial, sans-serif;
+    }
+
+
+    /* ================= TOPBAR ================= */
+
+    .topbar {
+        height: 70px;
+        background: #FFFFFF;
+        border-bottom: 1px solid #E2E8F0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 25px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+    }
+
+    .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .brand-icon {
+        width: 42px;
+        height: 42px;
+        background: #2563EB;
+        color: #FFFFFF;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+    }
+
+    .brand h5 {
+        margin: 0;
+        font-weight: 700;
+    }
+
+    .brand small {
+        color: #64748B;
+    }
+
+    .admin-info {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .admin-avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: #172554;
+        color: #FFFFFF;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+    }
+
+
+    /* ================= SIDEBAR ================= */
+
+    .sidebar {
+        width: 250px;
+        height: calc(100vh - 70px);
+        position: fixed;
+        left: 0;
+        top: 70px;
+        background: #172554;
+        padding: 20px 12px;
+        overflow-y: auto;
+    }
+
+    .sidebar-title {
+        color: #FFFFFF;
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        padding: 8px 14px;
+        opacity: 0.7;
+    }
+
+    .sidebar a {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        color: #CBD5E1;
+        text-decoration: none;
+        padding: 12px 14px;
+        border-radius: 8px;
+        margin-bottom: 5px;
+        font-size: 14px;
+        transition: 0.2s;
+    }
+
+    .sidebar a:hover {
+        background: #1E3A8A;
+        color: #FFFFFF;
+    }
+
+    .sidebar a.active {
+        background: #2563EB;
+        color: #FFFFFF;
+    }
+
+    .sidebar i {
+        font-size: 17px;
+    }
+
+    .sidebar-bottom {
+        margin-top: 25px;
+        padding-top: 15px;
+        border-top: 1px solid rgba(255,255,255,0.15);
+    }
+
+
+    /* ================= MAIN ================= */
+
+    .main-content {
+        margin-left: 250px;
+        padding: 100px 30px 30px;
+    }
+
+    .page-title {
+        font-size: 27px;
+        font-weight: 700;
+        margin-bottom: 5px;
+    }
+
+    .page-subtitle {
+        color: #64748B;
+        margin-bottom: 25px;
+    }
+
+
+    /* ================= STATS ================= */
+
+    .stat-card {
+        background: #FFFFFF;
+        border: 1px solid #E2E8F0;
+        border-radius: 12px;
+        padding: 20px;
+        height: 100%;
+        transition: 0.2s;
+    }
+
+    .stat-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 18px rgba(15, 23, 42, 0.07);
+    }
+
+    .stat-icon {
+        width: 44px;
+        height: 44px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 12px;
+        font-size: 19px;
+    }
+
+    .blue {
+        background: #DBEAFE;
+        color: #2563EB;
+    }
+
+    .green {
+        background: #DCFCE7;
+        color: #16A34A;
+    }
+
+    .yellow {
+        background: #FEF3C7;
+        color: #F59E0B;
+    }
+
+    .indigo {
+        background: #E0E7FF;
+        color: #4F46E5;
+    }
+
+    .stat-title {
+        color: #64748B;
+        font-size: 14px;
+    }
+
+    .stat-number {
+        font-size: 25px;
+        font-weight: 700;
+    }
+
+
+    /* ================= SECTION ================= */
+
+    .section-card {
+        background: #FFFFFF;
+        border: 1px solid #E2E8F0;
+        border-radius: 12px;
+        padding: 20px;
+        margin-top: 25px;
+    }
+
+
+    /* ================= FORM ================= */
+
+    .form-label {
+        font-size: 13px;
+        font-weight: 600;
+        color: #374151;
+    }
+
+    .form-control,
+    .form-select {
+        border: 1px solid #E2E8F0;
+        min-height: 42px;
+        border-radius: 7px;
+    }
+
+    .form-control:focus,
+    .form-select:focus {
+        border-color: #2563EB;
+        box-shadow: 0 0 0 0.15rem rgba(37,99,235,0.12);
+    }
+
+    .btn-primary {
+        background: #2563EB;
+        border-color: #2563EB;
+    }
+
+    .btn-primary:hover {
+        background: #1D4ED8;
+        border-color: #1D4ED8;
+    }
+
+
+    /* ================= TABLE ================= */
+
+    .table {
+        margin-bottom: 0;
+    }
+
+    .table thead th {
+        background: #F5F7FB;
+        color: #64748B;
+        font-size: 13px;
+        border-bottom: 1px solid #E2E8F0;
+        white-space: nowrap;
+    }
+
+    .table tbody td {
+        vertical-align: middle;
+        font-size: 14px;
+        border-color: #E2E8F0;
+    }
+
+    .table tbody tr:hover {
+        background: #F8FAFC;
+    }
+
+
+    /* ================= BADGES ================= */
+
+    .status {
+        padding: 5px 9px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 600;
+    }
+
+    .status-active {
+        background: #DCFCE7;
+        color: #166534;
+    }
+
+    .status-new {
+        background: #E0F2FE;
+        color: #0369A1;
+    }
+
+    .status-inactive {
+        background: #FEE2E2;
+        color: #991B1B;
+    }
+
+
+    /* ================= PROFILE ================= */
+
+    .profile-box {
+        background: #F5F7FB;
+        border: 1px solid #E2E8F0;
+        border-radius: 10px;
+        padding: 15px;
+        height: 100%;
+    }
+
+    .profile-box small {
+        color: #64748B;
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    .profile-box strong {
+        color: #111827;
+    }
+
+    .project-box {
+        border: 1px solid #E2E8F0;
+        border-radius: 10px;
+        padding: 15px;
+    }
+
+    .document-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid #E2E8F0;
+        padding: 12px 0;
+    }
+
+    .document-item:last-child {
+        border-bottom: none;
+    }
+
+
+    /* ================= EMPTY ================= */
+
+    .empty-state {
+        text-align: center;
+        padding: 50px 20px;
+        color: #64748B;
+    }
+
+    .empty-icon {
+        font-size: 42px;
+        margin-bottom: 12px;
+        color: #94A3B8;
+    }
+
+    .empty-state h6 {
+        color: #334155;
+        font-weight: 700;
+    }
+
+
+    /* ================= RESPONSIVE ================= */
+
+    @media (max-width: 900px) {
+
+        .sidebar {
+            width: 210px;
+        }
+
+        .main-content {
+            margin-left: 210px;
+        }
+
+    }
+
+
+    @media (max-width: 700px) {
+
+        .sidebar {
+            display: none;
+        }
+
+        .main-content {
+            margin-left: 0;
+            padding: 90px 15px 25px;
+        }
+
+        .brand small {
+            display: none;
+        }
+
+    }
+
+</style>
+
+
+</head>
+
+<body>
+
+<!-- =========================================================
+     TOPBAR
+========================================================= -->
+
+<div class="topbar">
+
+<div class="brand">
+
+    <div class="brand-icon">
+
+        <i class="bi bi-mortarboard-fill"></i>
+
+    </div>
+
+    <div>
+
+        <h5>
+            GuruKrupa
+        </h5>
+
+        <small>
+            Student Project Registration & Management Portal
+        </small>
+
+    </div>
+
+</div>
+
+
+<div class="admin-info">
+
+    <div class="text-end d-none d-md-block">
+
+        <strong>
+
+            {% if request.user.first_name %}
+
+                {{ request.user.first_name }}
+
+            {% else %}
+
+                Admin
+
+            {% endif %}
+
+        </strong>
+
+        <br>
+
+        <small class="text-muted">
+            Administrator
+        </small>
+
+    </div>
+
+
+    <div class="admin-avatar">
+
+        {% if request.user.first_name %}
+
+            {{ request.user.first_name|first|upper }}
+
+        {% else %}
+
+            A
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+</div>
+
+<!-- =========================================================
+     SIDEBAR
+========================================================= -->
+
+<div class="sidebar">
+
+```
+<div class="sidebar-title">
+    Main Menu
+</div>
+
+
+<!-- Dashboard -->
+
+<a href="{% url 'admin_dashboard' %}">
+
+    <i class="bi bi-grid-1x2-fill"></i>
+
+    Dashboard
+
+</a>
+
+
+<!-- Students -->
+
+<a href="{% url 'admin_students' %}" class="active">
+
+    <i class="bi bi-people-fill"></i>
+
+    Students
+
+</a>
+
+
+<!-- Applications -->
+
+<a href="{% url 'admin_applications' %}">
+
+    <i class="bi bi-file-earmark-text-fill"></i>
+
+    Applications
+
+</a>
+
+
+<!-- Quotations -->
+
+<a href="{% url 'admin_quotations' %}">
+    <i class="bi bi-receipt-cutoff"></i>
+    Quotations
+</a>
+
+
+<!-- Payments -->
+
+<a href="{% url 'admin_payments' %}">
+
+    <i class="bi bi-credit-card-fill"></i>
+
+    Payments
+
+</a>
+
+
+<!-- Projects -->
+
+<a href="{% url 'admin_projects' %}">
+
+    <i class="bi bi-kanban-fill"></i>
+
+    Projects
+
+</a>
+
+
+<!-- Documents -->
+
+<a href="{% url 'admin_documents' %}">
+
+    <i class="bi bi-folder-fill"></i>
+
+    Documents
+
+</a>
+
+
+
+<div class="sidebar-bottom">
+
+    <!-- View Website -->
+
+    <a href="/">
+
+        <i class="bi bi-globe2"></i>
+
+        View Website
+
+    </a>
+
+
+    <!-- Logout -->
+
+    <a href="{% url 'admin_logout' %}">
+
+        <i class="bi bi-box-arrow-right"></i>
+
+        Logout
+
+    </a>
+
+</div>
+
+</div>
+
+<!-- =========================================================
+     MAIN CONTENT
+========================================================= -->
+
+<div class="main-content">
+<h1 class="page-title">
+    Students
+</h1>
+
+<p class="page-subtitle">
+    View and manage registered student information.
+</p>
+
+
+
+<!-- =====================================================
+     STAT CARDS
+===================================================== -->
+
+<div class="row g-3">
+
+
+    <!-- Total Students -->
+
+    <div class="col-xl-3 col-md-6">
+
+        <div class="stat-card">
+
+            <div class="stat-icon blue">
+
+                <i class="bi bi-people-fill"></i>
+
+            </div>
+
+            <div class="stat-title">
+                Total Students
+            </div>
+
+            <div class="stat-number">
+                {{ total_students }}
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Active Students -->
+
+    <div class="col-xl-3 col-md-6">
+
+        <div class="stat-card">
+
+            <div class="stat-icon green">
+
+                <i class="bi bi-person-check-fill"></i>
+
+            </div>
+
+            <div class="stat-title">
+                Active Students
+            </div>
+
+            <div class="stat-number">
+                {{ active_students }}
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- New Registrations -->
+
+    <div class="col-xl-3 col-md-6">
+
+        <div class="stat-card">
+
+            <div class="stat-icon yellow">
+
+                <i class="bi bi-person-plus-fill"></i>
+
+            </div>
+
+            <div class="stat-title">
+                New Registrations
+            </div>
+
+            <div class="stat-number">
+                {{ new_registrations }}
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Final Year Students -->
+
+    <div class="col-xl-3 col-md-6">
+
+        <div class="stat-card">
+
+            <div class="stat-icon indigo">
+
+                <i class="bi bi-mortarboard-fill"></i>
+
+            </div>
+
+            <div class="stat-title">
+                Final Year Students
+            </div>
+
+            <div class="stat-number">
+                {{ final_year_students }}
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     SEARCH
+===================================================== -->
+
+<div class="section-card">
+
+    <h5 class="mb-3">
+        Search Students
+    </h5>
+
+
+    <form method="GET">
+
+        <div class="row g-3">
+
+
+            <!-- Search -->
+
+            <div class="col-lg-5">
+
+                <label class="form-label">
+                    Search
+                </label>
+
+                <input
+                    type="text"
+                    name="search"
+                    value="{{ search }}"
+                    class="form-control"
+                    placeholder="Search by name, email or student ID..."
+                >
+
+            </div>
+
+
+            <!-- Course -->
+
+            <div class="col-lg-3">
+
+                <label class="form-label">
+                    Course
+                </label>
+
+                <input
+                    type="text"
+                    name="course"
+                    value="{{ course }}"
+                    class="form-control"
+                    list="courseOptions"
+                    placeholder="Search or select course..."
+                    autocomplete="off"
+                >
+
+                <datalist id="courseOptions">
+
+                    {% for course_name in courses %}
+
+                        <option value="{{ course_name }}">
+
+                    {% endfor %}
+
+                </datalist>
+
+            </div>
+
+
+            <!-- Status -->
+
+            <div class="col-lg-2">
+
+                <label class="form-label">
+                    Status
+                </label>
+
+                <select
+                    name="status"
+                    class="form-select"
+                >
+
+                    <option value="">
+                        All
+                    </option>
+
+                    <option
+                        value="Active"
+                        {% if status == "Active" %}selected{% endif %}
+                    >
+                        Active
+                    </option>
+
+                    <option
+                        value="New"
+                        {% if status == "New" %}selected{% endif %}
+                    >
+                        New
+                    </option>
+
+                    <option
+                        value="Inactive"
+                        {% if status == "Inactive" %}selected{% endif %}
+                    >
+                        Inactive
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- Search Button -->
+
+            <div class="col-lg-2 d-flex align-items-end">
+
+                <button
+                    type="submit"
+                    class="btn btn-primary w-100"
+                >
+
+                    <i class="bi bi-search"></i>
+
+                    Search
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </form>
+
+</div>
+
+
+
+<!-- =====================================================
+     STUDENT TABLE
+===================================================== -->
+
+<div class="section-card">
+
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+
+        <div>
+
+            <h5 class="mb-1">
+                Registered Students
+            </h5>
+
+            <small class="text-muted">
+
+                {% if search or course or status %}
+
+                    Filtered student registration and academic information.
+
+                {% else %}
+
+                    Student registration and academic information.
+
+                {% endif %}
+
+            </small>
+
+        </div>
+
+
+        <div>
+
+            <span class="badge bg-primary">
+
+                {{ total_students }}
+                Student{{ total_students|pluralize }}
+
+            </span>
+
+        </div>
+
+    </div>
+
+
+
+    <div class="table-responsive">
+
+
+        {% if students %}
+
+
+        <table class="table">
+
+            <thead>
+
+                <tr>
+
+                    <th>
+                        Student ID
+                    </th>
+
+                    <th>
+                        Name
+                    </th>
+
+                    <th>
+                        Email
+                    </th>
+
+                    <th>
+                        College
+                    </th>
+
+                    <th>
+                        Course
+                    </th>
+
+                    <th>
+                        Branch
+                    </th>
+
+                    <th>
+                        Status
+                    </th>
+
+                    <th>
+                        Action
+                    </th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+
+                {% for student in students %}
+
+
+                <tr>
+
+
+                    <!-- Student ID -->
+
+                    <td>
+
+                        <strong>
+                            {{ student.application_id }}
+                        </strong>
+
+                    </td>
+
+
+                    <!-- Name -->
+
+                    <td>
+
+                        {{ student.full_name }}
+
+                    </td>
+
+
+                    <!-- Email -->
+
+                    <td>
+
+                        {{ student.user.email }}
+
+                    </td>
+
+
+                    <!-- College -->
+
+                    <td>
+
+                        {% if student.user.academic %}
+
+                            {{ student.user.academic.college }}
+
+                        {% else %}
+
+                            -
+
+                        {% endif %}
+
+                    </td>
+
+
+                    <!-- Course -->
+
+                    <td>
+
+                        {% if student.user.academic %}
+
+                            {{ student.user.academic.course }}
+
+                        {% else %}
+
+                            -
+
+                        {% endif %}
+
+                    </td>
+
+
+                    <!-- Branch -->
+
+                    <td>
+
+                        {% if student.user.academic %}
+
+                            {{ student.user.academic.branch }}
+
+                        {% else %}
+
+                            -
+
+                        {% endif %}
+
+                    </td>
+
+
+                    <!-- Status -->
+
+                    <td>
+
+                        {% if student.status == "Active" %}
+
+                            <span class="status status-active">
+                                Active
+                            </span>
+
+                        {% elif student.status == "New" %}
+
+                            <span class="status status-new">
+                                New
+                            </span>
+
+                        {% elif student.status == "Inactive" %}
+
+                            <span class="status status-inactive">
+                                Inactive
+                            </span>
+
+                        {% else %}
+
+                            <span class="status status-new">
+                                New
+                            </span>
+
+                        {% endif %}
+
+                    </td>
+
+
+                    <!-- Action -->
+
+                    <td>
+
+                        <button
+                            type="button"
+                            class="btn btn-sm btn-primary"
+                            onclick="viewStudent(
+                                '{{ student.id }}',
+                                '{{ student.application_id|escapejs }}',
+                                '{{ student.full_name|escapejs }}',
+                                '{{ student.user.email|escapejs }}',
+                                '{{ student.mobile|escapejs }}',
+                                '{% if student.user.academic %}{{ student.user.academic.college|escapejs }}{% endif %}',
+                                '{% if student.user.academic %}{{ student.user.academic.university|escapejs }}{% endif %}',
+                                '{% if student.user.academic %}{{ student.user.academic.course|escapejs }}{% endif %}',
+                                '{% if student.user.academic %}{{ student.user.academic.branch|escapejs }}{% endif %}',
+                                '{% if student.user.academic %}{{ student.user.academic.academic_year|escapejs }}{% endif %}',
+                                '{% if student.user.academic %}{{ student.user.academic.semester|escapejs }}{% endif %}',
+                                '{{ student.gender|escapejs }}',
+                                '{{ student.district|escapejs }}',
+                                '{{ student.state|escapejs }}',
+                                '{{ student.address|escapejs }}'
+                            )"
+                        >
+
+                            <i class="bi bi-eye"></i>
+
+                            View
+
+                        </button>
+
+                    </td>
+
+
+                </tr>
+
+
+                {% endfor %}
+
+
+            </tbody>
+
+        </table>
+
+
+        {% else %}
+
+
+        <!-- EMPTY STATE -->
+
+        <div class="empty-state">
+
+            <div class="empty-icon">
+
+                <i class="bi bi-people"></i>
+
+            </div>
+
+
+            <h6>
+                No Students Found
+            </h6>
+
+
+            <p class="mb-0">
+
+                {% if search or course or status %}
+
+                    No students match the selected search/filter.
+
+                {% else %}
+
+                    No students have been registered yet.
+
+                {% endif %}
+
+            </p>
+
+        </div>
+
+
+        {% endif %}
+
+
+    </div>
+
+</div>
+
+</div>
+
+<!-- =========================================================
+     STUDENT PROFILE MODAL
+========================================================= -->
+
+<div
+    class="modal fade"
+    id="studentModal"
+    tabindex="-1"
+    aria-hidden="true"
+>
+
+<div class="modal-dialog modal-xl modal-dialog-centered">
+
+    <div class="modal-content">
+
+
+        <!-- MODAL HEADER -->
+
+        <div class="modal-header">
+
+            <div>
+
+                <h5 class="modal-title">
+                    Student Profile
+                </h5>
+
+                <small class="text-muted">
+                    Complete student and academic information
+                </small>
+
+            </div>
+
+
+            <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+            ></button>
+
+        </div>
+
+
+
+        <!-- MODAL BODY -->
+
+        <div class="modal-body">
+
+
+            <!-- ================= PERSONAL DETAILS ================= -->
+
+            <h6 class="fw-bold mb-3">
+                Personal Details
+            </h6>
+
+
+            <div class="row g-3 mb-4">
+
+
+                <div class="col-md-4">
+
+                    <div class="profile-box">
+
+                        <small>
+                            Student ID
+                        </small>
+
+                        <strong id="profileId">
+                            -
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-md-4">
+
+                    <div class="profile-box">
+
+                        <small>
+                            Full Name
+                        </small>
+
+                        <strong id="profileName">
+                            -
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-md-4">
+
+                    <div class="profile-box">
+
+                        <small>
+                            Email
+                        </small>
+
+                        <strong id="profileEmail">
+                            -
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-md-4">
+
+                    <div class="profile-box">
+
+                        <small>
+                            Mobile
+                        </small>
+
+                        <strong id="profileMobile">
+                            -
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-md-4">
+
+                    <div class="profile-box">
+
+                        <small>
+                            Gender
+                        </small>
+
+                        <strong id="profileGender">
+                            -
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-md-4">
+
+                    <div class="profile-box">
+
+                        <small>
+                            District
+                        </small>
+
+                        <strong id="profileDistrict">
+                            -
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-md-6">
+
+                    <div class="profile-box">
+
+                        <small>
+                            State
+                        </small>
+
+                        <strong id="profileState">
+                            -
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-md-6">
+
+                    <div class="profile-box">
+
+                        <small>
+                            Address
+                        </small>
+
+                        <strong id="profileAddress">
+                            -
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- ================= ACADEMIC DETAILS ================= -->
+
+            <h6 class="fw-bold mb-3">
+                Academic Details
+            </h6>
+
+
+            <div class="row g-3 mb-4">
+
+
+                <div class="col-md-3">
+
+                    <div class="profile-box">
+
+                        <small>
+                            Course
+                        </small>
+
+                        <strong id="profileCourse">
+                            -
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-md-3">
+
+                    <div class="profile-box">
+
+                        <small>
+                            Branch
+                        </small>
+
+                        <strong id="profileBranch">
+                            -
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-md-3">
+
+                    <div class="profile-box">
+
+                        <small>
+                            Academic Year
+                        </small>
+
+                        <strong id="profileAcademicYear">
+                            -
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-md-3">
+
+                    <div class="profile-box">
+
+                        <small>
+                            Semester
+                        </small>
+
+                        <strong id="profileSemester">
+                            -
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-md-6">
+
+                    <div class="profile-box">
+
+                        <small>
+                            College
+                        </small>
+
+                        <strong id="profileCollege">
+                            -
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-md-6">
+
+                    <div class="profile-box">
+
+                        <small>
+                            University
+                        </small>
+
+                        <strong id="profileUniversity">
+                            -
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- ================= PROJECT DETAILS ================= -->
+
+            <h6 class="fw-bold mb-3">
+                Project Details
+            </h6>
+
+
+            {% if student_projects %}
+
+                {% for project in student_projects %}
+
+                    <div class="project-box mb-3">
+
+                        <div class="row g-3">
+
+
+                            <div class="col-md-6">
+
+                                <small class="text-muted">
+                                    Project Title
+                                </small>
+
+                                <h6 class="mt-1">
+                                    {{ project.project_title }}
+                                </h6>
+
+                            </div>
+
+
+                            <div class="col-md-3">
+
+                                <small class="text-muted">
+                                    Project Type
+                                </small>
+
+                                <h6 class="mt-1">
+                                    {{ project.project_type }}
+                                </h6>
+
+                            </div>
+
+
+                            <div class="col-md-3">
+
+                                <small class="text-muted">
+                                    Domain
+                                </small>
+
+                                <h6 class="mt-1">
+                                    {{ project.domain }}
+                                </h6>
+
+                            </div>
+
+
+                            <div class="col-md-6">
+
+                                <small class="text-muted">
+                                    Technology
+                                </small>
+
+                                <h6 class="mt-1">
+                                    {{ project.technology }}
+                                </h6>
+
+                            </div>
+
+
+                            <div class="col-md-3">
+
+                                <small class="text-muted">
+                                    Status
+                                </small>
+
+                                <h6 class="mt-1">
+                                    {{ project.status }}
+                                </h6>
+
+                            </div>
+
+
+                            <div class="col-md-3">
+
+                                <small class="text-muted">
+                                    Progress
+                                </small>
+
+                                <h6 class="mt-1">
+                                    {{ project.progress }}%
+                                </h6>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                {% endfor %}
+
+            {% else %}
+
+                <div class="project-box mb-4">
+
+                    <small class="text-muted">
+                        No project information available.
+                    </small>
+
+                </div>
+
+            {% endif %}
+
+
+
+            <!-- ================= DOCUMENTS ================= -->
+
+            <h6 class="fw-bold mb-3">
+                Uploaded Documents
+            </h6>
+
+
+            {% if student_documents %}
+
+                <div class="project-box">
+
+                    {% for document in student_documents %}
+
+                        <div class="document-item">
+
+                            <div>
+
+                                <strong>
+                                    {{ document }}
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+
+            {% else %}
+
+                <div class="project-box">
+
+                    <small class="text-muted">
+                        No documents available.
+                    </small>
+
+                </div>
+
+            {% endif %}
+
+
+        </div>
+
+
+
+        <!-- MODAL FOOTER -->
+
+        <div class="modal-footer">
+
+            <button
+                type="button"
+                class="btn btn-light border"
+                data-bs-dismiss="modal"
+            >
+
+                Close
+
+            </button>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+</div>
+
+<!-- =========================================================
+     BOOTSTRAP JS
+========================================================= -->
+
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+</script>
+
+<script>
+
+    /* ========================================================
+       VIEW STUDENT
+    ======================================================== */
+
+    function viewStudent(
+        id,
+        applicationId,
+        name,
+        email,
+        mobile,
+        college,
+        university,
+        course,
+        branch,
+        academicYear,
+        semester,
+        gender,
+        district,
+        state,
+        address
+    ) {
+
+        document.getElementById("profileId").innerText =
+            applicationId || "-";
+
+        document.getElementById("profileName").innerText =
+            name || "-";
+
+        document.getElementById("profileEmail").innerText =
+            email || "-";
+
+        document.getElementById("profileMobile").innerText =
+            mobile || "-";
+
+        document.getElementById("profileCollege").innerText =
+            college || "-";
+
+        document.getElementById("profileUniversity").innerText =
+            university || "-";
+
+        document.getElementById("profileCourse").innerText =
+            course || "-";
+
+        document.getElementById("profileBranch").innerText =
+            branch || "-";
+
+        document.getElementById("profileAcademicYear").innerText =
+            academicYear || "-";
+
+        document.getElementById("profileSemester").innerText =
+            semester || "-";
+
+        document.getElementById("profileGender").innerText =
+            gender || "-";
+
+        document.getElementById("profileDistrict").innerText =
+            district || "-";
+
+        document.getElementById("profileState").innerText =
+            state || "-";
+
+        document.getElementById("profileAddress").innerText =
+            address || "-";
+
+
+        const modalElement =
+            document.getElementById("studentModal");
+
+
+        const modal =
+            new bootstrap.Modal(modalElement);
+
+
+        modal.show();
+
+    }
+
+</script>
+
+</body>
+
+</html>

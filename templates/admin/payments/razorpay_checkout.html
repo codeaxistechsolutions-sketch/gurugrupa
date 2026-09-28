@@ -1,0 +1,347 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Razorpay Payment | Code Axis TechSolutions LLP</title>
+
+    <!-- Bootstrap -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <!-- Razorpay Checkout -->
+    <script
+        src="https://checkout.razorpay.com/v1/checkout.js">
+    </script>
+
+</head>
+
+
+<body class="bg-light">
+
+
+<div class="container py-5">
+
+    <div class="row justify-content-center">
+
+        <div class="col-lg-6 col-md-8">
+
+            <div class="card shadow border-0">
+
+                <!-- HEADER -->
+
+                <div class="card-header bg-dark text-white text-center py-3">
+
+                    <h4 class="mb-1">
+                        Code Axis TechSolutions LLP
+                    </h4>
+
+                    <small>
+                        Student Project Portal
+                    </small>
+
+                </div>
+
+
+                <!-- BODY -->
+
+                <div class="card-body p-4">
+
+                    <h5 class="text-center mb-4">
+                        Complete Your Payment
+                    </h5>
+
+
+                    <!-- PAYMENT DETAILS -->
+
+                    <div class="border rounded p-3 mb-4">
+
+                        <div class="d-flex justify-content-between mb-2">
+
+                            <span>
+                                Application ID
+                            </span>
+
+                            <strong>
+                                {{ quotation.application_id }}
+                            </strong>
+
+                        </div>
+
+
+                        <div class="d-flex justify-content-between mb-2">
+
+                            <span>
+                                Quotation ID
+                            </span>
+
+                            <strong>
+                                {{ quotation.quotation_id }}
+                            </strong>
+
+                        </div>
+
+
+                        <div class="d-flex justify-content-between mb-2">
+
+                            <span>
+                                Project
+                            </span>
+
+                            <strong>
+                                {{ quotation.project_title }}
+                            </strong>
+
+                        </div>
+
+
+                        <hr>
+
+
+                        <div class="d-flex justify-content-between">
+
+                            <span class="fw-bold">
+                                Amount
+                            </span>
+
+                            <strong class="fs-4">
+                                ₹{{ amount }}
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- PAYMENT INFORMATION -->
+
+                    <div class="alert alert-info">
+
+                        <strong>
+                            Secure Payment
+                        </strong>
+
+                        <br>
+
+                        You will be redirected to Razorpay's
+                        secure payment window to complete your
+                        payment using UPI, Card or Net Banking.
+
+                    </div>
+
+
+                    <!-- PAY BUTTON -->
+
+                    <div class="d-grid">
+
+                        <button
+                            type="button"
+                            id="pay-button"
+                            class="btn btn-primary btn-lg"
+                        >
+
+                            Pay ₹{{ amount }}
+
+                        </button>
+
+                    </div>
+
+
+                    <div class="text-center mt-3">
+
+                        <small class="text-muted">
+
+                            Powered by Razorpay
+
+                        </small>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+    const options = {
+
+        key: "{{ razorpay_key_id }}",
+
+        amount: "{{ razorpay_amount }}",
+
+        currency: "{{ currency }}",
+
+        name: "Code Axis TechSolutions LLP",
+
+        description: "Student Project Payment",
+
+        order_id: "{{ razorpay_order_id }}",
+
+
+        prefill: {
+
+            name:
+                "{{ user.get_full_name|default:user.username|escapejs }}",
+
+            email:
+                "{{ user.email|escapejs }}",
+
+            contact:
+                "{% if profile.mobile %}{{ profile.mobile|escapejs }}{% endif %}"
+
+        },
+
+
+        theme: {
+
+            color: "#0d6efd"
+
+        },
+
+
+        handler: function (response) {
+
+            /*
+             * Razorpay has successfully completed
+             * the payment.
+             *
+             * In the next step we will send these
+             * details to Django for verification.
+             */
+
+            const form =
+                document.createElement("form");
+
+            form.method = "POST";
+
+            form.action =
+                "{% url 'verify_razorpay_payment' %}";
+
+
+            const csrfToken =
+                document.querySelector(
+                    '[name=csrfmiddlewaretoken]'
+                );
+
+
+            function addField(
+                name,
+                value
+            ) {
+
+                const input =
+                    document.createElement("input");
+
+                input.type = "hidden";
+
+                input.name = name;
+
+                input.value = value;
+
+                form.appendChild(input);
+
+            }
+
+
+            addField(
+                "razorpay_payment_id",
+                response.razorpay_payment_id
+            );
+
+
+            addField(
+                "razorpay_order_id",
+                response.razorpay_order_id
+            );
+
+
+            addField(
+                "razorpay_signature",
+                response.razorpay_signature
+            );
+
+
+            if (csrfToken) {
+
+                addField(
+                    "csrfmiddlewaretoken",
+                    csrfToken.value
+                );
+
+            }
+
+
+            document.body.appendChild(form);
+
+            form.submit();
+
+        },
+
+
+        modal: {
+
+            ondismiss: function () {
+
+                console.log(
+                    "Razorpay payment window closed."
+                );
+
+            }
+
+        }
+
+    };
+
+
+    const razorpay =
+        new Razorpay(options);
+
+
+    razorpay.on(
+        "payment.failed",
+        function (response) {
+
+            alert(
+                "Payment failed. Please try again."
+            );
+
+            console.log(
+                response.error
+            );
+
+        }
+    );
+
+
+    document
+        .getElementById("pay-button")
+        .onclick = function (e) {
+
+            razorpay.open();
+
+            e.preventDefault();
+
+        };
+
+</script>
+
+
+</body>
+
+</html>
+

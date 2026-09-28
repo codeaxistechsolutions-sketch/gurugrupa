@@ -1,0 +1,2246 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Academic Details | Student Project Portal</title>
+
+    <!-- Bootstrap -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <style>
+
+        :root {
+            --background: #F5F7FB;
+            --sidebar: #172554;
+            --navbar: #FFFFFF;
+            --primary: #2563EB;
+            --secondary: #4F46E5;
+            --card: #FFFFFF;
+            --text: #111827;
+            --secondary-text: #64748B;
+            --border: #E2E8F0;
+            --success: #16A34A;
+            --warning: #F59E0B;
+            --danger: #EF4444;
+            --info: #0EA5E9;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: var(--background);
+            color: var(--text);
+            font-family: Arial, sans-serif;
+        }
+
+        /* =====================================================
+           SIDEBAR
+        ===================================================== */
+
+        .sidebar {
+            width: 250px;
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            background: var(--sidebar);
+            color: white;
+            padding: 20px 15px;
+            overflow-y: auto;
+            z-index: 1000;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px;
+            margin-bottom: 25px;
+        }
+
+        .logo-icon {
+            width: 45px;
+            height: 45px;
+            background: var(--primary);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .brand-icon {
+            width: 45px;
+            height: 45px;
+            background: var(--primary);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .logo h5 {
+            margin: 0;
+            font-size: 14px;
+        }
+
+        .logo small {
+            color: #CBD5E1;
+        }
+
+        .menu-title {
+            color: #94A3B8;
+            font-size: 11px;
+            margin: 20px 10px 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .sidebar a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #CBD5E1;
+            text-decoration: none;
+            padding: 11px 12px;
+            margin-bottom: 4px;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: 0.2s;
+        }
+
+        .sidebar a:hover,
+        .sidebar a.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .sidebar a i {
+            font-size: 17px;
+        }
+
+        /* =====================================================
+           MAIN
+        ===================================================== */
+
+        .main {
+            margin-left: 250px;
+            min-height: 100vh;
+        }
+
+        /* =====================================================
+           NAVBAR
+        ===================================================== */
+
+        .navbar-custom {
+            height: 70px;
+            background: var(--navbar);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 30px;
+        }
+
+        .navbar-custom h4 {
+            margin: 0;
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .student-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+        }
+
+        .profile-circle {
+            width: 40px;
+            height: 40px;
+            background: #DBEAFE;
+            color: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        /* =====================================================
+           CONTENT
+        ===================================================== */
+
+        .content {
+            padding: 30px;
+        }
+
+        .breadcrumb-text {
+            color: var(--secondary-text);
+            font-size: 14px;
+            margin-bottom: 25px;
+        }
+
+        /* =====================================================
+           CARD
+        ===================================================== */
+
+        .form-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 28px;
+            margin-bottom: 25px;
+        }
+
+        .section-heading {
+            font-size: 17px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            padding-bottom: 11px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .section-heading i {
+            color: var(--primary);
+            margin-right: 7px;
+        }
+
+        /* =====================================================
+           FORM
+        ===================================================== */
+
+        .form-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 7px;
+        }
+
+        .required {
+            color: var(--danger);
+        }
+
+        /* =====================================================
+           SEARCHABLE SELECT
+        ===================================================== */
+
+        .search-select {
+            position: relative;
+            width: 100%;
+        }
+
+        .search-select-input {
+            width: 100%;
+            min-height: 44px;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 7px;
+            padding: 10px 40px 10px 12px;
+            font-size: 14px;
+            cursor: pointer;
+            outline: none;
+        }
+
+        .search-select-input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.10);
+        }
+
+        .dropdown-arrow {
+            position: absolute;
+            right: 14px;
+            top: 22px;
+            color: #64748B;
+            pointer-events: none;
+        }
+
+        /* =====================================================
+           DROPDOWN
+        ===================================================== */
+
+        .search-dropdown {
+            display: none;
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: calc(100% + 5px);
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            box-shadow: 0 8px 20px rgba(15, 23, 42, 0.12);
+            z-index: 2000;
+            overflow: hidden;
+        }
+
+        .search-dropdown.show {
+            display: block;
+        }
+
+        .dropdown-search-box {
+            padding: 10px;
+            background: #F8FAFC;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .dropdown-search-box input {
+            width: 100%;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 9px 10px;
+            font-size: 13px;
+            outline: none;
+        }
+
+        .dropdown-search-box input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.08);
+        }
+
+        .dropdown-options {
+            max-height: 210px;
+            overflow-y: auto;
+        }
+
+        .dropdown-option {
+            padding: 10px 12px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: 0.15s;
+        }
+
+        .dropdown-option:hover {
+            background: #EFF6FF;
+            color: var(--primary);
+        }
+
+        .custom-option {
+            display: none;
+            padding: 11px 12px;
+            border-top: 1px solid var(--border);
+            background: #F8FAFC;
+            color: var(--primary);
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .custom-option:hover {
+            background: #EFF6FF;
+        }
+
+        .custom-option i {
+            margin-right: 5px;
+        }
+
+        .no-result {
+            display: none;
+            padding: 11px 12px;
+            color: var(--secondary-text);
+            font-size: 13px;
+            text-align: center;
+        }
+
+        /* =====================================================
+           OTHER COLLEGE INPUT
+        ===================================================== */
+
+        .other-college-box {
+            display: none;
+            margin-top: 12px;
+        }
+
+        .other-college-box.show {
+            display: block;
+        }
+
+        .other-college-input {
+            width: 100%;
+            min-height: 44px;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 7px;
+            padding: 10px 12px;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .other-college-input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.10);
+        }
+
+        .other-college-help {
+            display: block;
+            margin-top: 6px;
+            color: var(--secondary-text);
+            font-size: 12px;
+        }
+
+        /* =====================================================
+           BUTTONS
+        ===================================================== */
+
+        .save-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 11px 22px;
+            border-radius: 7px;
+            font-size: 14px;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+
+        .save-btn:hover {
+            background: #1D4ED8;
+            color: white;
+        }
+
+        .save-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        .reset-btn {
+            background: white;
+            color: var(--text);
+            border: 1px solid var(--border);
+            padding: 11px 22px;
+            border-radius: 7px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-right: 8px;
+        }
+
+        .reset-btn:hover {
+            background: #F8FAFC;
+        }
+
+        /* =====================================================
+           INFO
+        ===================================================== */
+
+        .info-note {
+            background: #EFF6FF;
+            border: 1px solid #BFDBFE;
+            color: #1E40AF;
+            padding: 13px 15px;
+            border-radius: 8px;
+            font-size: 13px;
+            margin-bottom: 25px;
+        }
+
+        .info-note i {
+            margin-right: 5px;
+        }
+
+        /* =====================================================
+           MESSAGES
+        ===================================================== */
+
+        .message-box {
+            margin-bottom: 20px;
+        }
+
+        /* =====================================================
+           RESPONSIVE
+        ===================================================== */
+
+        @media(max-width: 768px) {
+
+            .sidebar {
+                width: 210px;
+            }
+
+            .main {
+                margin-left: 210px;
+            }
+
+            .navbar-custom {
+                padding: 0 20px;
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+            .student-info strong {
+                display: none;
+            }
+        }
+
+        @media(max-width: 576px) {
+
+            .sidebar {
+                width: 70px;
+                padding: 15px 8px;
+            }
+
+            .logo {
+                justify-content: center;
+                padding: 5px;
+            }
+
+            .logo-icon,
+            .brand-icon {
+                width: 42px;
+                height: 42px;
+            }
+
+            .logo > div:last-child {
+                display: none;
+            }
+
+            .menu-title {
+                display: none;
+            }
+
+            .sidebar a {
+                justify-content: center;
+                padding: 12px 5px;
+                font-size: 0;
+            }
+
+            .sidebar a i {
+                font-size: 19px;
+            }
+
+            .main {
+                margin-left: 70px;
+            }
+
+            .navbar-custom {
+                height: 65px;
+                padding: 0 15px;
+            }
+
+            .navbar-custom h4 {
+                font-size: 16px;
+            }
+
+            .content {
+                padding: 15px;
+            }
+
+            .form-card {
+                padding: 18px;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         SIDEBAR
+    ====================================================== -->
+
+    <div class="sidebar">
+
+        <div class="logo">
+
+            <div class="brand-icon">
+                <i class="bi bi-mortarboard-fill"></i>
+            </div>
+
+            <div>
+
+                <h5>
+                    GuruKrupa
+                </h5>
+
+                <small>
+                    Student Portal
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <div class="menu-title">
+            Main Menu
+        </div>
+
+
+        <!-- Dashboard -->
+
+        <a href="{% url 'user_dashboard' %}">
+
+            <i class="bi bi-grid"></i>
+
+            Dashboard
+
+        </a>
+
+
+        <!-- Profile -->
+
+        <a href="{% url 'user_profile' %}">
+
+            <i class="bi bi-person"></i>
+
+            My Profile
+
+        </a>
+
+
+        <!-- Academic -->
+
+        <a href="{% url 'user_academic' %}" class="active">
+
+            <i class="bi bi-mortarboard"></i>
+
+            Academic Details
+
+        </a>
+
+
+        <!-- Project -->
+
+        <a href="{% url 'user_project_details' %}">
+
+            <i class="bi bi-folder"></i>
+
+            Project Details
+
+        </a>
+
+
+        <!-- Quotation -->
+
+        <a href="#">
+
+            <i class="bi bi-receipt"></i>
+
+            Quotation
+
+        </a>
+
+
+        <!-- Payment -->
+
+        <a href="#">
+
+            <i class="bi bi-credit-card"></i>
+
+            Payment
+
+        </a>
+
+
+        <!-- Tracking -->
+
+        <a href="#">
+
+            <i class="bi bi-graph-up"></i>
+
+            Track Application
+
+        </a>
+
+
+        <div class="menu-title">
+            Account
+        </div>
+
+
+        <!-- Website -->
+
+        <a href="{% url 'home' %}">
+
+            <i class="bi bi-house"></i>
+
+            View Website
+
+        </a>
+
+
+        <!-- Logout -->
+
+        <a href="{% url 'user_logout' %}">
+
+            <i class="bi bi-box-arrow-right"></i>
+
+            Logout
+
+        </a>
+
+    </div>
+
+
+    <!-- =====================================================
+         MAIN
+    ====================================================== -->
+
+    <div class="main">
+
+
+        <!-- =================================================
+             NAVBAR
+        ================================================== -->
+
+        <div class="navbar-custom">
+
+            <h4>
+                Academic Details
+            </h4>
+
+
+            <div class="student-info">
+
+                <strong>
+
+                    {% if profile and profile.full_name %}
+
+                        {{ profile.full_name }}
+
+                    {% else %}
+
+                        {{ user.get_full_name|default:user.username }}
+
+                    {% endif %}
+
+                </strong>
+
+
+                <div class="profile-circle">
+
+                    {% if profile and profile.full_name %}
+
+                        {{ profile.full_name|first|upper }}
+
+                    {% elif user.first_name %}
+
+                        {{ user.first_name|first|upper }}
+
+                    {% else %}
+
+                        {{ user.username|first|upper }}
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             CONTENT
+        ================================================== -->
+
+        <div class="content">
+
+
+            <div class="breadcrumb-text">
+
+                Dashboard / Academic Details
+
+            </div>
+
+
+            <!-- =================================================
+                 DJANGO MESSAGES
+            ================================================= -->
+
+            {% if messages %}
+
+                <div class="message-box">
+
+                    {% for message in messages %}
+
+                        <div
+                            class="alert alert-{{ message.tags|default:'info' }} alert-dismissible fade show"
+                            role="alert">
+
+                            <i class="bi bi-check-circle me-1"></i>
+
+                            {{ message }}
+
+                            <button
+                                type="button"
+                                class="btn-close"
+                                data-bs-dismiss="alert">
+                            </button>
+
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+
+            {% endif %}
+
+
+            <!-- =================================================
+                 INFO
+            ================================================= -->
+
+            <div class="info-note">
+
+                <i class="bi bi-info-circle"></i>
+
+                Please provide your correct current academic details.
+                These details will be used for project registration
+                and verification.
+
+            </div>
+
+
+            <!-- =================================================
+                 MAIN FORM
+            ================================================= -->
+
+            <form
+                method="POST"
+                action="{% url 'user_academic' %}"
+                id="academicForm"
+                novalidate>
+
+                {% csrf_token %}
+
+
+                <!-- =================================================
+                     CURRENT ACADEMIC DETAILS
+                ================================================= -->
+
+                <div class="form-card">
+
+                    <div class="section-heading">
+
+                        <i class="bi bi-mortarboard"></i>
+
+                        Current Academic Details
+
+                    </div>
+
+
+                    <div class="row g-4">
+
+
+                        <!-- =================================================
+                             COURSE
+                        ================================================= -->
+
+                        <div class="col-md-6">
+
+                            <label class="form-label">
+
+                                Course
+
+                                <span class="required">*</span>
+
+                            </label>
+
+
+                            <div class="search-select">
+
+                                <input
+                                    type="text"
+                                    class="search-select-input"
+                                    id="course"
+                                    name="course"
+                                    value="{{ academic.course|default:'' }}"
+                                    placeholder="Select or search course"
+                                    autocomplete="off"
+                                    readonly
+                                    required>
+
+
+                                <i class="bi bi-chevron-down dropdown-arrow"></i>
+
+
+                                <div class="search-dropdown">
+
+                                    <div class="dropdown-search-box">
+
+                                        <input
+                                            type="text"
+                                            class="search-input"
+                                            placeholder="Search or enter course..."
+                                            autocomplete="off">
+
+                                    </div>
+
+
+                                    <div class="dropdown-options">
+
+                                        <div class="dropdown-option"
+                                            data-value="B.E.">
+                                            B.E.
+                                        </div>
+
+                                        <div class="dropdown-option"
+                                            data-value="B.Tech">
+                                            B.Tech
+                                        </div>
+
+                                        <div class="dropdown-option"
+                                            data-value="BCA">
+                                            BCA
+                                        </div>
+
+                                        <div class="dropdown-option"
+                                            data-value="B.Sc">
+                                            B.Sc
+                                        </div>
+
+                                        <div class="dropdown-option"
+                                            data-value="BCS">
+                                            BCS
+                                        </div>
+
+                                        <div class="dropdown-option"
+                                            data-value="B.Com">
+                                            B.Com
+                                        </div>
+
+                                        <div class="dropdown-option"
+                                            data-value="BBA">
+                                            BBA
+                                        </div>
+
+                                        <div class="dropdown-option"
+                                            data-value="MCA">
+                                            MCA
+                                        </div>
+
+                                        <div class="dropdown-option"
+                                            data-value="M.E.">
+                                            M.E.
+                                        </div>
+
+                                        <div class="dropdown-option"
+                                            data-value="M.Tech">
+                                            M.Tech
+                                        </div>
+
+                                        <div class="dropdown-option"
+                                            data-value="M.Sc">
+                                            M.Sc
+                                        </div>
+
+                                        <div class="dropdown-option"
+                                            data-value="MBA">
+                                            MBA
+                                        </div>
+
+                                        <div class="dropdown-option"
+                                            data-value="Pharmacy">
+                                            Pharmacy
+                                        </div>
+
+                                        <div class="dropdown-option"
+                                            data-value="Diploma">
+                                            Diploma
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="no-result">
+
+                                        No matching course found.
+
+                                    </div>
+
+
+                                    <div class="custom-option">
+
+                                        <i class="bi bi-plus-circle"></i>
+
+                                        Use entered course
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- =================================================
+                             BRANCH
+                        ================================================= -->
+
+                        <div class="col-md-6">
+
+                            <label class="form-label">
+
+                                Branch / Specialization
+
+                                <span class="required">*</span>
+
+                            </label>
+
+
+                            <div class="search-select">
+
+                                <input
+                                    type="text"
+                                    class="search-select-input"
+                                    id="branch"
+                                    name="branch"
+                                    value="{{ academic.branch|default:'' }}"
+                                    placeholder="Select or search branch"
+                                    autocomplete="off"
+                                    readonly
+                                    required>
+
+
+                                <i class="bi bi-chevron-down dropdown-arrow"></i>
+
+
+                                <div class="search-dropdown">
+
+                                    <div class="dropdown-search-box">
+
+                                        <input
+                                            type="text"
+                                            class="search-input"
+                                            placeholder="Search or enter branch..."
+                                            autocomplete="off">
+
+                                    </div>
+
+
+                                    <div class="dropdown-options">
+
+                                        <div class="dropdown-option"
+                                            data-value="Computer Engineering">
+                                            Computer Engineering
+                                        </div>
+
+                                        <div class="dropdown-option"
+                                            data-value="Information Technology">
+                                            Information Technology
+                                        </div>
+
+                                        <div class="dropdown-option"
+                                            data-value="Electronics & Telecommunication">
+                                            Electronics & Telecommunication
+                                        </div>
+
+                                        <div class="dropdown-option"
+                                            data-value="Mechanical Engineering">
+                                            Mechanical Engineering
+                                        </div>
+
+                                        <div class="dropdown-option"
+                                            data-value="Civil Engineering">
+                                            Civil Engineering
+                                        </div>
+
+                                        <div class="dropdown-option"
+                                            data-value="Electrical Engineering">
+                                            Electrical Engineering
+                                        </div>
+
+                                        <div class="dropdown-option"
+                                            data-value="Computer Applications">
+                                            Computer Applications
+                                        </div>
+
+                                        <div class="dropdown-option"
+                                            data-value="Commerce">
+                                            Commerce
+                                        </div>
+
+                                        <div class="dropdown-option"
+                                            data-value="Management">
+                                            Management
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="no-result">
+
+                                        No matching branch found.
+
+                                    </div>
+
+
+                                    <div class="custom-option">
+
+                                        <i class="bi bi-plus-circle"></i>
+
+                                        Use entered branch
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- =================================================
+                             COLLEGE
+                        ================================================= -->
+
+                        <div class="col-md-6">
+
+                            <label class="form-label">
+
+                                College Name
+
+                                <span class="required">*</span>
+
+                            </label>
+
+
+                            <div class="search-select">
+
+                                <input
+                                    type="text"
+                                    class="search-select-input"
+                                    id="college"
+                                    name="college"
+                                    value="{{ academic.college|default:'' }}"
+                                    placeholder="Select or search college"
+                                    autocomplete="off"
+                                    readonly
+                                    required>
+
+
+                                <i class="bi bi-chevron-down dropdown-arrow"></i>
+
+
+                                <div class="search-dropdown">
+
+                                    <div class="dropdown-search-box">
+
+                                        <input
+                                            type="text"
+                                            class="search-input"
+                                            placeholder="Search college..."
+                                            autocomplete="off">
+
+                                    </div>
+
+
+                                    <div class="dropdown-options">
+
+                                        <!-- Existing Colleges -->
+
+                                        <div class="dropdown-option"
+                                            data-value="Modern College of Arts, Science and Commerce">
+                                            Modern College of Arts, Science and Commerce
+                                        </div>
+
+                                        <div class="dropdown-option"
+                                            data-value="Fergusson College">
+                                            Fergusson College
+                                        </div>
+
+                                        <div class="dropdown-option"
+                                            data-value="DY Patil College">
+                                            DY Patil College
+                                        </div>
+
+                                        <div class="dropdown-option"
+                                            data-value="MIT College">
+                                            MIT College
+                                        </div>
+
+                                        <div class="dropdown-option"
+                                            data-value="Sinhgad College">
+                                            Sinhgad College
+                                        </div>
+
+                                        <!-- Colleges used for quotation -->
+
+                                        <div class="dropdown-option"
+                                            data-value="Adsul's Technical Campus (Faculty of Engineering & MBA)">
+                                            Adsul's Technical Campus (Faculty of Engineering & MBA)
+                                        </div>
+
+                                        <div class="dropdown-option"
+                                            data-value="Vishwabharati Academy's College of Engineering">
+                                            Vishwabharati Academy's College of Engineering
+                                        </div>
+
+                                        <div class="dropdown-option"
+                                            data-value="Parikrama Faculty of Engineering, Kashti">
+                                            Parikrama Faculty of Engineering, Kashti
+                                        </div>
+
+                                        <!-- Other -->
+
+                                        <div class="dropdown-option other-college-option"
+                                            data-value="Other">
+                                            Other
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="no-result">
+
+                                        No matching college found.
+
+                                    </div>
+
+
+                                    <div class="custom-option">
+
+                                        <i class="bi bi-plus-circle"></i>
+
+                                        Use entered college
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- =================================================
+                                 OTHER COLLEGE INPUT
+                            ================================================= -->
+
+                            <div
+                                class="other-college-box"
+                                id="otherCollegeBox">
+
+                                <label
+                                    for="otherCollege"
+                                    class="form-label">
+
+                                    Enter College Name
+
+                                    <span class="required">*</span>
+
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="otherCollege"
+                                    name="other_college"
+                                    class="other-college-input"
+                                    placeholder="Type your college name"
+                                    value="{% if academic.college and academic.college != 'Other' %}{% endif %}"
+                                    autocomplete="off">
+
+                                <small class="other-college-help">
+
+                                    <i class="bi bi-info-circle"></i>
+
+                                    Please enter your complete college name.
+
+                                </small>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- =================================================
+                             UNIVERSITY
+                        ================================================= -->
+
+                        <div class="col-md-6">
+
+                            <label class="form-label">
+
+                                University
+
+                                <span class="required">*</span>
+
+                            </label>
+
+
+                            <div class="search-select">
+
+                                <input
+                                    type="text"
+                                    class="search-select-input"
+                                    id="university"
+                                    name="university"
+                                    value="{{ academic.university|default:'' }}"
+                                    placeholder="Select or search university"
+                                    autocomplete="off"
+                                    readonly
+                                    required>
+
+
+                                <i class="bi bi-chevron-down dropdown-arrow"></i>
+
+
+                                <div class="search-dropdown">
+
+                                    <div class="dropdown-search-box">
+
+                                        <input
+                                            type="text"
+                                            class="search-input"
+                                            placeholder="Search or enter university..."
+                                            autocomplete="off">
+
+                                    </div>
+
+
+                                    <div class="dropdown-options">
+
+                                        <div class="dropdown-option"
+                                            data-value="Savitribai Phule Pune University">
+                                            Savitribai Phule Pune University
+                                        </div>
+
+                                        <div class="dropdown-option"
+                                            data-value="University of Mumbai">
+                                            University of Mumbai
+                                        </div>
+
+                                        <div class="dropdown-option"
+                                            data-value="Dr. Babasaheb Ambedkar Marathwada University">
+                                            Dr. Babasaheb Ambedkar Marathwada University
+                                        </div>
+
+                                        <div class="dropdown-option"
+                                            data-value="Rashtrasant Tukadoji Maharaj Nagpur University">
+                                            Rashtrasant Tukadoji Maharaj Nagpur University
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="no-result">
+
+                                        No matching university found.
+
+                                    </div>
+
+
+                                    <div class="custom-option">
+
+                                        <i class="bi bi-plus-circle"></i>
+
+                                        Use entered university
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- =================================================
+                             CURRENT YEAR
+                        ================================================= -->
+
+                        <div class="col-md-4">
+
+                            <label class="form-label">
+
+                                Current Year
+
+                                <span class="required">*</span>
+
+                            </label>
+
+
+                            <div class="search-select">
+
+                                <input
+                                    type="text"
+                                    class="search-select-input"
+                                    id="currentYear"
+                                    name="current_year"
+                                    value="{{ academic.current_year|default:'' }}"
+                                    placeholder="Select or search year"
+                                    autocomplete="off"
+                                    readonly
+                                    required>
+
+
+                                <i class="bi bi-chevron-down dropdown-arrow"></i>
+
+
+                                <div class="search-dropdown">
+
+                                    <div class="dropdown-search-box">
+
+                                        <input
+                                            type="text"
+                                            class="search-input"
+                                            placeholder="Search or enter year..."
+                                            autocomplete="off">
+
+                                    </div>
+
+
+                                    <div class="dropdown-options">
+
+                                        <div class="dropdown-option"
+                                            data-value="First Year">
+                                            First Year
+                                        </div>
+
+                                        <div class="dropdown-option"
+                                            data-value="Second Year">
+                                            Second Year
+                                        </div>
+
+                                        <div class="dropdown-option"
+                                            data-value="Third Year">
+                                            Third Year
+                                        </div>
+
+                                        <div class="dropdown-option"
+                                            data-value="Final Year">
+                                            Final Year
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="no-result">
+
+                                        No matching year found.
+
+                                    </div>
+
+
+                                    <div class="custom-option">
+
+                                        <i class="bi bi-plus-circle"></i>
+
+                                        Use entered year
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- =================================================
+                             SEMESTER
+                        ================================================= -->
+
+                        <div class="col-md-4">
+
+                            <label class="form-label">
+
+                                Current Semester
+
+                                <span class="required">*</span>
+
+                            </label>
+
+
+                            <div class="search-select">
+
+                                <input
+                                    type="text"
+                                    class="search-select-input"
+                                    id="semester"
+                                    name="semester"
+                                    value="{{ academic.semester|default:'' }}"
+                                    placeholder="Select or search semester"
+                                    autocomplete="off"
+                                    readonly
+                                    required>
+
+
+                                <i class="bi bi-chevron-down dropdown-arrow"></i>
+
+
+                                <div class="search-dropdown">
+
+                                    <div class="dropdown-search-box">
+
+                                        <input
+                                            type="text"
+                                            class="search-input"
+                                            placeholder="Search or enter semester..."
+                                            autocomplete="off">
+
+                                    </div>
+
+
+                                    <div class="dropdown-options">
+
+                                        <div class="dropdown-option"
+                                            data-value="Semester 1">
+                                            Semester 1
+                                        </div>
+
+                                        <div class="dropdown-option"
+                                            data-value="Semester 2">
+                                            Semester 2
+                                        </div>
+
+                                        <div class="dropdown-option"
+                                            data-value="Semester 3">
+                                            Semester 3
+                                        </div>
+
+                                        <div class="dropdown-option"
+                                            data-value="Semester 4">
+                                            Semester 4
+                                        </div>
+
+                                        <div class="dropdown-option"
+                                            data-value="Semester 5">
+                                            Semester 5
+                                        </div>
+
+                                        <div class="dropdown-option"
+                                            data-value="Semester 6">
+                                            Semester 6
+                                        </div>
+
+                                        <div class="dropdown-option"
+                                            data-value="Semester 7">
+                                            Semester 7
+                                        </div>
+
+                                        <div class="dropdown-option"
+                                            data-value="Semester 8">
+                                            Semester 8
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="no-result">
+
+                                        No matching semester found.
+
+                                    </div>
+
+
+                                    <div class="custom-option">
+
+                                        <i class="bi bi-plus-circle"></i>
+
+                                        Use entered semester
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- =================================================
+                             ACADEMIC YEAR
+                        ================================================= -->
+
+                        <div class="col-md-4">
+
+                            <label class="form-label">
+
+                                Academic Year
+
+                                <span class="required">*</span>
+
+                            </label>
+
+
+                            <div class="search-select">
+
+                                <input
+                                    type="text"
+                                    class="search-select-input"
+                                    id="academicYear"
+                                    name="academic_year"
+                                    value="{{ academic.academic_year|default:'' }}"
+                                    placeholder="Select or search academic year"
+                                    autocomplete="off"
+                                    readonly
+                                    required>
+
+
+                                <i class="bi bi-chevron-down dropdown-arrow"></i>
+
+
+                                <div class="search-dropdown">
+
+                                    <div class="dropdown-search-box">
+
+                                        <input
+                                            type="text"
+                                            class="search-input"
+                                            placeholder="Search or enter academic year..."
+                                            autocomplete="off">
+
+                                    </div>
+
+
+                                    <div class="dropdown-options">
+
+                                        <div class="dropdown-option"
+                                            data-value="2026-27">
+                                            2026-27
+                                        </div>
+
+                                        <div class="dropdown-option"
+                                            data-value="2025-26">
+                                            2025-26
+                                        </div>
+
+                                        <div class="dropdown-option"
+                                            data-value="2024-25">
+                                            2024-25
+                                        </div>
+
+                                        <div class="dropdown-option"
+                                            data-value="2023-24">
+                                            2023-24
+                                        </div>
+
+                                        <div class="dropdown-option"
+                                            data-value="2022-23">
+                                            2022-23
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="no-result">
+
+                                        No matching academic year found.
+
+                                    </div>
+
+
+                                    <div class="custom-option">
+
+                                        <i class="bi bi-plus-circle"></i>
+
+                                        Use entered academic year
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                     BUTTONS
+                ================================================== -->
+
+                <div class="form-card">
+
+                    <div class="d-flex justify-content-end">
+
+                        <button
+                            type="reset"
+                            class="reset-btn"
+                            id="resetBtn">
+
+                            <i class="bi bi-arrow-counterclockwise"></i>
+
+                            Reset
+
+                        </button>
+
+
+                        <button
+                            type="submit"
+                            class="save-btn"
+                            id="saveBtn">
+
+                            <i class="bi bi-check-circle"></i>
+
+                            Save & Continue
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         BOOTSTRAP JS
+    ====================================================== -->
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+    </script>
+
+
+    <!-- =====================================================
+         SEARCHABLE DROPDOWN JAVASCRIPT
+    ====================================================== -->
+
+    <script>
+
+        document.addEventListener("DOMContentLoaded", function () {
+
+            const searchableSelects =
+                document.querySelectorAll(".search-select");
+
+
+            /* =================================================
+               OTHER COLLEGE ELEMENTS
+            ================================================= */
+
+            const collegeInput =
+                document.getElementById("college");
+
+            const otherCollegeBox =
+                document.getElementById("otherCollegeBox");
+
+            const otherCollegeInput =
+                document.getElementById("otherCollege");
+
+
+            /* =================================================
+               SHOW / HIDE OTHER COLLEGE
+            ================================================= */
+
+            function handleOtherCollege() {
+
+                if (!collegeInput) {
+                    return;
+                }
+
+                if (collegeInput.value === "Other") {
+
+                    otherCollegeBox.classList.add("show");
+
+                    otherCollegeInput.required = true;
+
+                    setTimeout(function () {
+
+                        otherCollegeInput.focus();
+
+                    }, 100);
+
+                } else {
+
+                    otherCollegeBox.classList.remove("show");
+
+                    otherCollegeInput.required = false;
+
+                    otherCollegeInput.value = "";
+
+                }
+
+            }
+
+
+            /* =================================================
+               SEARCHABLE SELECT
+            ================================================= */
+
+            searchableSelects.forEach(function (selectBox) {
+
+                const input =
+                    selectBox.querySelector(".search-select-input");
+
+                const dropdown =
+                    selectBox.querySelector(".search-dropdown");
+
+                const searchInput =
+                    selectBox.querySelector(".search-input");
+
+                const options =
+                    selectBox.querySelectorAll(".dropdown-option");
+
+                const customOption =
+                    selectBox.querySelector(".custom-option");
+
+                const noResult =
+                    selectBox.querySelector(".no-result");
+
+
+                /* =================================================
+                   OPEN DROPDOWN
+                ================================================= */
+
+                input.addEventListener("click", function (event) {
+
+                    event.stopPropagation();
+
+
+                    /* Close all other dropdowns */
+
+                    document
+                        .querySelectorAll(".search-dropdown")
+                        .forEach(function (item) {
+
+                            if (item !== dropdown) {
+
+                                item.classList.remove("show");
+
+                            }
+
+                        });
+
+
+                    dropdown.classList.toggle("show");
+
+
+                    if (dropdown.classList.contains("show")) {
+
+                        /* Reset search */
+
+                        if (searchInput) {
+
+                            searchInput.value = "";
+
+                        }
+
+
+                        /* Show all options */
+
+                        options.forEach(function (option) {
+
+                            option.style.display = "block";
+
+                        });
+
+
+                        if (customOption) {
+
+                            customOption.style.display = "none";
+
+                        }
+
+
+                        if (noResult) {
+
+                            noResult.style.display = "none";
+
+                        }
+
+
+                        /* Focus search */
+
+                        setTimeout(function () {
+
+                            if (searchInput) {
+
+                                searchInput.focus();
+
+                            }
+
+                        }, 50);
+
+                    }
+
+                });
+
+
+                /* =================================================
+                   OPTION CLICK
+                ================================================= */
+
+                options.forEach(function (option) {
+
+                    option.addEventListener("click", function () {
+
+                        const value =
+                            option.getAttribute("data-value");
+
+
+                        input.value = value;
+
+
+                        dropdown.classList.remove("show");
+
+
+                        if (searchInput) {
+
+                            searchInput.value = "";
+
+                        }
+
+
+                        /* =================================================
+                           COLLEGE → OTHER
+                        ================================================= */
+
+                        if (input.id === "college") {
+
+                            handleOtherCollege();
+
+                        }
+
+                    });
+
+                });
+
+
+                /* =================================================
+                   SEARCH
+                ================================================= */
+
+                if (searchInput) {
+
+                    searchInput.addEventListener(
+                        "input",
+                        function () {
+
+                            const searchValue =
+                                this.value
+                                    .toLowerCase()
+                                    .trim();
+
+                            let found = false;
+
+
+                            options.forEach(function (option) {
+
+                                const text =
+                                    option.textContent
+                                        .toLowerCase()
+                                        .trim();
+
+
+                                if (
+                                    searchValue === "" ||
+                                    text.includes(searchValue)
+                                ) {
+
+                                    option.style.display =
+                                        "block";
+
+                                    found = true;
+
+                                } else {
+
+                                    option.style.display =
+                                        "none";
+
+                                }
+
+                            });
+
+
+                            /* No result */
+
+                            if (noResult) {
+
+                                if (
+                                    searchValue !== "" &&
+                                    !found
+                                ) {
+
+                                    noResult.style.display =
+                                        "block";
+
+                                } else {
+
+                                    noResult.style.display =
+                                        "none";
+
+                                }
+
+                            }
+
+
+                            /* Custom value */
+
+                            if (customOption) {
+
+                                if (
+                                    searchValue !== "" &&
+                                    !found
+                                ) {
+
+                                    customOption.style.display =
+                                        "block";
+
+                                } else {
+
+                                    customOption.style.display =
+                                        "none";
+
+                                }
+
+                            }
+
+                        }
+                    );
+
+                }
+
+
+                /* =================================================
+                   CUSTOM VALUE
+                ================================================= */
+
+                if (customOption) {
+
+                    customOption.addEventListener(
+                        "click",
+                        function () {
+
+                            const customValue =
+                                searchInput.value.trim();
+
+
+                            if (customValue !== "") {
+
+                                input.value =
+                                    customValue;
+
+
+                                dropdown.classList.remove(
+                                    "show"
+                                );
+
+
+                                searchInput.value = "";
+
+
+                                /* If custom college entered */
+
+                                if (input.id === "college") {
+
+                                    handleOtherCollege();
+
+                                }
+
+                            }
+
+                        }
+                    );
+
+                }
+
+            });
+
+
+            /* =================================================
+               INITIAL OTHER COLLEGE CHECK
+            ================================================= */
+
+            handleOtherCollege();
+
+
+            /* =================================================
+               CLOSE DROPDOWN OUTSIDE
+            ================================================= */
+
+            document.addEventListener(
+                "click",
+                function (event) {
+
+                    if (
+                        !event.target.closest(
+                            ".search-select"
+                        )
+                    ) {
+
+                        document
+                            .querySelectorAll(
+                                ".search-dropdown"
+                            )
+                            .forEach(function (dropdown) {
+
+                                dropdown.classList.remove(
+                                    "show"
+                                );
+
+                            });
+
+                    }
+
+                }
+            );
+
+
+            /* =================================================
+               FORM VALIDATION
+            ================================================= */
+
+            const form =
+                document.getElementById("academicForm");
+
+            const saveBtn =
+                document.getElementById("saveBtn");
+
+
+            form.addEventListener(
+                "submit",
+                function (event) {
+
+                    let valid = true;
+
+
+                    /* =================================================
+                       NORMAL REQUIRED INPUTS
+                    ================================================= */
+
+                    const requiredInputs =
+                        form.querySelectorAll(
+                            ".search-select-input[required]"
+                        );
+
+
+                    requiredInputs.forEach(function (input) {
+
+                        if (
+                            input.value.trim() === ""
+                        ) {
+
+                            valid = false;
+
+                            input.style.borderColor =
+                                "#EF4444";
+
+                        } else {
+
+                            input.style.borderColor =
+                                "";
+
+                        }
+
+                    });
+
+
+                    /* =================================================
+                       OTHER COLLEGE VALIDATION
+                    ================================================= */
+
+                    if (
+                        collegeInput.value === "Other"
+                    ) {
+
+                        if (
+                            otherCollegeInput.value.trim() === ""
+                        ) {
+
+                            valid = false;
+
+                            otherCollegeInput.style.borderColor =
+                                "#EF4444";
+
+                        } else {
+
+                            otherCollegeInput.style.borderColor =
+                                "";
+                        }
+
+                    }
+
+
+                    /* =================================================
+                       IF INVALID
+                    ================================================= */
+
+                    if (!valid) {
+
+                        event.preventDefault();
+
+                        alert(
+                            "Please fill all required academic details."
+                        );
+
+                        return;
+
+                    }
+
+
+                    /* =================================================
+                       IMPORTANT:
+                       Replace "Other" with typed college name
+                       before sending form
+                    ================================================= */
+
+                    if (
+                        collegeInput.value === "Other"
+                    ) {
+
+                        collegeInput.value =
+                            otherCollegeInput.value.trim();
+
+                    }
+
+
+                    /* Disable button */
+
+                    saveBtn.disabled = true;
+
+                    saveBtn.innerHTML =
+                        '<span class="spinner-border spinner-border-sm me-2"></span>Saving...';
+
+                }
+            );
+
+
+            /* =================================================
+               RESET
+            ================================================= */
+
+            const resetBtn =
+                document.getElementById("resetBtn");
+
+
+            resetBtn.addEventListener(
+                "click",
+                function () {
+
+                    setTimeout(function () {
+
+                        location.reload();
+
+                    }, 50);
+
+                }
+            );
+
+        });
+
+    </script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,2472 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Applications | GuruKrupa</title>
+
+<link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+>
+
+<link
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+    rel="stylesheet"
+>
+
+<style>
+
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        background: #F5F7FB;
+        color: #111827;
+        font-family: Arial, sans-serif;
+    }
+
+    .topbar {
+        height: 70px;
+        background: #FFFFFF;
+        border-bottom: 1px solid #E2E8F0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 25px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+    }
+
+    .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .brand-icon {
+        width: 42px;
+        height: 42px;
+        background: #2563EB;
+        color: #FFFFFF;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+    }
+
+    .brand h5 {
+        margin: 0;
+        font-weight: 700;
+    }
+
+    .brand small {
+        color: #64748B;
+    }
+
+    .admin-info {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .admin-avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: #172554;
+        color: #FFFFFF;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+    }
+
+    .sidebar {
+        width: 250px;
+        height: calc(100vh - 70px);
+        position: fixed;
+        left: 0;
+        top: 70px;
+        background: #172554;
+        padding: 20px 12px;
+        overflow-y: auto;
+    }
+
+    .sidebar-title {
+        color: #FFFFFF;
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        padding: 8px 14px;
+        opacity: 0.7;
+    }
+
+    .sidebar a {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        color: #CBD5E1;
+        text-decoration: none;
+        padding: 12px 14px;
+        border-radius: 8px;
+        margin-bottom: 5px;
+        font-size: 14px;
+    }
+
+    .sidebar a:hover {
+        background: #1E3A8A;
+        color: #FFFFFF;
+    }
+
+    .sidebar a.active {
+        background: #2563EB;
+        color: #FFFFFF;
+    }
+
+    .sidebar i {
+        font-size: 17px;
+    }
+
+    .sidebar-bottom {
+        margin-top: 25px;
+        padding-top: 15px;
+        border-top: 1px solid rgba(255,255,255,0.15);
+    }
+
+    .main-content {
+        margin-left: 250px;
+        padding: 100px 30px 30px;
+    }
+
+    .page-title {
+        font-size: 27px;
+        font-weight: 700;
+        margin-bottom: 5px;
+    }
+
+    .page-subtitle {
+        color: #64748B;
+        margin-bottom: 25px;
+    }
+
+    .stat-card {
+        background: #FFFFFF;
+        border: 1px solid #E2E8F0;
+        border-radius: 12px;
+        padding: 20px;
+    }
+
+    .stat-icon {
+        width: 44px;
+        height: 44px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 12px;
+        font-size: 19px;
+    }
+
+    .blue {
+        background: #DBEAFE;
+        color: #2563EB;
+    }
+
+    .yellow {
+        background: #FEF3C7;
+        color: #F59E0B;
+    }
+
+    .green {
+        background: #DCFCE7;
+        color: #16A34A;
+    }
+
+    .red {
+        background: #FEE2E2;
+        color: #EF4444;
+    }
+
+    .stat-title {
+        color: #64748B;
+        font-size: 14px;
+    }
+
+    .stat-number {
+        font-size: 25px;
+        font-weight: 700;
+    }
+
+    .section-card {
+        background: #FFFFFF;
+        border: 1px solid #E2E8F0;
+        border-radius: 12px;
+        padding: 20px;
+        margin-top: 25px;
+    }
+
+    .form-label {
+        font-size: 13px;
+        font-weight: 600;
+        color: #374151;
+    }
+
+    .form-control,
+    .form-select {
+        border: 1px solid #E2E8F0;
+        min-height: 42px;
+    }
+
+    .form-control:focus,
+    .form-select:focus {
+        border-color: #2563EB;
+        box-shadow: 0 0 0 0.15rem rgba(37,99,235,0.12);
+    }
+
+    .searchable-dropdown {
+        position: relative;
+        width: 100%;
+    }
+
+    .dropdown-display {
+        min-height: 42px;
+        border: 1px solid #E2E8F0;
+        border-radius: 6px;
+        background: #FFFFFF;
+        padding: 10px 40px 10px 12px;
+        cursor: pointer;
+        position: relative;
+        color: #111827;
+    }
+
+    .dropdown-display:hover {
+        border-color: #2563EB;
+    }
+
+    .dropdown-display::after {
+        content: "\F282";
+        font-family: "bootstrap-icons";
+        position: absolute;
+        right: 13px;
+        top: 11px;
+        color: #64748B;
+    }
+
+    .dropdown-menu-custom {
+        display: none;
+        position: absolute;
+        top: calc(100% + 4px);
+        left: 0;
+        right: 0;
+        background: #FFFFFF;
+        border: 1px solid #E2E8F0;
+        border-radius: 8px;
+        box-shadow: 0 8px 20px rgba(15,23,42,0.12);
+        z-index: 2000;
+        padding: 8px;
+    }
+
+    .dropdown-menu-custom.show {
+        display: block;
+    }
+
+    .dropdown-search {
+        width: 100%;
+        height: 38px;
+        border: 1px solid #E2E8F0;
+        border-radius: 6px;
+        padding: 8px 10px;
+        margin-bottom: 7px;
+        outline: none;
+    }
+
+    .dropdown-search:focus {
+        border-color: #2563EB;
+    }
+
+    .dropdown-options {
+        max-height: 190px;
+        overflow-y: auto;
+    }
+
+    .dropdown-option {
+        padding: 9px 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 14px;
+    }
+
+    .dropdown-option:hover {
+        background: #EFF6FF;
+        color: #2563EB;
+    }
+
+    .table thead th {
+        background: #F5F7FB;
+        color: #64748B;
+        font-size: 13px;
+        border-bottom: 1px solid #E2E8F0;
+        white-space: nowrap;
+    }
+
+    .table tbody td {
+        vertical-align: middle;
+        font-size: 14px;
+        border-color: #E2E8F0;
+    }
+
+    .status {
+        padding: 5px 9px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 600;
+    }
+
+    .status-pending {
+        background: #FEF3C7;
+        color: #92400E;
+    }
+
+    .status-review {
+        background: #E0F2FE;
+        color: #0369A1;
+    }
+
+    .status-approved {
+        background: #DCFCE7;
+        color: #166534;
+    }
+
+    .status-rejected {
+        background: #FEE2E2;
+        color: #991B1B;
+    }
+
+    .status-paid {
+        background: #DCFCE7;
+        color: #166534;
+    }
+
+    .status-unpaid {
+        background: #FEE2E2;
+        color: #991B1B;
+    }
+
+    .status-progress {
+        background: #DBEAFE;
+        color: #1D4ED8;
+    }
+
+    .btn-primary-custom {
+        background: #2563EB;
+        color: #FFFFFF;
+        border: none;
+    }
+
+    .btn-primary-custom:hover {
+        background: #1D4ED8;
+        color: #FFFFFF;
+    }
+
+    .empty-state {
+        text-align: center;
+        padding: 45px 20px;
+        color: #64748B;
+    }
+
+    .empty-state i {
+        font-size: 40px;
+        margin-bottom: 12px;
+    }
+
+    .application-status-box {
+        background: #F8FAFC;
+        border: 1px solid #E2E8F0;
+        border-radius: 8px;
+        padding: 12px;
+    }
+
+    .remark-preview {
+        background: #F8FAFC;
+        border-left: 4px solid #2563EB;
+        padding: 10px 12px;
+        border-radius: 5px;
+        color: #475569;
+        font-size: 14px;
+    }
+
+    @media (max-width: 900px) {
+
+        .sidebar {
+            width: 210px;
+        }
+
+        .main-content {
+            margin-left: 210px;
+        }
+
+    }
+
+    @media (max-width: 700px) {
+
+        .sidebar {
+            display: none;
+        }
+
+        .main-content {
+            margin-left: 0;
+            padding: 90px 15px 25px;
+        }
+
+        .brand small {
+            display: none;
+        }
+
+    }
+
+</style>
+
+</head>
+
+<body>
+
+<div class="topbar">
+
+<div class="brand">
+
+    <div class="brand-icon">
+        <i class="bi bi-mortarboard-fill"></i>
+    </div>
+
+    <div>
+
+        <h5>
+            GuruKrupa
+        </h5>
+
+        <small>
+            Student Project Registration & Management Portal
+        </small>
+
+    </div>
+
+</div>
+
+
+<div class="admin-info">
+
+    <div class="text-end d-none d-md-block">
+
+        <strong>
+            Admin
+        </strong>
+
+        <br>
+
+        <small class="text-muted">
+            Administrator
+        </small>
+
+    </div>
+
+    <div class="admin-avatar">
+        A
+    </div>
+
+</div>
+
+</div>
+
+<div class="sidebar">
+
+<div class="sidebar-title">
+    Main Menu
+</div>
+
+
+<a href="{% url 'admin_dashboard' %}">
+    <i class="bi bi-grid-1x2-fill"></i>
+    Dashboard
+</a>
+
+
+<a href="{% url 'admin_students' %}">
+    <i class="bi bi-people-fill"></i>
+    Students
+</a>
+
+
+<a
+    href="{% url 'admin_applications' %}"
+    class="active"
+>
+    <i class="bi bi-file-earmark-text-fill"></i>
+    Applications
+</a>
+
+
+<a href="{% url 'admin_quotations' %}">
+    <i class="bi bi-receipt-cutoff"></i>
+    Quotations
+</a>
+
+
+<a href="{% url 'admin_payments' %}">
+    <i class="bi bi-credit-card-fill"></i>
+    Payments
+</a>
+
+
+<a href="#">
+    <i class="bi bi-kanban-fill"></i>
+    Projects
+</a>
+
+
+<a href="#">
+    <i class="bi bi-folder-fill"></i>
+    Documents
+</a>
+
+
+
+<div class="sidebar-bottom">
+
+    <a href="/">
+        <i class="bi bi-globe2"></i>
+        View Website
+    </a>
+
+
+    <a href="{% url 'admin_logout' %}">
+        <i class="bi bi-box-arrow-right"></i>
+        Logout
+    </a>
+
+</div>
+
+</div>
+
+<div class="main-content">
+
+<h1 class="page-title">
+    Applications
+</h1>
+
+
+<p class="page-subtitle">
+    Review, filter and manage student project applications.
+</p>
+
+
+<div class="row g-3">
+
+
+    <div class="col-xl-3 col-md-6">
+
+        <div class="stat-card">
+
+            <div class="stat-icon blue">
+                <i class="bi bi-files"></i>
+            </div>
+
+            <div class="stat-title">
+                Total Applications
+            </div>
+
+            <div class="stat-number">
+                {{ total_applications }}
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="col-xl-3 col-md-6">
+
+        <div class="stat-card">
+
+            <div class="stat-icon yellow">
+                <i class="bi bi-hourglass-split"></i>
+            </div>
+
+            <div class="stat-title">
+                Pending Review
+            </div>
+
+            <div class="stat-number">
+                {{ pending_applications }}
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="col-xl-3 col-md-6">
+
+        <div class="stat-card">
+
+            <div class="stat-icon green">
+                <i class="bi bi-check-circle-fill"></i>
+            </div>
+
+            <div class="stat-title">
+                Approved
+            </div>
+
+            <div class="stat-number">
+                {{ approved_applications }}
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="col-xl-3 col-md-6">
+
+        <div class="stat-card">
+
+            <div class="stat-icon red">
+                <i class="bi bi-x-circle-fill"></i>
+            </div>
+
+            <div class="stat-title">
+                Rejected
+            </div>
+
+            <div class="stat-number">
+                {{ rejected_applications }}
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="section-card">
+
+    <h5 class="mb-3">
+        Search & Filters
+    </h5>
+
+
+    <div class="row g-3">
+
+
+        <div class="col-lg-3 col-md-6">
+
+            <label class="form-label">
+                Search
+            </label>
+
+            <input
+                type="text"
+                id="searchInput"
+                class="form-control"
+                placeholder="Student ID / Name / Application ID"
+            >
+
+        </div>
+
+
+        <div class="col-lg-3 col-md-6">
+
+            <label class="form-label">
+                College
+            </label>
+
+            <div class="searchable-dropdown">
+
+                <div
+                    class="dropdown-display"
+                    onclick="toggleDropdown('collegeDropdown')"
+                    id="collegeDisplay"
+                >
+                    All Colleges
+                </div>
+
+
+                <div
+                    class="dropdown-menu-custom"
+                    id="collegeDropdown"
+                >
+
+                    <input
+                        type="text"
+                        class="dropdown-search"
+                        placeholder="Search college..."
+                        onkeyup="searchDropdown('collegeDropdown')"
+                    >
+
+
+                    <div class="dropdown-options">
+
+                        <div
+                            class="dropdown-option"
+                            onclick="selectOption('college','','All Colleges')"
+                        >
+                            All Colleges
+                        </div>
+
+
+                        {% for item in colleges %}
+
+                        <div
+                            class="dropdown-option"
+                            onclick="selectOption('college','{{ item|escapejs }}','{{ item|escapejs }}')"
+                        >
+                            {{ item }}
+                        </div>
+
+                        {% endfor %}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <input
+                type="hidden"
+                id="collegeFilter"
+                value=""
+            >
+
+        </div>
+
+
+        <div class="col-lg-3 col-md-6">
+
+            <label class="form-label">
+                University
+            </label>
+
+
+            <div class="searchable-dropdown">
+
+                <div
+                    class="dropdown-display"
+                    onclick="toggleDropdown('universityDropdown')"
+                    id="universityDisplay"
+                >
+                    All Universities
+                </div>
+
+
+                <div
+                    class="dropdown-menu-custom"
+                    id="universityDropdown"
+                >
+
+                    <input
+                        type="text"
+                        class="dropdown-search"
+                        placeholder="Search university..."
+                        onkeyup="searchDropdown('universityDropdown')"
+                    >
+
+
+                    <div class="dropdown-options">
+
+                        <div
+                            class="dropdown-option"
+                            onclick="selectOption('university','','All Universities')"
+                        >
+                            All Universities
+                        </div>
+
+
+                        {% for item in universities %}
+
+                        <div
+                            class="dropdown-option"
+                            onclick="selectOption('university','{{ item|escapejs }}','{{ item|escapejs }}')"
+                        >
+                            {{ item }}
+                        </div>
+
+                        {% endfor %}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <input
+                type="hidden"
+                id="universityFilter"
+                value=""
+            >
+
+        </div>
+
+
+        <div class="col-lg-3 col-md-6">
+
+            <label class="form-label">
+                Course
+            </label>
+
+
+            <div class="searchable-dropdown">
+
+                <div
+                    class="dropdown-display"
+                    onclick="toggleDropdown('courseDropdown')"
+                    id="courseDisplay"
+                >
+                    All Courses
+                </div>
+
+
+                <div
+                    class="dropdown-menu-custom"
+                    id="courseDropdown"
+                >
+
+                    <input
+                        type="text"
+                        class="dropdown-search"
+                        placeholder="Search course..."
+                        onkeyup="searchDropdown('courseDropdown')"
+                    >
+
+
+                    <div class="dropdown-options">
+
+                        <div
+                            class="dropdown-option"
+                            onclick="selectOption('course','','All Courses')"
+                        >
+                            All Courses
+                        </div>
+
+
+                        {% for item in courses %}
+
+                        <div
+                            class="dropdown-option"
+                            onclick="selectOption('course','{{ item|escapejs }}','{{ item|escapejs }}')"
+                        >
+                            {{ item }}
+                        </div>
+
+                        {% endfor %}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <input
+                type="hidden"
+                id="courseFilter"
+                value=""
+            >
+
+        </div>
+
+
+        <div class="col-lg-3 col-md-6">
+
+            <label class="form-label">
+                Branch
+            </label>
+
+
+            <div class="searchable-dropdown">
+
+                <div
+                    class="dropdown-display"
+                    onclick="toggleDropdown('branchDropdown')"
+                    id="branchDisplay"
+                >
+                    All Branches
+                </div>
+
+
+                <div
+                    class="dropdown-menu-custom"
+                    id="branchDropdown"
+                >
+
+                    <input
+                        type="text"
+                        class="dropdown-search"
+                        placeholder="Search branch..."
+                        onkeyup="searchDropdown('branchDropdown')"
+                    >
+
+
+                    <div class="dropdown-options">
+
+                        <div
+                            class="dropdown-option"
+                            onclick="selectOption('branch','','All Branches')"
+                        >
+                            All Branches
+                        </div>
+
+
+                        {% for item in branches %}
+
+                        <div
+                            class="dropdown-option"
+                            onclick="selectOption('branch','{{ item|escapejs }}','{{ item|escapejs }}')"
+                        >
+                            {{ item }}
+                        </div>
+
+                        {% endfor %}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <input
+                type="hidden"
+                id="branchFilter"
+                value=""
+            >
+
+        </div>
+
+
+        <div class="col-lg-3 col-md-6">
+
+            <label class="form-label">
+                Domain
+            </label>
+
+
+            <div class="searchable-dropdown">
+
+                <div
+                    class="dropdown-display"
+                    onclick="toggleDropdown('domainDropdown')"
+                    id="domainDisplay"
+                >
+                    All Domains
+                </div>
+
+
+                <div
+                    class="dropdown-menu-custom"
+                    id="domainDropdown"
+                >
+
+                    <input
+                        type="text"
+                        class="dropdown-search"
+                        placeholder="Search domain..."
+                        onkeyup="searchDropdown('domainDropdown')"
+                    >
+
+
+                    <div class="dropdown-options">
+
+                        <div
+                            class="dropdown-option"
+                            onclick="selectOption('domain','','All Domains')"
+                        >
+                            All Domains
+                        </div>
+
+
+                        {% for item in domains %}
+
+                        <div
+                            class="dropdown-option"
+                            onclick="selectOption('domain','{{ item|escapejs }}','{{ item|escapejs }}')"
+                        >
+                            {{ item }}
+                        </div>
+
+                        {% endfor %}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <input
+                type="hidden"
+                id="domainFilter"
+                value=""
+            >
+
+        </div>
+
+
+        <div class="col-lg-3 col-md-6">
+
+            <label class="form-label">
+                Payment Status
+            </label>
+
+            <select
+                id="paymentFilter"
+                class="form-select"
+            >
+
+                <option value="">
+                    All Payment Status
+                </option>
+
+                <option value="Paid">
+                    Paid
+                </option>
+
+                <option value="Pending">
+                    Pending
+                </option>
+
+                <option value="Failed">
+                    Failed
+                </option>
+
+                <option value="Unpaid">
+                    Unpaid
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <div class="col-lg-3 col-md-6">
+
+            <label class="form-label">
+                Project Status
+            </label>
+
+            <select
+                id="projectFilter"
+                class="form-select"
+            >
+
+                <option value="">
+                    All Project Status
+                </option>
+
+                <option value="Pending">
+                    Pending
+                </option>
+
+                <option value="In Progress">
+                    In Progress
+                </option>
+
+                <option value="Completed">
+                    Completed
+                </option>
+
+                <option value="On Hold">
+                    On Hold
+                </option>
+
+            </select>
+
+        </div>
+
+    </div>
+
+
+    <div class="mt-3">
+
+        <button
+            type="button"
+            onclick="applyFilters()"
+            class="btn btn-primary-custom px-4"
+        >
+            <i class="bi bi-search"></i>
+            Apply Filters
+        </button>
+
+
+        <button
+            type="button"
+            onclick="resetFilters()"
+            class="btn btn-light border px-4"
+        >
+            Reset
+        </button>
+
+    </div>
+
+</div>
+
+
+<div class="section-card">
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+
+        <div>
+
+            <h5 class="mb-1">
+                Student Applications
+            </h5>
+
+            <small class="text-muted">
+                Review and manage submitted applications.
+            </small>
+
+        </div>
+
+    </div>
+
+
+    <div class="table-responsive">
+
+        <table
+            class="table"
+            id="applicationTable"
+        >
+
+            <thead>
+
+                <tr>
+
+                    <th>Application ID</th>
+                    <th>Student ID</th>
+                    <th>Student</th>
+                    <th>College</th>
+                    <th>Course</th>
+                    <th>Domain</th>
+                    <th>Payment</th>
+                    <th>Project Status</th>
+                    <th>Action</th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+                {% for application in applications %}
+
+                <tr
+                    data-search="{{ application.application_id }} {{ application.student_id }} {{ application.student_name }} {{ application.email }}"
+                    data-student-id="{{ application.student_id }}"
+                    data-college="{{ application.college }}"
+                    data-university="{{ application.university }}"
+                    data-course="{{ application.course }}"
+                    data-branch="{{ application.branch }}"
+                    data-domain="{{ application.domain }}"
+                    data-payment="{{ application.payment_status }}"
+                    data-project="{{ application.project_status }}"
+                >
+
+                    <td>
+                        <strong>
+                            {{ application.application_id }}
+                        </strong>
+                    </td>
+
+
+                    <td>
+                        <strong>
+                            {{ application.student_id }}
+                        </strong>
+                    </td>
+
+
+                    <td>
+
+                        <div class="d-flex align-items-center gap-2">
+
+                            <div
+                                style="
+                                    width:36px;
+                                    height:36px;
+                                    min-width:36px;
+                                    border-radius:50%;
+                                    background:#DBEAFE;
+                                    color:#2563EB;
+                                    display:flex;
+                                    align-items:center;
+                                    justify-content:center;
+                                    font-weight:700;
+                                "
+                            >
+                                {{ application.student_name|first|upper }}
+                            </div>
+
+
+                            <div>
+
+                                <div class="fw-semibold">
+                                    {{ application.student_name }}
+                                </div>
+
+
+                                {% if application.email and application.email != "-" %}
+
+                                <small class="text-muted">
+                                    {{ application.email }}
+                                </small>
+
+                                {% endif %}
+
+                            </div>
+
+                        </div>
+
+                    </td>
+
+
+                    <td>
+                        {{ application.college }}
+                    </td>
+
+
+                    <td>
+                        {{ application.course }}
+                    </td>
+
+
+                    <td>
+                        {{ application.domain }}
+                    </td>
+
+
+                    <td>
+
+                        {% if application.payment_status == "Paid" %}
+
+                            <span class="status status-paid">
+                                Paid
+                            </span>
+
+                        {% elif application.payment_status == "Failed" %}
+
+                            <span class="status status-rejected">
+                                Failed
+                            </span>
+
+                        {% elif application.payment_status == "Pending" %}
+
+                            <span class="status status-pending">
+                                Pending
+                            </span>
+
+                        {% else %}
+
+                            <span class="status status-unpaid">
+                                Unpaid
+                            </span>
+
+                        {% endif %}
+
+                    </td>
+
+
+                    <td>
+
+                        {% if application.project_status == "Completed" %}
+
+                            <span class="status status-approved">
+                                Completed
+                            </span>
+
+                        {% elif application.project_status == "In Progress" %}
+
+                            <span class="status status-review">
+                                In Progress
+                            </span>
+
+                        {% elif application.project_status == "On Hold" %}
+
+                            <span class="status status-rejected">
+                                On Hold
+                            </span>
+
+                        {% else %}
+
+                            <span class="status status-pending">
+                                Pending
+                            </span>
+
+                        {% endif %}
+
+                    </td>
+
+
+                    <td>
+
+                        <button
+                            type="button"
+                            class="btn btn-sm btn-primary"
+                            onclick="viewApplication(
+                                '{{ application.application_id|escapejs }}',
+                                '{{ application.student_id|escapejs }}',
+                                '{{ application.student_name|escapejs }}',
+                                '{{ application.email|escapejs }}',
+                                '{{ application.college|escapejs }}',
+                                '{{ application.course|escapejs }}',
+                                '{{ application.domain|escapejs }}',
+                                '{{ application.payment_status|escapejs }}',
+                                '{{ application.project_status|escapejs }}',
+                                '{{ application.university|escapejs }}',
+                                '{{ application.branch|escapejs }}'
+                            )"
+                        >
+
+                            <i class="bi bi-eye"></i>
+                            View
+
+                        </button>
+
+                    </td>
+
+                </tr>
+
+
+                {% empty %}
+
+                <tr>
+
+                    <td colspan="9">
+
+                        <div class="empty-state">
+
+                            <i class="bi bi-file-earmark-x"></i>
+
+                            <div>
+                                No applications found.
+                            </div>
+
+                        </div>
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+</div>
+
+<div
+    class="modal fade"
+    id="applicationModal"
+    tabindex="-1"
+>
+
+<div class="modal-dialog modal-lg modal-dialog-centered">
+
+    <div class="modal-content">
+
+
+        <div class="modal-header">
+
+            <h5 class="modal-title">
+                Application Details
+            </h5>
+
+
+            <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+            ></button>
+
+        </div>
+
+
+        <div class="modal-body">
+
+            <div class="row g-3">
+
+
+                <div class="col-md-6">
+
+                    <strong>
+                        Application ID
+                    </strong>
+
+                    <p id="modalApplicationId">
+                        -
+                    </p>
+
+                </div>
+
+
+                <div class="col-md-6">
+
+                    <strong>
+                        Student ID
+                    </strong>
+
+                    <p id="modalStudentId">
+                        -
+                    </p>
+
+                </div>
+
+
+                <div class="col-md-6">
+
+                    <strong>
+                        Student Name
+                    </strong>
+
+                    <p id="modalStudent">
+                        -
+                    </p>
+
+                </div>
+
+
+                <div class="col-md-6">
+
+                    <strong>
+                        Email
+                    </strong>
+
+                    <p id="modalEmail">
+                        -
+                    </p>
+
+                </div>
+
+
+                <div class="col-md-6">
+
+                    <strong>
+                        College
+                    </strong>
+
+                    <p id="modalCollege">
+                        -
+                    </p>
+
+                </div>
+
+
+                <div class="col-md-6">
+
+                    <strong>
+                        University
+                    </strong>
+
+                    <p id="modalUniversity">
+                        -
+                    </p>
+
+                </div>
+
+
+                <div class="col-md-6">
+
+                    <strong>
+                        Course
+                    </strong>
+
+                    <p id="modalCourse">
+                        -
+                    </p>
+
+                </div>
+
+
+                <div class="col-md-6">
+
+                    <strong>
+                        Branch
+                    </strong>
+
+                    <p id="modalBranch">
+                        -
+                    </p>
+
+                </div>
+
+
+                <div class="col-md-6">
+
+                    <strong>
+                        Project Domain
+                    </strong>
+
+                    <p id="modalDomain">
+                        -
+                    </p>
+
+                </div>
+
+
+                <div class="col-md-6">
+
+                    <strong>
+                        Payment Status
+                    </strong>
+
+                    <p id="modalPayment">
+                        -
+                    </p>
+
+                </div>
+
+
+                <div class="col-md-6">
+
+                    <strong>
+                        Project Status
+                    </strong>
+
+                    <p id="modalProject">
+                        -
+                    </p>
+
+                </div>
+
+
+                <div class="col-md-6">
+
+                    <strong>
+                        Application Status
+                    </strong>
+
+
+                    <div class="application-status-box mt-2">
+
+                        <span
+                            id="modalApplicationStatus"
+                            class="status status-pending"
+                        >
+                            Pending
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-12">
+
+                    <form
+                        method="POST"
+                        id="applicationActionForm"
+                        action=""
+                    >
+
+                        {% csrf_token %}
+
+
+                        <input
+                            type="hidden"
+                            name="application_id"
+                            id="hiddenApplicationId"
+                            value=""
+                        >
+
+
+                        <div class="mb-3">
+
+                            <label class="form-label">
+                                Admin Action
+                            </label>
+
+
+                            <select
+                                id="adminAction"
+                                name="admin_action"
+                                class="form-select"
+                            >
+
+                                <option value="">
+                                    Select Action
+                                </option>
+
+                                <option value="Approved">
+                                    Approve Application
+                                </option>
+
+                                <option value="Changes Requested">
+                                    Request Changes
+                                </option>
+
+                                <option value="Rejected">
+                                    Reject Application
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="mb-3">
+
+                            <label class="form-label">
+                                Admin Remark
+                            </label>
+
+
+                            <textarea
+                                id="adminRemark"
+                                name="admin_remark"
+                                class="form-control"
+                                rows="3"
+                                placeholder="Enter remark..."
+                            ></textarea>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="modal-footer">
+
+            <button
+                type="button"
+                class="btn btn-light border"
+                data-bs-dismiss="modal"
+            >
+                Close
+            </button>
+
+
+            <button
+                type="button"
+                class="btn btn-primary-custom"
+                onclick="saveApplicationAction()"
+            >
+                <i class="bi bi-check2-circle"></i>
+                Save Action
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+
+/* ============================================================
+   SELECTED APPLICATION
+============================================================ */
+
+let selectedApplication = "";
+
+
+/* ============================================================
+   DROPDOWN
+============================================================ */
+
+function toggleDropdown(id) {
+
+    document
+        .querySelectorAll(".dropdown-menu-custom")
+        .forEach(menu => {
+
+            if (menu.id !== id) {
+                menu.classList.remove("show");
+            }
+
+        });
+
+
+    const dropdown =
+        document.getElementById(id);
+
+
+    if (!dropdown) {
+        return;
+    }
+
+
+    dropdown.classList.toggle("show");
+
+
+    if (dropdown.classList.contains("show")) {
+
+        const searchBox =
+            dropdown.querySelector(
+                ".dropdown-search"
+            );
+
+
+        if (searchBox) {
+
+            searchBox.value = "";
+
+            searchDropdown(id);
+
+            setTimeout(() => {
+                searchBox.focus();
+            }, 50);
+
+        }
+
+    }
+
+}
+
+
+/* ============================================================
+   SEARCH DROPDOWN
+============================================================ */
+
+function searchDropdown(dropdownId) {
+
+    const dropdown =
+        document.getElementById(
+            dropdownId
+        );
+
+
+    if (!dropdown) {
+        return;
+    }
+
+
+    const searchBox =
+        dropdown.querySelector(
+            ".dropdown-search"
+        );
+
+
+    if (!searchBox) {
+        return;
+    }
+
+
+    const searchText =
+        searchBox.value
+            .toLowerCase();
+
+
+    const options =
+        dropdown.querySelectorAll(
+            ".dropdown-option"
+        );
+
+
+    options.forEach(option => {
+
+        const text =
+            option.innerText
+                .toLowerCase();
+
+
+        if (text.includes(searchText)) {
+            option.style.display = "";
+        } else {
+            option.style.display = "none";
+        }
+
+    });
+
+}
+
+
+/* ============================================================
+   SELECT OPTION
+============================================================ */
+
+function selectOption(
+    type,
+    value,
+    text
+) {
+
+    const filter =
+        document.getElementById(
+            type + "Filter"
+        );
+
+
+    const display =
+        document.getElementById(
+            type + "Display"
+        );
+
+
+    const dropdown =
+        document.getElementById(
+            type + "Dropdown"
+        );
+
+
+    if (filter) {
+        filter.value = value;
+    }
+
+
+    if (display) {
+        display.innerText = text;
+    }
+
+
+    if (dropdown) {
+        dropdown.classList.remove("show");
+    }
+
+}
+
+
+/* ============================================================
+   CLOSE DROPDOWN
+============================================================ */
+
+document.addEventListener(
+    "click",
+    function(event) {
+
+        if (
+            !event.target.closest(
+                ".searchable-dropdown"
+            )
+        ) {
+
+            document
+                .querySelectorAll(
+                    ".dropdown-menu-custom"
+                )
+                .forEach(menu => {
+
+                    menu.classList.remove(
+                        "show"
+                    );
+
+                });
+
+        }
+
+    }
+);
+
+
+/* ============================================================
+   VIEW APPLICATION
+============================================================ */
+
+function viewApplication(
+    applicationId,
+    studentId,
+    studentName,
+    email,
+    college,
+    course,
+    domain,
+    payment,
+    project,
+    university,
+    branch
+) {
+
+
+    selectedApplication =
+        applicationId;
+
+
+    /*
+        Hidden Application ID
+    */
+
+    document.getElementById(
+        "hiddenApplicationId"
+    ).value =
+        applicationId;
+
+
+    /*
+        Backend POST URL
+    */
+
+    document.getElementById(
+        "applicationActionForm"
+    ).action =
+        "/admin/applications/" +
+        encodeURIComponent(
+            applicationId
+        ) +
+        "/action/";
+
+
+    /*
+        Application Details
+    */
+
+    document.getElementById(
+        "modalApplicationId"
+    ).innerText =
+        applicationId || "-";
+
+
+    document.getElementById(
+        "modalStudentId"
+    ).innerText =
+        studentId || "-";
+
+
+    document.getElementById(
+        "modalStudent"
+    ).innerText =
+        studentName || "-";
+
+
+    document.getElementById(
+        "modalEmail"
+    ).innerText =
+        email || "-";
+
+
+    document.getElementById(
+        "modalCollege"
+    ).innerText =
+        college || "-";
+
+
+    document.getElementById(
+        "modalUniversity"
+    ).innerText =
+        university || "-";
+
+
+    document.getElementById(
+        "modalCourse"
+    ).innerText =
+        course || "-";
+
+
+    document.getElementById(
+        "modalBranch"
+    ).innerText =
+        branch || "-";
+
+
+    document.getElementById(
+        "modalDomain"
+    ).innerText =
+        domain || "-";
+
+
+    document.getElementById(
+        "modalPayment"
+    ).innerText =
+        payment || "Unpaid";
+
+
+    document.getElementById(
+        "modalProject"
+    ).innerText =
+        project || "Pending";
+
+
+    /*
+        Reset Action
+    */
+
+    document.getElementById(
+        "adminAction"
+    ).value = "";
+
+
+    document.getElementById(
+        "adminRemark"
+    ).value = "";
+
+
+    /*
+        Default Application Status
+    */
+
+    const statusElement =
+        document.getElementById(
+            "modalApplicationStatus"
+        );
+
+
+    statusElement.innerText =
+        "Pending";
+
+
+    statusElement.className =
+        "status status-pending";
+
+
+    /*
+        Show Modal
+    */
+
+    const modal =
+        new bootstrap.Modal(
+            document.getElementById(
+                "applicationModal"
+            )
+        );
+
+
+    modal.show();
+
+}
+
+
+/* ============================================================
+   SAVE APPLICATION ACTION
+============================================================ */
+
+function saveApplicationAction() {
+
+
+    const form =
+        document.getElementById(
+            "applicationActionForm"
+        );
+
+
+    const action =
+        document.getElementById(
+            "adminAction"
+        ).value;
+
+
+    const remark =
+        document.getElementById(
+            "adminRemark"
+        ).value.trim();
+
+
+    if (
+        selectedApplication === ""
+    ) {
+
+        alert(
+            "Please select an application."
+        );
+
+        return;
+
+    }
+
+
+    if (action === "") {
+
+        alert(
+            "Please select an admin action."
+        );
+
+        return;
+
+    }
+
+
+    /*
+        Remark required for
+        changes/rejection
+    */
+
+    if (
+        (
+            action === "Changes Requested" ||
+            action === "Rejected"
+        ) &&
+        remark === ""
+    ) {
+
+        alert(
+            "Please enter an admin remark."
+        );
+
+
+        document.getElementById(
+            "adminRemark"
+        ).focus();
+
+
+        return;
+
+    }
+
+
+    if (!form) {
+
+        alert(
+            "Application form not found."
+        );
+
+        return;
+
+    }
+
+
+    /*
+        Django CSRF token check.
+
+        IMPORTANT:
+        We do NOT read the CSRF cookie.
+        We do NOT replace the token.
+        Django generated token inside
+        {% csrf_token %} is submitted as-is.
+    */
+
+    const csrfInput =
+        form.querySelector(
+            'input[name="csrfmiddlewaretoken"]'
+        );
+
+
+    if (
+        !csrfInput ||
+        !csrfInput.value
+    ) {
+
+        alert(
+            "CSRF token missing. Please refresh the page and try again."
+        );
+
+        return;
+
+    }
+
+
+    /*
+        Confirm action
+    */
+
+    let message = "";
+
+
+    if (action === "Approved") {
+
+        message =
+            "Are you sure you want to approve this application?";
+
+    }
+
+
+    if (action === "Changes Requested") {
+
+        message =
+            "Are you sure you want to request changes for this application?";
+
+    }
+
+
+    if (action === "Rejected") {
+
+        message =
+            "Are you sure you want to reject this application?";
+
+    }
+
+
+    const confirmed =
+        confirm(message);
+
+
+    if (!confirmed) {
+        return;
+    }
+
+
+    /*
+        Disable button
+        to prevent double submit
+    */
+
+    const saveButton =
+        document.querySelector(
+            'button[onclick="saveApplicationAction()"]'
+        );
+
+
+    if (saveButton) {
+
+        saveButton.disabled = true;
+
+        saveButton.innerHTML =
+            '<span class="spinner-border spinner-border-sm me-1"></span> Saving...';
+
+    }
+
+
+    /*
+        Normal Django POST submit.
+        CSRF token is submitted unchanged.
+    */
+
+    form.submit();
+
+}
+
+
+/* ============================================================
+   APPLY FILTERS
+============================================================ */
+
+function applyFilters() {
+
+
+    const search =
+        document.getElementById(
+            "searchInput"
+        ).value
+        .toLowerCase()
+        .trim();
+
+
+    const college =
+        document.getElementById(
+            "collegeFilter"
+        ).value;
+
+
+    const university =
+        document.getElementById(
+            "universityFilter"
+        ).value;
+
+
+    const course =
+        document.getElementById(
+            "courseFilter"
+        ).value;
+
+
+    const branch =
+        document.getElementById(
+            "branchFilter"
+        ).value;
+
+
+    const domain =
+        document.getElementById(
+            "domainFilter"
+        ).value;
+
+
+    const payment =
+        document.getElementById(
+            "paymentFilter"
+        ).value;
+
+
+    const project =
+        document.getElementById(
+            "projectFilter"
+        ).value;
+
+
+    const rows =
+        document.querySelectorAll(
+            "#applicationTable tbody tr"
+        );
+
+
+    rows.forEach(row => {
+
+
+        if (!row.dataset.search) {
+            return;
+        }
+
+
+        const matchesSearch =
+            row.dataset.search
+                .toLowerCase()
+                .includes(search);
+
+
+        const matchesCollege =
+            !college ||
+            row.dataset.college === college;
+
+
+        const matchesUniversity =
+            !university ||
+            row.dataset.university === university;
+
+
+        const matchesCourse =
+            !course ||
+            row.dataset.course === course;
+
+
+        const matchesBranch =
+            !branch ||
+            row.dataset.branch === branch;
+
+
+        const matchesDomain =
+            !domain ||
+            row.dataset.domain === domain;
+
+
+        const matchesPayment =
+            !payment ||
+            row.dataset.payment === payment;
+
+
+        const matchesProject =
+            !project ||
+            row.dataset.project === project;
+
+
+        if (
+            matchesSearch &&
+            matchesCollege &&
+            matchesUniversity &&
+            matchesCourse &&
+            matchesBranch &&
+            matchesDomain &&
+            matchesPayment &&
+            matchesProject
+        ) {
+
+            row.style.display = "";
+
+        } else {
+
+            row.style.display = "none";
+
+        }
+
+    });
+
+}
+
+
+/* ============================================================
+   RESET
+============================================================ */
+
+function resetFilters() {
+
+
+    document.getElementById(
+        "searchInput"
+    ).value = "";
+
+
+    document.getElementById(
+        "collegeFilter"
+    ).value = "";
+
+
+    document.getElementById(
+        "universityFilter"
+    ).value = "";
+
+
+    document.getElementById(
+        "courseFilter"
+    ).value = "";
+
+
+    document.getElementById(
+        "branchFilter"
+    ).value = "";
+
+
+    document.getElementById(
+        "domainFilter"
+    ).value = "";
+
+
+    document.getElementById(
+        "paymentFilter"
+    ).value = "";
+
+
+    document.getElementById(
+        "projectFilter"
+    ).value = "";
+
+
+    document.getElementById(
+        "collegeDisplay"
+    ).innerText =
+        "All Colleges";
+
+
+    document.getElementById(
+        "universityDisplay"
+    ).innerText =
+        "All Universities";
+
+
+    document.getElementById(
+        "courseDisplay"
+    ).innerText =
+        "All Courses";
+
+
+    document.getElementById(
+        "branchDisplay"
+    ).innerText =
+        "All Branches";
+
+
+    document.getElementById(
+        "domainDisplay"
+    ).innerText =
+        "All Domains";
+
+
+    const rows =
+        document.querySelectorAll(
+            "#applicationTable tbody tr"
+        );
+
+
+    rows.forEach(row => {
+
+        row.style.display = "";
+
+    });
+
+}
+
+</script>
+
+</body>
+
+</html>

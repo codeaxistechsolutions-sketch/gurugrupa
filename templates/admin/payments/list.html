@@ -1,0 +1,1561 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Payments | GuruKrupa</title>
+
+    <!-- Bootstrap -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <!-- Bootstrap Icons -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+        rel="stylesheet"
+    >
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: #F5F7FB;
+            color: #111827;
+            font-family: Arial, sans-serif;
+        }
+
+        /* =========================
+           TOPBAR
+        ========================= */
+
+        .topbar {
+            height: 70px;
+            background: #FFFFFF;
+            border-bottom: 1px solid #E2E8F0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 25px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-icon {
+            width: 42px;
+            height: 42px;
+            background: #2563EB;
+            color: #FFFFFF;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .brand h5 {
+            margin: 0;
+            font-weight: 700;
+        }
+
+        .brand small {
+            color: #64748B;
+        }
+
+        .admin-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .admin-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #172554;
+            color: #FFFFFF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        /* =========================
+           SIDEBAR
+        ========================= */
+
+        .sidebar {
+            width: 250px;
+            height: calc(100vh - 70px);
+            position: fixed;
+            left: 0;
+            top: 70px;
+            background: #172554;
+            padding: 20px 12px;
+            overflow-y: auto;
+        }
+
+        .sidebar-title {
+            color: #FFFFFF;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 8px 14px;
+            opacity: 0.7;
+        }
+
+        .sidebar a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #CBD5E1;
+            text-decoration: none;
+            padding: 12px 14px;
+            border-radius: 8px;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+
+        .sidebar a:hover {
+            background: #1E3A8A;
+            color: #FFFFFF;
+        }
+
+        .sidebar a.active {
+            background: #2563EB;
+            color: #FFFFFF;
+        }
+
+        .sidebar i {
+            font-size: 17px;
+        }
+
+        .sidebar-bottom {
+            margin-top: 25px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255,255,255,0.15);
+        }
+
+        /* =========================
+           MAIN CONTENT
+        ========================= */
+
+        .main-content {
+            margin-left: 250px;
+            padding: 100px 30px 30px;
+        }
+
+        .page-title {
+            font-size: 27px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .page-subtitle {
+            color: #64748B;
+            margin-bottom: 25px;
+        }
+
+        /* =========================
+           STAT CARDS
+        ========================= */
+
+        .stat-card {
+            background: #FFFFFF;
+            border: 1px solid #E2E8F0;
+            border-radius: 12px;
+            padding: 20px;
+            height: 100%;
+        }
+
+        .stat-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 12px;
+            font-size: 19px;
+        }
+
+        .blue {
+            background: #DBEAFE;
+            color: #2563EB;
+        }
+
+        .yellow {
+            background: #FEF3C7;
+            color: #F59E0B;
+        }
+
+        .green {
+            background: #DCFCE7;
+            color: #16A34A;
+        }
+
+        .red {
+            background: #FEE2E2;
+            color: #EF4444;
+        }
+
+        .stat-title {
+            color: #64748B;
+            font-size: 14px;
+        }
+
+        .stat-number {
+            font-size: 25px;
+            font-weight: 700;
+        }
+
+        /* =========================
+           SECTION CARD
+        ========================= */
+
+        .section-card {
+            background: #FFFFFF;
+            border: 1px solid #E2E8F0;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 25px;
+        }
+
+        /* =========================
+           FORM
+        ========================= */
+
+        .form-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: #374151;
+        }
+
+        .form-control,
+        .form-select {
+            border: 1px solid #E2E8F0;
+            min-height: 42px;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            border-color: #2563EB;
+            box-shadow: 0 0 0 0.15rem rgba(37,99,235,0.12);
+        }
+
+        /* =========================
+           TABLE
+        ========================= */
+
+        .table thead th {
+            background: #F5F7FB;
+            color: #64748B;
+            font-size: 13px;
+            border-bottom: 1px solid #E2E8F0;
+            white-space: nowrap;
+        }
+
+        .table tbody td {
+            vertical-align: middle;
+            font-size: 14px;
+            border-color: #E2E8F0;
+        }
+
+        /* =========================
+           STATUS
+        ========================= */
+
+        .status {
+            padding: 5px 9px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .paid {
+            background: #DCFCE7;
+            color: #166534;
+        }
+
+        .pending {
+            background: #FEF3C7;
+            color: #92400E;
+        }
+
+        .failed {
+            background: #FEE2E2;
+            color: #991B1B;
+        }
+
+        /* =========================
+           PAYMENT METHOD
+        ========================= */
+
+        .method {
+            padding: 5px 9px;
+            border-radius: 6px;
+            background: #EFF6FF;
+            color: #1D4ED8;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        /* =========================
+           MODAL
+        ========================= */
+
+        .modal-header {
+            background: #172554;
+            color: #FFFFFF;
+        }
+
+        .modal-header .btn-close {
+            filter: brightness(0) invert(1);
+        }
+
+        .detail-box {
+            border: 1px solid #E2E8F0;
+            border-radius: 10px;
+            padding: 15px;
+            background: #F8FAFC;
+        }
+
+        .detail-label {
+            color: #64748B;
+            font-size: 13px;
+        }
+
+        .detail-value {
+            color: #111827;
+            font-weight: 600;
+            margin-top: 3px;
+        }
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 900px) {
+
+            .sidebar {
+                width: 210px;
+            }
+
+            .main-content {
+                margin-left: 210px;
+            }
+
+        }
+
+        @media (max-width: 700px) {
+
+            .sidebar {
+                display: none;
+            }
+
+            .main-content {
+                margin-left: 0;
+                padding: 90px 15px 25px;
+            }
+
+            .brand small {
+                display: none;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     TOPBAR
+========================= -->
+
+<div class="topbar">
+
+    <div class="brand">
+
+        <div class="brand-icon">
+            <i class="bi bi-mortarboard-fill"></i>
+        </div>
+
+        <div>
+
+            <h5>
+                GuruKrupa
+            </h5>
+
+            <small>
+                Student Project Registration & Management Portal
+            </small>
+
+        </div>
+
+    </div>
+
+
+    <div class="admin-info">
+
+        <div class="text-end d-none d-md-block">
+
+            <strong>
+                Admin
+            </strong>
+
+            <br>
+
+            <small class="text-muted">
+                Administrator
+            </small>
+
+        </div>
+
+        <div class="admin-avatar">
+            A
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================
+     SIDEBAR
+========================= -->
+
+<div class="sidebar">
+
+    <div class="sidebar-title">
+        Main Menu
+    </div>
+
+    <a href="{% url 'admin_dashboard' %}">
+        <i class="bi bi-grid-1x2-fill"></i>
+        Dashboard
+    </a>
+
+    <a href="{% url 'admin_students' %}">
+        <i class="bi bi-people-fill"></i>
+        Students
+    </a>
+
+    <a href="{% url 'admin_applications' %}">
+        <i class="bi bi-file-earmark-text-fill"></i>
+        Applications
+    </a>
+
+    <a href="{% url 'admin_quotations' %}">
+        <i class="bi bi-receipt-cutoff"></i>
+        Quotations
+    </a>
+
+    <a
+        href="{% url 'admin_payments' %}"
+        class="active"
+    >
+        <i class="bi bi-credit-card-fill"></i>
+        Payments
+    </a>
+
+    <a href="{% url 'admin_projects' %}">
+        <i class="bi bi-kanban-fill"></i>
+        Projects
+    </a>
+
+    <a href="{% url 'admin_documents' %}">
+        <i class="bi bi-folder-fill"></i>
+        Documents
+    </a>
+
+
+    <div class="sidebar-bottom">
+
+        <a href="{% url 'home' %}">
+            <i class="bi bi-globe2"></i>
+            View Website
+        </a>
+
+        <a href="{% url 'admin_logout' %}">
+            <i class="bi bi-box-arrow-right"></i>
+            Logout
+        </a>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================
+     MAIN CONTENT
+========================= -->
+
+<div class="main-content">
+
+    <h1 class="page-title">
+        Payments
+    </h1>
+
+    <p class="page-subtitle">
+        Manage and monitor student payment records.
+    </p>
+
+
+    <!-- =========================
+         STATISTICS
+    ========================= -->
+
+    <div class="row g-3">
+
+
+        <!-- TOTAL -->
+
+        <div class="col-xl-3 col-md-6">
+
+            <div class="stat-card">
+
+                <div class="stat-icon blue">
+                    <i class="bi bi-credit-card"></i>
+                </div>
+
+                <div class="stat-title">
+                    Total Payments
+                </div>
+
+                <div class="stat-number">
+                    {{ total_payments }}
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- PAID -->
+
+        <div class="col-xl-3 col-md-6">
+
+            <div class="stat-card">
+
+                <div class="stat-icon green">
+                    <i class="bi bi-check-circle-fill"></i>
+                </div>
+
+                <div class="stat-title">
+                    Paid Payments
+                </div>
+
+                <div class="stat-number">
+                    {{ paid_payments }}
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- PENDING -->
+
+        <div class="col-xl-3 col-md-6">
+
+            <div class="stat-card">
+
+                <div class="stat-icon yellow">
+                    <i class="bi bi-hourglass-split"></i>
+                </div>
+
+                <div class="stat-title">
+                    Pending Payments
+                </div>
+
+                <div class="stat-number">
+                    {{ pending_payments }}
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- FAILED -->
+
+        <div class="col-xl-3 col-md-6">
+
+            <div class="stat-card">
+
+                <div class="stat-icon red">
+                    <i class="bi bi-x-circle-fill"></i>
+                </div>
+
+                <div class="stat-title">
+                    Failed Payments
+                </div>
+
+                <div class="stat-number">
+                    {{ failed_payments }}
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =========================
+         SEARCH & FILTER
+    ========================= -->
+
+    <div class="section-card">
+
+        <form method="GET">
+
+            <div class="row g-3 align-items-end">
+
+
+                <!-- SEARCH -->
+
+                <div class="col-md-5">
+
+                    <label class="form-label">
+                        Search Payment
+                    </label>
+
+                    <input
+                        type="text"
+                        name="search"
+                        value="{{ search }}"
+                        class="form-control"
+                        placeholder="Payment ID / Student / Student ID / Transaction ID"
+                    >
+
+                </div>
+
+
+                <!-- STATUS -->
+
+                <div class="col-md-3">
+
+                    <label class="form-label">
+                        Payment Status
+                    </label>
+
+                    <select
+                        name="status"
+                        class="form-select"
+                    >
+
+                        <option value="">
+                            All Status
+                        </option>
+
+                        <option
+                            value="Paid"
+                            {% if selected_status == "Paid" %}
+                                selected
+                            {% endif %}
+                        >
+                            Paid
+                        </option>
+
+                        <option
+                            value="Pending"
+                            {% if selected_status == "Pending" %}
+                                selected
+                            {% endif %}
+                        >
+                            Pending
+                        </option>
+
+                        <option
+                            value="Failed"
+                            {% if selected_status == "Failed" %}
+                                selected
+                            {% endif %}
+                        >
+                            Failed
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- METHOD -->
+
+                <div class="col-md-2">
+
+                    <label class="form-label">
+                        Payment Method
+                    </label>
+
+                    <select
+                        name="method"
+                        class="form-select"
+                    >
+
+                        <option value="">
+                            All Methods
+                        </option>
+
+                        <option
+                            value="UPI"
+                            {% if selected_method == "UPI" %}
+                                selected
+                            {% endif %}
+                        >
+                            UPI
+                        </option>
+
+                        <option
+                            value="Card"
+                            {% if selected_method == "Card" %}
+                                selected
+                            {% endif %}
+                        >
+                            Card
+                        </option>
+
+                        <option
+                            value="Net Banking"
+                            {% if selected_method == "Net Banking" %}
+                                selected
+                            {% endif %}
+                        >
+                            Net Banking
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- SEARCH BUTTON -->
+
+                <div class="col-md-2">
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary w-100"
+                    >
+
+                        <i class="bi bi-search"></i>
+                        Search
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </form>
+
+    </div>
+
+
+
+    <!-- =========================
+         PAYMENT RECORDS
+    ========================= -->
+
+    <div class="section-card">
+
+        <div class="d-flex justify-content-between align-items-center mb-3">
+
+            <div>
+
+                <h5 class="mb-1">
+                    Payment Records
+                </h5>
+
+                <small class="text-muted">
+                    View and manage student payment transactions.
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <div class="table-responsive">
+
+            <table
+                class="table"
+                id="paymentTable"
+            >
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Payment ID
+                        </th>
+
+                        <th>
+                            Student
+                        </th>
+
+                        <th>
+                            Student ID
+                        </th>
+
+                        <th>
+                            Quotation
+                        </th>
+
+                        <th>
+                            Amount
+                        </th>
+
+                        <th>
+                            Method
+                        </th>
+
+                        <th>
+                            Transaction ID
+                        </th>
+
+                        <th>
+                            Date
+                        </th>
+
+                        <th>
+                            Status
+                        </th>
+
+                        <th>
+                            Action
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                {% for payment in payments %}
+
+                    <tr
+                        data-search="
+                            PAY-2026-{{ payment.id|stringformat:'03d' }}
+                            {{ payment.student.get_full_name }}
+                            {{ payment.student.username }}
+                            {% if payment.student.profile %}
+                                {{ payment.student.profile.application_id }}
+                            {% endif %}
+                            {% if payment.quotation %}
+                                {{ payment.quotation.quotation_id }}
+                            {% endif %}
+                            {{ payment.transaction_reference }}
+                        "
+                        data-status="{{ payment.payment_status }}"
+                        data-method="{{ payment.payment_method }}"
+                    >
+
+                        <!-- PAYMENT ID -->
+
+                        <td>
+
+                            <strong>
+                                PAY-2026-{{ payment.id|stringformat:"03d" }}
+                            </strong>
+
+                        </td>
+
+
+                        <!-- STUDENT -->
+
+                        <td>
+
+                            {% if payment.student.get_full_name %}
+
+                                {{ payment.student.get_full_name }}
+
+                            {% else %}
+
+                                {{ payment.student.username }}
+
+                            {% endif %}
+
+                        </td>
+
+
+                        <!-- STUDENT ID -->
+
+                        <td>
+
+                            {% if payment.student.profile.application_id %}
+
+                                {{ payment.student.profile.application_id }}
+
+                            {% else %}
+
+                                STU-2026-{{ payment.student.id|stringformat:"03d" }}
+
+                            {% endif %}
+
+                        </td>
+
+
+                        <!-- QUOTATION -->
+
+                        <td>
+
+                            {% if payment.quotation %}
+
+                                {{ payment.quotation.quotation_id }}
+
+                            {% else %}
+
+                                -
+
+                            {% endif %}
+
+                        </td>
+
+
+                        <!-- AMOUNT -->
+
+                        <td>
+
+                            ₹{{ payment.amount|floatformat:2 }}
+
+                        </td>
+
+
+                        <!-- METHOD -->
+
+                        <td>
+
+                            <span class="method">
+
+                                {{ payment.payment_method }}
+
+                            </span>
+
+                        </td>
+
+
+                        <!-- TRANSACTION -->
+
+                        <td>
+
+                            {% if payment.transaction_reference %}
+
+                                {{ payment.transaction_reference }}
+
+                            {% else %}
+
+                                -
+
+                            {% endif %}
+
+                        </td>
+
+
+                        <!-- DATE -->
+
+                        <td>
+
+                            {% if payment.payment_date %}
+
+                                {{ payment.payment_date|date:"d M Y" }}
+
+                            {% elif payment.created_at %}
+
+                                {{ payment.created_at|date:"d M Y" }}
+
+                            {% else %}
+
+                                -
+
+                            {% endif %}
+
+                        </td>
+
+
+                        <!-- STATUS -->
+
+                        <td>
+
+                            {% if payment.payment_status == "Paid" %}
+
+                                <span class="status paid">
+                                    Paid
+                                </span>
+
+                            {% elif payment.payment_status == "Pending" %}
+
+                                <span class="status pending">
+                                    Pending
+                                </span>
+
+                            {% elif payment.payment_status == "Failed" %}
+
+                                <span class="status failed">
+                                    Failed
+                                </span>
+
+                            {% else %}
+
+                                <span class="status pending">
+                                    {{ payment.payment_status }}
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+
+                        <!-- ACTION -->
+
+                        <td>
+
+                            <button
+                                type="button"
+                                class="btn btn-sm btn-outline-primary"
+                                onclick="viewPayment(this)"
+                            >
+
+                                <i class="bi bi-eye"></i>
+                                View
+
+                            </button>
+
+                        </td>
+
+                    </tr>
+
+                {% empty %}
+
+                    <tr>
+
+                        <td
+                            colspan="10"
+                            class="text-center py-5 text-muted"
+                        >
+
+                            <i
+                                class="bi bi-credit-card"
+                                style="font-size:35px;"
+                            ></i>
+
+                            <br>
+                            <br>
+
+                            No payment records found.
+
+                        </td>
+
+                    </tr>
+
+                {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================
+     VIEW PAYMENT MODAL
+========================= -->
+
+<div
+    class="modal fade"
+    id="paymentModal"
+    tabindex="-1"
+>
+
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <h5 class="modal-title">
+                    Payment Details
+                </h5>
+
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                ></button>
+
+            </div>
+
+
+            <div class="modal-body">
+
+                <div class="row g-3">
+
+
+                    <!-- PAYMENT ID -->
+
+                    <div class="col-md-6">
+
+                        <div class="detail-box">
+
+                            <div class="detail-label">
+                                Payment ID
+                            </div>
+
+                            <div
+                                class="detail-value"
+                                id="modalPaymentId"
+                            >
+                                -
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- STUDENT -->
+
+                    <div class="col-md-6">
+
+                        <div class="detail-box">
+
+                            <div class="detail-label">
+                                Student Name
+                            </div>
+
+                            <div
+                                class="detail-value"
+                                id="modalStudent"
+                            >
+                                -
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- STUDENT ID -->
+
+                    <div class="col-md-6">
+
+                        <div class="detail-box">
+
+                            <div class="detail-label">
+                                Student ID / Application ID
+                            </div>
+
+                            <div
+                                class="detail-value"
+                                id="modalStudentId"
+                            >
+                                -
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- QUOTATION -->
+
+                    <div class="col-md-6">
+
+                        <div class="detail-box">
+
+                            <div class="detail-label">
+                                Quotation ID
+                            </div>
+
+                            <div
+                                class="detail-value"
+                                id="modalQuotation"
+                            >
+                                -
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- AMOUNT -->
+
+                    <div class="col-md-6">
+
+                        <div class="detail-box">
+
+                            <div class="detail-label">
+                                Amount
+                            </div>
+
+                            <div
+                                class="detail-value"
+                                id="modalAmount"
+                            >
+                                -
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- METHOD -->
+
+                    <div class="col-md-6">
+
+                        <div class="detail-box">
+
+                            <div class="detail-label">
+                                Payment Method
+                            </div>
+
+                            <div
+                                class="detail-value"
+                                id="modalMethod"
+                            >
+                                -
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- TRANSACTION -->
+
+                    <div class="col-md-6">
+
+                        <div class="detail-box">
+
+                            <div class="detail-label">
+                                Transaction ID
+                            </div>
+
+                            <div
+                                class="detail-value"
+                                id="modalTransaction"
+                            >
+                                -
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- DATE -->
+
+                    <div class="col-md-6">
+
+                        <div class="detail-box">
+
+                            <div class="detail-label">
+                                Payment Date
+                            </div>
+
+                            <div
+                                class="detail-value"
+                                id="modalDate"
+                            >
+                                -
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- STATUS -->
+
+                    <div class="col-md-6">
+
+                        <div class="detail-box">
+
+                            <div class="detail-label">
+                                Payment Status
+                            </div>
+
+                            <div
+                                class="detail-value"
+                                id="modalStatus"
+                            >
+                                -
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+            <div class="modal-footer">
+
+                <button
+                    type="button"
+                    class="btn btn-light border"
+                    data-bs-dismiss="modal"
+                >
+                    Close
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================
+     BOOTSTRAP JS
+========================= -->
+
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+</script>
+
+
+
+<script>
+
+/* =========================
+   VIEW PAYMENT
+========================= */
+
+function viewPayment(button) {
+
+    const row = button.closest("tr");
+
+    const cells = row.querySelectorAll("td");
+
+
+    document.getElementById("modalPaymentId").innerText =
+        cells[0].innerText.trim();
+
+
+    document.getElementById("modalStudent").innerText =
+        cells[1].innerText.trim();
+
+
+    document.getElementById("modalStudentId").innerText =
+        cells[2].innerText.trim();
+
+
+    document.getElementById("modalQuotation").innerText =
+        cells[3].innerText.trim();
+
+
+    document.getElementById("modalAmount").innerText =
+        cells[4].innerText.trim();
+
+
+    document.getElementById("modalMethod").innerText =
+        cells[5].innerText.trim();
+
+
+    document.getElementById("modalTransaction").innerText =
+        cells[6].innerText.trim();
+
+
+    document.getElementById("modalDate").innerText =
+        cells[7].innerText.trim();
+
+
+    document.getElementById("modalStatus").innerText =
+        cells[8].innerText.trim();
+
+
+    const modalElement =
+        document.getElementById("paymentModal");
+
+
+    const modal =
+        new bootstrap.Modal(modalElement);
+
+
+    modal.show();
+
+}
+
+
+
+/* =========================
+   LIVE TABLE FILTER
+========================= */
+
+function filterPayments() {
+
+    const searchInput =
+        document.getElementById("searchInput");
+
+
+    if (!searchInput) {
+        return;
+    }
+
+
+    const search =
+        searchInput.value
+            .toLowerCase()
+            .trim();
+
+
+    const status =
+        document.getElementById("statusFilter").value;
+
+
+    const method =
+        document.getElementById("methodFilter").value;
+
+
+    const rows =
+        document.querySelectorAll(
+            "#paymentTable tbody tr"
+        );
+
+
+    rows.forEach(function(row) {
+
+        if (!row.dataset.search) {
+            return;
+        }
+
+
+        const searchData =
+            row.dataset.search.toLowerCase();
+
+
+        const rowStatus =
+            row.dataset.status;
+
+
+        const rowMethod =
+            row.dataset.method;
+
+
+        const searchMatch =
+            search === "" ||
+            searchData.includes(search);
+
+
+        const statusMatch =
+            status === "" ||
+            rowStatus === status;
+
+
+        const methodMatch =
+            method === "" ||
+            rowMethod === method;
+
+
+        if (
+            searchMatch &&
+            statusMatch &&
+            methodMatch
+        ) {
+
+            row.style.display = "";
+
+        } else {
+
+            row.style.display = "none";
+
+        }
+
+    });
+
+}
+
+
+
+/* =========================
+   LIVE SEARCH
+========================= */
+
+const searchInput =
+    document.getElementById("searchInput");
+
+
+if (searchInput) {
+
+    searchInput.addEventListener(
+        "input",
+        filterPayments
+    );
+
+}
+
+
+const statusFilter =
+    document.getElementById("statusFilter");
+
+
+if (statusFilter) {
+
+    statusFilter.addEventListener(
+        "change",
+        filterPayments
+    );
+
+}
+
+
+const methodFilter =
+    document.getElementById("methodFilter");
+
+
+if (methodFilter) {
+
+    methodFilter.addEventListener(
+        "change",
+        filterPayments
+    );
+
+}
+
+</script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,1771 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Quotations | GuruKrupa</title>
+
+<link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+>
+
+<link
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+    rel="stylesheet"
+>
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #F5F7FB;
+    color: #111827;
+    font-family: Arial, sans-serif;
+}
+
+/* =========================================================
+   TOPBAR
+========================================================= */
+
+.topbar {
+    height: 70px;
+    background: #FFFFFF;
+    border-bottom: 1px solid #E2E8F0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 25px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.brand-icon {
+    width: 42px;
+    height: 42px;
+    background: #2563EB;
+    color: #FFFFFF;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+}
+
+.brand h5 {
+    margin: 0;
+    font-weight: 700;
+}
+
+.brand small {
+    color: #64748B;
+}
+
+.admin-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.admin-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #172554;
+    color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+/* =========================================================
+   SIDEBAR
+========================================================= */
+
+.sidebar {
+    width: 250px;
+    height: calc(100vh - 70px);
+    position: fixed;
+    left: 0;
+    top: 70px;
+    background: #172554;
+    padding: 20px 12px;
+    overflow-y: auto;
+}
+
+.sidebar-title {
+    color: #FFFFFF;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 8px 14px;
+    opacity: 0.7;
+}
+
+.sidebar a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #CBD5E1;
+    text-decoration: none;
+    padding: 12px 14px;
+    border-radius: 8px;
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+
+.sidebar a:hover {
+    background: #1E3A8A;
+    color: #FFFFFF;
+}
+
+.sidebar a.active {
+    background: #2563EB;
+    color: #FFFFFF;
+}
+
+.sidebar i {
+    font-size: 17px;
+}
+
+.sidebar-bottom {
+    margin-top: 25px;
+    padding-top: 15px;
+    border-top: 1px solid rgba(255,255,255,0.15);
+}
+
+/* =========================================================
+   MAIN CONTENT
+========================================================= */
+
+.main-content {
+    margin-left: 250px;
+    padding: 100px 30px 30px;
+}
+
+.page-title {
+    font-size: 27px;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.page-subtitle {
+    color: #64748B;
+    margin-bottom: 25px;
+}
+
+/* =========================================================
+   STATISTICS
+========================================================= */
+
+.stat-card {
+    background: #FFFFFF;
+    border: 1px solid #E2E8F0;
+    border-radius: 12px;
+    padding: 20px;
+    height: 100%;
+}
+
+.stat-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 12px;
+    font-size: 19px;
+}
+
+.blue {
+    background: #DBEAFE;
+    color: #2563EB;
+}
+
+.yellow {
+    background: #FEF3C7;
+    color: #F59E0B;
+}
+
+.green {
+    background: #DCFCE7;
+    color: #16A34A;
+}
+
+.red {
+    background: #FEE2E2;
+    color: #EF4444;
+}
+
+.stat-title {
+    color: #64748B;
+    font-size: 14px;
+}
+
+.stat-number {
+    font-size: 25px;
+    font-weight: 700;
+}
+
+/* =========================================================
+   SECTION CARD
+========================================================= */
+
+.section-card {
+    background: #FFFFFF;
+    border: 1px solid #E2E8F0;
+    border-radius: 12px;
+    padding: 20px;
+    margin-top: 25px;
+}
+
+.form-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #374151;
+}
+
+.form-control,
+.form-select {
+    border: 1px solid #E2E8F0;
+    min-height: 42px;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: #2563EB;
+    box-shadow: 0 0 0 0.15rem rgba(37,99,235,0.12);
+}
+
+/* =========================================================
+   TABLE
+========================================================= */
+
+.table thead th {
+    background: #F5F7FB;
+    color: #64748B;
+    font-size: 13px;
+    border-bottom: 1px solid #E2E8F0;
+    white-space: nowrap;
+}
+
+.table tbody td {
+    vertical-align: middle;
+    font-size: 14px;
+    border-color: #E2E8F0;
+}
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+.status {
+    padding: 5px 9px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.ready {
+    background: #DBEAFE;
+    color: #1D4ED8;
+}
+
+.paid {
+    background: #DCFCE7;
+    color: #166534;
+}
+
+.unpaid {
+    background: #FEF3C7;
+    color: #92400E;
+}
+
+.rejected {
+    background: #FEE2E2;
+    color: #991B1B;
+}
+
+/* =========================================================
+   QUOTATION PREVIEW
+========================================================= */
+
+.quotation-preview {
+    border: 1px solid #E2E8F0;
+    border-radius: 10px;
+    padding: 20px;
+    background: #FFFFFF;
+}
+
+.company-heading {
+    color: #172554;
+    font-weight: 700;
+}
+
+.total-box {
+    background: #F5F7FB;
+    border: 1px solid #E2E8F0;
+    border-radius: 8px;
+    padding: 15px;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.application-box {
+    background: #EFF6FF;
+    border: 1px solid #BFDBFE;
+    border-radius: 8px;
+    padding: 10px 12px;
+    color: #1D4ED8;
+    font-weight: 600;
+}
+
+.fixed-price-box {
+    background: #EFF6FF;
+    border: 1px solid #BFDBFE;
+    border-radius: 10px;
+    padding: 15px;
+}
+
+.fixed-price-box .amount {
+    color: #1D4ED8;
+    font-size: 25px;
+    font-weight: 700;
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 1100px) {
+
+    .table {
+        min-width: 1100px;
+    }
+
+}
+
+@media (max-width: 900px) {
+
+    .sidebar {
+        width: 210px;
+    }
+
+    .main-content {
+        margin-left: 210px;
+    }
+
+}
+
+@media (max-width: 700px) {
+
+    .sidebar {
+        display: none;
+    }
+
+    .main-content {
+        margin-left: 0;
+        padding: 90px 15px 25px;
+    }
+
+    .brand small {
+        display: none;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+<!-- =========================================================
+     TOPBAR
+========================================================= -->
+
+<div class="topbar">
+
+    <div class="brand">
+
+        <div class="brand-icon">
+            <i class="bi bi-mortarboard-fill"></i>
+        </div>
+
+        <div>
+
+            <h5>
+                GuruKrupa
+            </h5>
+
+            <small>
+                Student Project Registration & Management Portal
+            </small>
+
+        </div>
+
+    </div>
+
+
+    <div class="admin-info">
+
+        <div class="text-end d-none d-md-block">
+
+            <strong>
+                Admin
+            </strong>
+
+            <br>
+
+            <small class="text-muted">
+                Administrator
+            </small>
+
+        </div>
+
+        <div class="admin-avatar">
+            A
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     SIDEBAR
+========================================================= -->
+
+<div class="sidebar">
+
+    <div class="sidebar-title">
+        Main Menu
+    </div>
+
+
+    <a href="{% url 'admin_dashboard' %}">
+        <i class="bi bi-grid-1x2-fill"></i>
+        Dashboard
+    </a>
+
+
+    <a href="{% url 'admin_students' %}">
+        <i class="bi bi-people-fill"></i>
+        Students
+    </a>
+
+
+    <a href="{% url 'admin_applications' %}">
+        <i class="bi bi-file-earmark-text-fill"></i>
+        Applications
+    </a>
+
+
+    <a
+        href="{% url 'admin_quotations' %}"
+        class="active"
+    >
+        <i class="bi bi-receipt-cutoff"></i>
+        Quotations
+    </a>
+
+
+    <a href="{% url 'admin_payments' %}">
+        <i class="bi bi-credit-card-fill"></i>
+        Payments
+    </a>
+
+
+    <a href="{% url 'admin_projects' %}">
+        <i class="bi bi-kanban-fill"></i>
+        Projects
+    </a>
+
+
+    <a href="{% url 'admin_documents' %}">
+        <i class="bi bi-folder-fill"></i>
+        Documents
+    </a>
+
+
+    <div class="sidebar-bottom">
+
+        <a href="{% url 'home' %}">
+            <i class="bi bi-globe2"></i>
+            View Website
+        </a>
+
+
+        <a href="{% url 'admin_logout' %}">
+            <i class="bi bi-box-arrow-right"></i>
+            Logout
+        </a>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     MAIN CONTENT
+========================================================= -->
+
+<div class="main-content">
+
+
+    <h1 class="page-title">
+        Quotations
+    </h1>
+
+
+    <p class="page-subtitle">
+        Monitor student quotations and payment readiness.
+    </p>
+
+
+    <!-- =====================================================
+         STATISTICS
+    ====================================================== -->
+
+    <div class="row g-3">
+
+
+        <!-- TOTAL -->
+
+        <div class="col-xl-3 col-md-6">
+
+            <div class="stat-card">
+
+                <div class="stat-icon blue">
+                    <i class="bi bi-receipt"></i>
+                </div>
+
+                <div class="stat-title">
+                    Total Quotations
+                </div>
+
+                <div class="stat-number">
+                    {{ total }}
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- READY -->
+
+        <div class="col-xl-3 col-md-6">
+
+            <div class="stat-card">
+
+                <div class="stat-icon yellow">
+                    <i class="bi bi-clock-history"></i>
+                </div>
+
+                <div class="stat-title">
+                    Ready for Payment
+                </div>
+
+                <div class="stat-number">
+                    {{ ready_for_payment|default:pending }}
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- PAID -->
+
+        <div class="col-xl-3 col-md-6">
+
+            <div class="stat-card">
+
+                <div class="stat-icon green">
+                    <i class="bi bi-check-circle-fill"></i>
+                </div>
+
+                <div class="stat-title">
+                    Paid
+                </div>
+
+                <div class="stat-number">
+                    {{ paid|default:0 }}
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- UNPAID -->
+
+        <div class="col-xl-3 col-md-6">
+
+            <div class="stat-card">
+
+                <div class="stat-icon red">
+                    <i class="bi bi-hourglass-split"></i>
+                </div>
+
+                <div class="stat-title">
+                    Unpaid
+                </div>
+
+                <div class="stat-number">
+                    {{ unpaid|default:0 }}
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         FIXED PRICE INFORMATION
+    ====================================================== -->
+
+    <div class="section-card">
+
+        <div class="fixed-price-box">
+
+            <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+
+                <div>
+
+                    <h6 class="mb-1">
+                        <i class="bi bi-info-circle me-1"></i>
+                        Standard Project Registration Charge
+                    </h6>
+
+                    <small class="text-muted">
+                        The quotation amount is automatically generated when the
+                        student saves the project details.
+                    </small>
+
+                </div>
+
+
+                <div class="text-end">
+
+                    <div class="amount">
+                        ₹2,500.00
+                    </div>
+
+                    <small class="text-muted">
+                        Fixed Amount
+                    </small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         SEARCH
+    ====================================================== -->
+
+    <div class="section-card">
+
+        <form method="GET">
+
+            <div class="row g-3 align-items-end">
+
+
+                <div class="col-md-7">
+
+                    <label class="form-label">
+                        Search Quotation
+                    </label>
+
+                    <input
+                        type="text"
+                        name="search"
+                        value="{{ search }}"
+                        class="form-control"
+                        placeholder="Quotation ID / Application ID / Student / Email"
+                    >
+
+                </div>
+
+
+                <div class="col-md-3">
+
+                    <label class="form-label">
+                        Payment Status
+                    </label>
+
+                    <select
+                        name="status"
+                        class="form-select"
+                    >
+
+                        <option value="">
+                            All Status
+                        </option>
+
+
+                        <option
+                            value="Pending"
+                            {% if selected_status == "Pending" %}selected{% endif %}
+                        >
+                            Ready for Payment
+                        </option>
+
+
+                        <option
+                            value="Paid"
+                            {% if selected_status == "Paid" %}selected{% endif %}
+                        >
+                            Paid
+                        </option>
+
+
+                        <option
+                            value="Rejected"
+                            {% if selected_status == "Rejected" %}selected{% endif %}
+                        >
+                            Rejected
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="col-md-2">
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary w-100"
+                    >
+
+                        <i class="bi bi-search"></i>
+
+                        Search
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </form>
+
+    </div>
+
+
+    <!-- =====================================================
+         QUOTATION TABLE
+    ====================================================== -->
+
+    <div class="section-card">
+
+
+        <div class="d-flex justify-content-between align-items-center mb-3">
+
+            <div>
+
+                <h5 class="mb-1">
+                    Quotation Records
+                </h5>
+
+                <small class="text-muted">
+                    Automatically generated quotations with fixed ₹2,500 charge.
+                </small>
+
+            </div>
+
+
+            <!-- NO CREATE BUTTON -->
+
+            <div class="text-muted small">
+
+                <i class="bi bi-lightning-charge-fill text-primary"></i>
+
+                Auto Generated
+
+            </div>
+
+        </div>
+
+
+        <div class="table-responsive">
+
+            <table class="table">
+
+                <thead>
+
+                    <tr>
+
+                        <th>Quotation ID</th>
+
+                        <th>Application ID</th>
+
+                        <th>Student</th>
+
+                        <th>Project</th>
+
+                        <th>Date</th>
+
+                        <th>Total</th>
+
+                        <th>Status</th>
+
+                        <th>Actions</th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+
+                {% for quotation in quotations %}
+
+                    <tr>
+
+
+                        <!-- =================================================
+                             QUOTATION ID
+                        ================================================== -->
+
+                        <td>
+
+                            <strong>
+
+                                {% if quotation.quotation_id %}
+
+                                    {{ quotation.quotation_id }}
+
+                                {% else %}
+
+                                    <span class="text-muted">
+                                        Not Generated
+                                    </span>
+
+                                {% endif %}
+
+                            </strong>
+
+                        </td>
+
+
+                        <!-- =================================================
+                             APPLICATION ID
+                        ================================================== -->
+
+                        <td>
+
+                            {% if quotation.application_id %}
+
+                                <div class="application-box">
+
+                                    <i class="bi bi-file-earmark-text me-1"></i>
+
+                                    {{ quotation.application_id }}
+
+                                </div>
+
+                            {% else %}
+
+                                <span class="text-muted">
+                                    -
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+
+                        <!-- =================================================
+                             STUDENT
+                        ================================================== -->
+
+                        <td>
+
+                            <strong>
+
+                                {% with full_name=quotation.student.get_full_name %}
+
+                                    {% if full_name %}
+
+                                        {{ full_name }}
+
+                                    {% else %}
+
+                                        {{ quotation.student.username }}
+
+                                    {% endif %}
+
+                                {% endwith %}
+
+                            </strong>
+
+                            <br>
+
+                            <small class="text-muted">
+                                {{ quotation.student.email }}
+                            </small>
+
+                        </td>
+
+
+                        <!-- =================================================
+                             PROJECT
+                        ================================================== -->
+
+                        <td>
+
+                            {% if quotation.project_title %}
+
+                                {{ quotation.project_title }}
+
+                            {% else %}
+
+                                <span class="text-muted">
+                                    -
+                                </span>
+
+                            {% endif %}
+
+
+                            {% if quotation.project_domain %}
+
+                                <br>
+
+                                <small class="text-muted">
+                                    {{ quotation.project_domain }}
+                                </small>
+
+                            {% endif %}
+
+                        </td>
+
+
+                        <!-- =================================================
+                             DATE
+                        ================================================== -->
+
+                        <td>
+                            {{ quotation.created_at|date:"d M Y" }}
+                        </td>
+
+
+                        <!-- =================================================
+                             TOTAL
+                        ================================================== -->
+
+                        <td>
+
+                            <strong>
+                                ₹2,500.00
+                            </strong>
+
+                            <br>
+
+                            <small class="text-muted">
+                                Fixed
+                            </small>
+
+                        </td>
+
+
+                        <!-- =================================================
+                             STATUS
+                        ================================================== -->
+
+                        <td>
+
+                            <span class="status ready">
+                                Ready for Payment
+                            </span>
+
+                        </td>
+
+
+                        <!-- =================================================
+                             ACTIONS
+                        ================================================== -->
+
+                        <td>
+
+                            <!-- VIEW -->
+
+                            <button
+                                type="button"
+                                class="btn btn-sm btn-outline-primary"
+
+                                data-bs-toggle="modal"
+                                data-bs-target="#viewQuotationModal"
+
+                                data-quotation-id="{{ quotation.quotation_id }}"
+                                data-application-id="{{ quotation.application_id }}"
+
+                                data-student-name="{% with full_name=quotation.student.get_full_name %}{% if full_name %}{{ full_name }}{% else %}{{ quotation.student.username }}{% endif %}{% endwith %}"
+
+                                data-student-id="{{ quotation.student.username }}"
+
+                                data-project-title="{{ quotation.project_title }}"
+                                data-project-domain="{{ quotation.project_domain }}"
+
+                                data-amount="2500.00"
+
+                                data-status="Ready for Payment"
+
+                                data-description="{{ quotation.description }}"
+                                data-admin-remark="{{ quotation.admin_remark }}"
+
+                                data-date="{{ quotation.created_at|date:'d M Y' }}"
+
+                                onclick="viewQuotation(this)"
+                            >
+
+                                <i class="bi bi-eye"></i>
+
+                                View
+
+                            </button>
+
+
+                            <!-- EDIT -->
+
+                            <button
+                                type="button"
+                                class="btn btn-sm btn-outline-secondary"
+
+                                data-bs-toggle="modal"
+                                data-bs-target="#editQuotationModal"
+
+                                data-quotation-id="{{ quotation.quotation_id }}"
+                                data-application-id="{{ quotation.application_id }}"
+
+                                data-project-title="{{ quotation.project_title }}"
+                                data-project-domain="{{ quotation.project_domain }}"
+
+                                data-description="{{ quotation.description }}"
+                                data-admin-remark="{{ quotation.admin_remark }}"
+
+                                onclick="editQuotation(this)"
+                            >
+
+                                <i class="bi bi-pencil"></i>
+
+                                Edit Details
+
+                            </button>
+
+
+                        </td>
+
+                    </tr>
+
+
+                {% empty %}
+
+                    <tr>
+
+                        <td
+                            colspan="8"
+                            class="text-center py-5"
+                        >
+
+                            <i
+                                class="bi bi-receipt fs-2 text-muted"
+                            ></i>
+
+                            <div class="mt-2 text-muted">
+                                No quotations found.
+                            </div>
+
+                        </td>
+
+                    </tr>
+
+                {% endfor %}
+
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     VIEW QUOTATION MODAL
+========================================================= -->
+
+<div
+    class="modal fade"
+    id="viewQuotationModal"
+    tabindex="-1"
+>
+
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+
+        <div class="modal-content">
+
+
+            <div class="modal-header">
+
+                <h5 class="modal-title">
+
+                    <i class="bi bi-receipt-cutoff me-2"></i>
+
+                    Quotation Details
+
+                </h5>
+
+
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                ></button>
+
+            </div>
+
+
+            <div class="modal-body">
+
+
+                <div class="quotation-preview">
+
+
+                    <h5 class="company-heading">
+                        Code Axis TechSolutions LLP
+                    </h5>
+
+
+                    <p class="text-muted mb-4">
+                        Student Project Registration & Management Portal
+                    </p>
+
+
+                    <div class="row g-3">
+
+
+                        <div class="col-md-6">
+
+                            <small class="text-muted">
+                                Quotation ID
+                            </small>
+
+                            <h6 id="viewQuotationId">
+                                -
+                            </h6>
+
+                        </div>
+
+
+                        <div class="col-md-6">
+
+                            <small class="text-muted">
+                                Application ID
+                            </small>
+
+                            <h6
+                                id="viewApplicationId"
+                                class="text-primary"
+                            >
+                                -
+                            </h6>
+
+                        </div>
+
+
+                        <div class="col-md-6">
+
+                            <small class="text-muted">
+                                Student
+                            </small>
+
+                            <h6 id="viewStudent">
+                                -
+                            </h6>
+
+                        </div>
+
+
+                        <div class="col-md-6">
+
+                            <small class="text-muted">
+                                Student ID
+                            </small>
+
+                            <h6 id="viewStudentId">
+                                -
+                            </h6>
+
+                        </div>
+
+
+                        <div class="col-md-6">
+
+                            <small class="text-muted">
+                                Project
+                            </small>
+
+                            <h6 id="viewProject">
+                                -
+                            </h6>
+
+                        </div>
+
+
+                        <div class="col-md-6">
+
+                            <small class="text-muted">
+                                Domain
+                            </small>
+
+                            <h6 id="viewDomain">
+                                -
+                            </h6>
+
+                        </div>
+
+
+                        <div class="col-md-6">
+
+                            <small class="text-muted">
+                                Date
+                            </small>
+
+                            <h6 id="viewDate">
+                                -
+                            </h6>
+
+                        </div>
+
+
+                        <div class="col-md-6">
+
+                            <small class="text-muted">
+                                Amount
+                            </small>
+
+                            <h6
+                                id="viewTotal"
+                                class="text-primary"
+                            >
+                                ₹2,500.00
+                            </h6>
+
+                        </div>
+
+
+                        <div class="col-md-6">
+
+                            <small class="text-muted">
+                                Quotation Status
+                            </small>
+
+                            <h6
+                                id="viewStatus"
+                                class="text-primary"
+                            >
+                                Ready for Payment
+                            </h6>
+
+                        </div>
+
+
+                        <div class="col-12">
+
+                            <div class="fixed-price-box">
+
+                                <div class="d-flex justify-content-between align-items-center">
+
+                                    <div>
+
+                                        <strong>
+                                            Standard Project Charge
+                                        </strong>
+
+                                        <br>
+
+                                        <small class="text-muted">
+                                            Fixed amount for project registration
+                                        </small>
+
+                                    </div>
+
+
+                                    <strong class="text-primary fs-5">
+                                        ₹2,500.00
+                                    </strong>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="col-12">
+
+                            <small class="text-muted">
+                                Description
+                            </small>
+
+                            <p
+                                id="viewDescription"
+                                class="mb-0"
+                            >
+                                -
+                            </p>
+
+                        </div>
+
+
+                        <div class="col-12">
+
+                            <small class="text-muted">
+                                Admin Remark
+                            </small>
+
+                            <p
+                                id="viewAdminRemark"
+                                class="mb-0"
+                            >
+                                -
+                            </p>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="modal-footer">
+
+                <button
+                    type="button"
+                    class="btn btn-light border"
+                    data-bs-dismiss="modal"
+                >
+                    Close
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     EDIT QUOTATION MODAL
+========================================================= -->
+
+<div
+    class="modal fade"
+    id="editQuotationModal"
+    tabindex="-1"
+>
+
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+
+        <div class="modal-content">
+
+
+            <form
+                method="POST"
+                id="editQuotationForm"
+                action=""
+            >
+
+                {% csrf_token %}
+
+
+                <div class="modal-header">
+
+                    <h5 class="modal-title">
+
+                        <i class="bi bi-pencil-square me-2"></i>
+
+                        Edit Quotation Details
+
+                    </h5>
+
+
+                    <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                    ></button>
+
+                </div>
+
+
+                <div class="modal-body">
+
+
+                    <div class="alert alert-info">
+
+                        <i class="bi bi-info-circle me-1"></i>
+
+                        Quotation amount is fixed at
+                        <strong>₹2,500.00</strong>
+                        and cannot be changed by the admin.
+
+                    </div>
+
+
+                    <div class="row g-3">
+
+
+                        <!-- APPLICATION ID -->
+
+                        <div class="col-md-6">
+
+                            <label
+                                for="editApplicationId"
+                                class="form-label"
+                            >
+                                Application ID
+                            </label>
+
+
+                            <input
+                                type="text"
+                                id="editApplicationId"
+                                class="form-control"
+                                readonly
+                            >
+
+
+                            <small class="text-muted">
+                                Application ID cannot be changed.
+                            </small>
+
+                        </div>
+
+
+                        <!-- QUOTATION AMOUNT -->
+
+                        <div class="col-md-6">
+
+                            <label
+                                class="form-label"
+                            >
+                                Fixed Amount
+                            </label>
+
+
+                            <input
+                                type="text"
+                                class="form-control"
+                                value="₹2,500.00"
+                                readonly
+                            >
+
+
+                            <small class="text-muted">
+                                Fixed project registration charge.
+                            </small>
+
+                        </div>
+
+
+                        <!-- PROJECT TITLE -->
+
+                        <div class="col-md-6">
+
+                            <label
+                                for="editProjectTitle"
+                                class="form-label"
+                            >
+                                Project Title
+                            </label>
+
+
+                            <input
+                                type="text"
+                                name="project_title"
+                                id="editProjectTitle"
+                                class="form-control"
+                                required
+                            >
+
+                        </div>
+
+
+                        <!-- DOMAIN -->
+
+                        <div class="col-md-6">
+
+                            <label
+                                for="editProjectDomain"
+                                class="form-label"
+                            >
+                                Project Domain
+                            </label>
+
+
+                            <input
+                                type="text"
+                                name="project_domain"
+                                id="editProjectDomain"
+                                class="form-control"
+                            >
+
+                        </div>
+
+
+                        <!-- DESCRIPTION -->
+
+                        <div class="col-12">
+
+                            <label
+                                for="editDescription"
+                                class="form-label"
+                            >
+                                Description
+                            </label>
+
+
+                            <textarea
+                                name="description"
+                                id="editDescription"
+                                class="form-control"
+                                rows="3"
+                            ></textarea>
+
+                        </div>
+
+
+                        <!-- ADMIN REMARK -->
+
+                        <div class="col-12">
+
+                            <label
+                                for="editAdminRemark"
+                                class="form-label"
+                            >
+                                Admin Remark
+                            </label>
+
+
+                            <textarea
+                                name="admin_remark"
+                                id="editAdminRemark"
+                                class="form-control"
+                                rows="2"
+                            ></textarea>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+                <div class="modal-footer">
+
+
+                    <button
+                        type="button"
+                        class="btn btn-light border"
+                        data-bs-dismiss="modal"
+                    >
+                        Cancel
+                    </button>
+
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary"
+                    >
+
+                        <i class="bi bi-save"></i>
+
+                        Save Changes
+
+                    </button>
+
+
+                </div>
+
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     BOOTSTRAP JS
+========================================================= -->
+
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+</script>
+
+
+<script>
+
+/* ============================================================
+   VIEW QUOTATION
+============================================================ */
+
+function viewQuotation(button) {
+
+    const data = button.dataset;
+
+
+    document.getElementById("viewQuotationId").innerText =
+        data.quotationId || "-";
+
+
+    document.getElementById("viewApplicationId").innerText =
+        data.applicationId || "-";
+
+
+    document.getElementById("viewStudent").innerText =
+        data.studentName || "-";
+
+
+    document.getElementById("viewStudentId").innerText =
+        data.studentId || "-";
+
+
+    document.getElementById("viewProject").innerText =
+        data.projectTitle || "-";
+
+
+    document.getElementById("viewDomain").innerText =
+        data.projectDomain || "-";
+
+
+    document.getElementById("viewDate").innerText =
+        data.date || "-";
+
+
+    /*
+       FIXED AMOUNT
+    */
+
+    document.getElementById("viewTotal").innerText =
+        "₹2,500.00";
+
+
+    /*
+       FIXED QUOTATION STATUS
+    */
+
+    document.getElementById("viewStatus").innerText =
+        "Ready for Payment";
+
+
+    document.getElementById("viewDescription").innerText =
+        data.description || "-";
+
+
+    document.getElementById("viewAdminRemark").innerText =
+        data.adminRemark || "-";
+
+}
+
+
+/* ============================================================
+   EDIT QUOTATION
+============================================================ */
+
+function editQuotation(button) {
+
+    const data = button.dataset;
+
+
+    document.getElementById("editApplicationId").value =
+        data.applicationId || "";
+
+
+    document.getElementById("editProjectTitle").value =
+        data.projectTitle || "";
+
+
+    document.getElementById("editProjectDomain").value =
+        data.projectDomain || "";
+
+
+    document.getElementById("editDescription").value =
+        data.description || "";
+
+
+    document.getElementById("editAdminRemark").value =
+        data.adminRemark || "";
+
+
+    const quotationId =
+        data.quotationId || "";
+
+
+    if (quotationId) {
+
+        const updateUrl =
+            "{% url 'admin_quotation_update' 'PLACEHOLDER' %}"
+                .replace(
+                    "PLACEHOLDER",
+                    encodeURIComponent(quotationId)
+                );
+
+
+        document.getElementById(
+            "editQuotationForm"
+        ).action = updateUrl;
+
+    }
+
+}
+
+</script>
+
+
+</body>
+
+</html>
+

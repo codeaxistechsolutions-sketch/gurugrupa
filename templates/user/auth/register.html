@@ -1,0 +1,2586 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Student Registration | Student Project Portal</title>
+
+    <!-- Bootstrap -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <!-- Bootstrap Icons -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+        rel="stylesheet"
+    >
+
+    <style>
+
+        body {
+            background:#F5F7FB;
+            color:#111827;
+        }
+
+        .registration-header {
+            background:#172554;
+            color:white;
+            padding:35px 0;
+        }
+
+        .registration-header h1 {
+            font-weight:700;
+            margin-bottom:8px;
+        }
+
+        .registration-header p {
+            color:#CBD5E1;
+        }
+
+        .back-btn {
+            color:white;
+            text-decoration:none;
+            border:1px solid #CBD5E1;
+            padding:9px 18px;
+            border-radius:6px;
+        }
+
+        .back-btn:hover {
+            background:white;
+            color:#172554;
+        }
+
+        .registration-card {
+            max-width:1000px;
+            margin:40px auto;
+            background:#fff;
+            padding:35px;
+            border-radius:12px;
+            border:1px solid #E2E8F0;
+            box-shadow:0 8px 25px rgba(15,23,42,.08);
+        }
+
+        .section-title {
+            color:#172554;
+            font-weight:700;
+            border-left:5px solid #2563EB;
+            padding-left:12px;
+            margin-bottom:25px;
+        }
+
+        .form-label {
+            font-weight:600;
+            color:#111827;
+            margin-bottom:7px;
+        }
+
+        .form-control,
+        .form-select {
+            padding:11px 12px;
+            border-radius:7px;
+            border:1px solid #E2E8F0;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            border-color:#2563EB;
+            box-shadow:0 0 0 .15rem rgba(37,99,235,.15);
+        }
+
+        .required {
+            color:#EF4444;
+        }
+
+        .info-box {
+            background:#F0FDF4;
+            border:1px solid #BBF7D0;
+            color:#166534;
+            border-radius:8px;
+            padding:12px 15px;
+            margin-bottom:25px;
+        }
+
+        .otp-box {
+            background:#EFF6FF;
+            border:1px solid #BFDBFE;
+            border-radius:8px;
+            padding:20px;
+        }
+
+        .otp-btn {
+            background:#4F46E5;
+            border:none;
+            color:white;
+            font-weight:600;
+            border-radius:6px;
+            padding:10px 18px;
+        }
+
+        .otp-btn:hover {
+            background:#4338CA;
+            color:white;
+        }
+
+        .verify-btn {
+            background:#16A34A;
+            border:none;
+            color:white;
+            font-weight:600;
+            border-radius:6px;
+            padding:10px 18px;
+        }
+
+        .verify-btn:hover {
+            background:#15803D;
+            color:white;
+        }
+
+        .otp-status {
+            font-size:14px;
+            margin-top:12px;
+        }
+
+        .captcha-code {
+            background:#172554;
+            color:white;
+            font-size:24px;
+            font-weight:700;
+            letter-spacing:6px;
+            text-align:center;
+            padding:12px;
+            border-radius:7px;
+            user-select:none;
+        }
+
+        .register-btn {
+            background:#2563EB;
+            border:none;
+            color:white;
+            font-weight:600;
+            padding:12px 35px;
+            border-radius:7px;
+        }
+
+        .register-btn:hover {
+            background:#1D4ED8;
+            color:white;
+        }
+
+        footer {
+            background:#172554;
+            color:white;
+        }
+
+        .field-error {
+            color:#DC2626;
+            font-size:13px;
+            margin-top:5px;
+            display:none;
+        }
+
+        .is-invalid-custom {
+            border-color:#DC2626 !important;
+        }
+
+        .otp-timer {
+            font-size:13px;
+            color:#64748B;
+            margin-top:8px;
+        }
+
+        .otp-note {
+            background:#FFFFFF;
+            border:1px solid #DBEAFE;
+            border-radius:7px;
+            padding:10px 12px;
+            margin-top:12px;
+            font-size:13px;
+            color:#475569;
+        }
+
+        @media(max-width:768px) {
+
+            .registration-header {
+                padding:25px 15px;
+            }
+
+            .registration-header h1 {
+                font-size:24px;
+            }
+
+            .registration-header .d-flex {
+                flex-direction:column;
+                align-items:flex-start!important;
+                gap:20px;
+            }
+
+            .registration-card {
+                margin:20px 10px;
+                padding:22px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<section class="registration-header">
+
+    <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center">
+
+            <div>
+
+                <h1>
+                    <i class="bi bi-mortarboard-fill"></i>
+                    Student Registration
+                </h1>
+
+                <p class="mb-0">
+                    Student Project Registration & Management Portal
+                </p>
+
+            </div>
+
+            <a
+                href="{% url 'home' %}"
+                class="back-btn"
+            >
+                <i class="bi bi-arrow-left"></i>
+                Back to Home
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     MAIN CONTAINER
+===================================================== -->
+
+<div class="container">
+
+    <div class="registration-card">
+
+        <h3 class="section-title">
+            Create Student Account
+        </h3>
+
+        <p class="text-muted mb-4">
+            Please enter your personal, academic and account
+            information to register for the Student Project Portal.
+        </p>
+
+        <div class="info-box">
+
+            <i class="bi bi-info-circle-fill"></i>
+
+            Fields marked with
+            <span class="required">*</span>
+            are mandatory.
+
+        </div>
+
+
+        <!-- =================================================
+             DJANGO FORM
+        ================================================= -->
+
+        <form
+            method="POST"
+            action="{% url 'user_register' %}"
+            id="registrationForm"
+            novalidate
+        >
+
+            {% csrf_token %}
+
+
+            <!-- =================================================
+                 PERSONAL DETAILS
+            ================================================= -->
+
+            <h5 class="section-title mt-4">
+                Personal Details
+            </h5>
+
+            <div class="row">
+
+
+                <!-- FULL NAME -->
+
+                <div class="col-md-6 mb-3">
+
+                    <label class="form-label">
+                        Full Name
+                        <span class="required">*</span>
+                    </label>
+
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="fullName"
+                        name="full_name"
+                        placeholder="Enter your full name"
+                    >
+
+                </div>
+
+
+                <!-- MOBILE -->
+
+                <div class="col-md-6 mb-3">
+
+                    <label class="form-label">
+                        Mobile Number
+                        <span class="required">*</span>
+                    </label>
+
+                    <input
+                        type="tel"
+                        class="form-control"
+                        id="mobile"
+                        name="mobile"
+                        placeholder="Enter 10 digit mobile number"
+                        maxlength="10"
+                        inputmode="numeric"
+                        autocomplete="tel"
+                    >
+
+                    <small class="text-muted">
+                        Enter Indian mobile number without +91.
+                    </small>
+
+                </div>
+
+
+                <!-- EMAIL -->
+
+                <div class="col-md-6 mb-3">
+
+                    <label class="form-label">
+                        Email Address
+                        <span class="required">*</span>
+                    </label>
+
+                    <input
+                        type="email"
+                        class="form-control"
+                        id="email"
+                        name="email"
+                        placeholder="example@gmail.com"
+                        autocomplete="email"
+                    >
+
+                </div>
+
+
+                <!-- GENDER -->
+
+                <div class="col-md-6 mb-3">
+
+                    <label class="form-label">
+                        Gender
+                        <span class="required">*</span>
+                    </label>
+
+                    <select
+                        class="form-select"
+                        id="gender"
+                        name="gender"
+                    >
+
+                        <option value="">
+                            Select Gender
+                        </option>
+
+                        <option value="Male">
+                            Male
+                        </option>
+
+                        <option value="Female">
+                            Female
+                        </option>
+
+                        <option value="Other">
+                            Other
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- ADDRESS -->
+
+                <div class="col-12 mb-3">
+
+                    <label class="form-label">
+                        Address
+                        <span class="required">*</span>
+                    </label>
+
+                    <textarea
+                        class="form-control"
+                        id="address"
+                        name="address"
+                        rows="3"
+                        placeholder="Enter your complete address"
+                    ></textarea>
+
+                </div>
+
+
+                <!-- DISTRICT -->
+
+                <div class="col-md-6 mb-3">
+
+                    <label class="form-label">
+                        District
+                        <span class="required">*</span>
+                    </label>
+
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="district"
+                        name="district"
+                        list="districtOptions"
+                        placeholder="Search or enter district"
+                    >
+
+                    <datalist id="districtOptions">
+
+                        <option value="Pune">
+                        <option value="Mumbai">
+                        <option value="Nashik">
+                        <option value="Nagpur">
+                        <option value="Kolhapur">
+                        <option value="Sangli">
+                        <option value="Satara">
+                        <option value="Ahmednagar">
+                        <option value="Aurangabad">
+                        <option value="Thane">
+                        <option value="Solapur">
+
+                    </datalist>
+
+                </div>
+
+
+                <!-- STATE -->
+
+                <div class="col-md-6 mb-3">
+
+                    <label class="form-label">
+                        State
+                        <span class="required">*</span>
+                    </label>
+
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="state"
+                        name="state"
+                        list="stateOptions"
+                        placeholder="Search or enter state"
+                    >
+
+                    <datalist id="stateOptions">
+
+                        <option value="Maharashtra">
+                        <option value="Karnataka">
+                        <option value="Gujarat">
+                        <option value="Goa">
+                        <option value="Madhya Pradesh">
+                        <option value="Rajasthan">
+                        <option value="Tamil Nadu">
+                        <option value="Kerala">
+                        <option value="Delhi">
+                        <option value="Telangana">
+                        <option value="Uttar Pradesh">
+
+                    </datalist>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 ACADEMIC DETAILS
+            ================================================= -->
+
+            <h5 class="section-title mt-4">
+                Academic Details
+            </h5>
+
+            <div class="row">
+
+
+                <!-- COURSE -->
+
+                <div class="col-md-6 mb-3">
+
+                    <label class="form-label">
+                        Course
+                        <span class="required">*</span>
+                    </label>
+
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="course"
+                        name="course"
+                        list="courseOptions"
+                        placeholder="Search or enter course"
+                    >
+
+                    <datalist id="courseOptions">
+
+                        <option value="B.E.">
+                        <option value="B.Tech">
+                        <option value="BCA">
+                        <option value="BCS">
+                        <option value="B.Sc.">
+                        <option value="B.Com">
+                        <option value="BBA">
+                        <option value="MCA">
+                        <option value="M.E.">
+                        <option value="M.Tech">
+                        <option value="M.Sc.">
+                        <option value="M.Com">
+                        <option value="MBA">
+                        <option value="Pharmacy">
+                        <option value="Diploma">
+
+                    </datalist>
+
+                </div>
+
+
+                <!-- BRANCH -->
+
+                <div class="col-md-6 mb-3">
+
+                    <label class="form-label">
+                        Branch
+                        <span class="required">*</span>
+                    </label>
+
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="branch"
+                        name="branch"
+                        list="branchOptions"
+                        placeholder="Search or enter branch"
+                    >
+
+                    <datalist id="branchOptions">
+
+                        <option value="Computer Engineering">
+                        <option value="Information Technology">
+                        <option value="Artificial Intelligence & Data Science">
+                        <option value="Artificial Intelligence & Machine Learning">
+                        <option value="Electronics & Telecommunication">
+                        <option value="Electronics Engineering">
+                        <option value="Mechanical Engineering">
+                        <option value="Civil Engineering">
+                        <option value="Electrical Engineering">
+                        <option value="Chemical Engineering">
+                        <option value="Computer Applications">
+                        <option value="Commerce">
+
+                    </datalist>
+
+                </div>
+
+
+                <!-- COLLEGE -->
+
+                <div class="col-md-6 mb-3">
+
+                    <label class="form-label">
+                        College Name
+                        <span class="required">*</span>
+                    </label>
+
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="college"
+                        name="college"
+                        placeholder="Search or enter college name"
+                    >
+
+                </div>
+
+
+                <!-- UNIVERSITY -->
+
+                <div class="col-md-6 mb-3">
+
+                    <label class="form-label">
+                        University
+                        <span class="required">*</span>
+                    </label>
+
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="university"
+                        name="university"
+                        placeholder="Search or enter university name"
+                    >
+
+                </div>
+
+
+                <!-- CURRENT YEAR -->
+
+                <div class="col-md-6 mb-3">
+
+                    <label class="form-label">
+                        Current Year
+                        <span class="required">*</span>
+                    </label>
+
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="currentYear"
+                        name="current_year"
+                        list="yearOptions"
+                        placeholder="Search or enter current year"
+                    >
+
+                    <datalist id="yearOptions">
+
+                        <option value="First Year">
+                        <option value="Second Year">
+                        <option value="Third Year">
+                        <option value="Fourth Year">
+                        <option value="Final Year">
+
+                    </datalist>
+
+                </div>
+
+
+                <!-- SEMESTER -->
+
+                <div class="col-md-6 mb-3">
+
+                    <label class="form-label">
+                        Current Semester
+                        <span class="required">*</span>
+                    </label>
+
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="semester"
+                        name="semester"
+                        list="semesterOptions"
+                        placeholder="Search or enter semester"
+                    >
+
+                    <datalist id="semesterOptions">
+
+                        <option value="Semester 1">
+                        <option value="Semester 2">
+                        <option value="Semester 3">
+                        <option value="Semester 4">
+                        <option value="Semester 5">
+                        <option value="Semester 6">
+                        <option value="Semester 7">
+                        <option value="Semester 8">
+
+                    </datalist>
+
+                </div>
+
+
+                <!-- ACADEMIC YEAR -->
+
+                <div class="col-md-6 mb-3">
+
+                    <label class="form-label">
+                        Academic Year
+                        <span class="required">*</span>
+                    </label>
+
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="academicYear"
+                        name="academic_year"
+                        list="academicYearOptions"
+                        placeholder="Search or enter academic year"
+                    >
+
+                    <datalist id="academicYearOptions">
+
+                        <option value="2023-24">
+                        <option value="2024-25">
+                        <option value="2025-26">
+                        <option value="2026-27">
+                        <option value="2027-28">
+                        <option value="2028-29">
+                        <option value="2029-30">
+
+                    </datalist>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 ACCOUNT SECURITY
+            ================================================= -->
+
+            <h5 class="section-title mt-4">
+                Account Security
+            </h5>
+
+            <div class="row">
+
+
+                <!-- USERNAME -->
+
+                <div class="col-md-6 mb-3">
+
+                    <label class="form-label">
+                        Username
+                        <span class="required">*</span>
+                    </label>
+
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="username"
+                        name="username"
+                        placeholder="Create username"
+                        minlength="4"
+                        maxlength="30"
+                        autocomplete="username"
+                    >
+
+                    <small class="text-muted">
+                        Use 4–30 characters.
+                    </small>
+
+                </div>
+
+
+                <!-- PASSWORD -->
+
+                <div class="col-md-6 mb-3">
+
+                    <label class="form-label">
+                        Password
+                        <span class="required">*</span>
+                    </label>
+
+                    <input
+                        type="password"
+                        class="form-control"
+                        id="password"
+                        name="password"
+                        placeholder="Create password"
+                        minlength="8"
+                        autocomplete="new-password"
+                    >
+
+                    <small class="text-muted">
+                        Minimum 8 characters.
+                    </small>
+
+                </div>
+
+
+                <!-- CONFIRM PASSWORD -->
+
+                <div class="col-md-6 mb-3">
+
+                    <label class="form-label">
+                        Confirm Password
+                        <span class="required">*</span>
+                    </label>
+
+                    <input
+                        type="password"
+                        class="form-control"
+                        id="confirmPassword"
+                        name="confirm_password"
+                        placeholder="Confirm password"
+                        minlength="8"
+                        autocomplete="new-password"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 EMAIL OTP VERIFICATION
+            ================================================= -->
+
+            <div class="otp-box mt-3 mb-4">
+
+                <h6 class="fw-bold">
+
+                    <i class="bi bi-shield-check"></i>
+                    Email OTP Verification
+
+                </h6>
+
+                <p class="text-muted mb-3">
+                    Verify your email address before registration.
+                </p>
+
+
+                <div class="row">
+
+
+                    <!-- OTP METHOD -->
+
+                    <div class="col-md-4 mb-3">
+
+                        <label class="form-label">
+
+                            Verify OTP Through
+                            <span class="required">*</span>
+
+                        </label>
+
+                        <select
+                            class="form-select"
+                            id="otpMethod"
+                            name="otp_method"
+                        >
+
+                            <option value="">
+                                Select Method
+                            </option>
+
+                            <option value="email">
+                                Email Address
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- OTP TARGET -->
+
+                    <div class="col-md-8 mb-3">
+
+                        <label class="form-label">
+                            Verification Email
+                        </label>
+
+                        <input
+                            type="email"
+                            class="form-control"
+                            id="otpTarget"
+                            name="otp_target"
+                            placeholder="Select Email Address"
+                            readonly
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="row align-items-end">
+
+
+                    <!-- SEND OTP -->
+
+                    <div class="col-md-4 mb-2">
+
+                        <button
+                            type="button"
+                            class="btn otp-btn w-100"
+                            id="sendOtpBtn"
+                        >
+
+                            <i class="bi bi-envelope-check"></i>
+                            Send OTP
+
+                        </button>
+
+                    </div>
+
+
+                    <!-- OTP -->
+
+                    <div class="col-md-4 mb-2">
+
+                        <label class="form-label">
+                            Enter OTP
+                        </label>
+
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="otp"
+                            name="otp"
+                            maxlength="6"
+                            inputmode="numeric"
+                            autocomplete="one-time-code"
+                            placeholder="Enter 6 digit OTP"
+                            readonly
+                        >
+
+                    </div>
+
+
+                    <!-- VERIFY -->
+
+                    <div class="col-md-4 mb-2">
+
+                        <button
+                            type="button"
+                            class="btn verify-btn w-100"
+                            id="verifyOtpBtn"
+                        >
+
+                            <i class="bi bi-check-circle"></i>
+                            Verify OTP
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- OTP TIMER -->
+
+                <div
+                    id="otpTimer"
+                    class="otp-timer"
+                ></div>
+
+
+                <!-- OTP STATUS -->
+
+                <div
+                    id="otpStatus"
+                    class="otp-status text-muted"
+                >
+
+                    Please select Email Address for OTP verification.
+
+                </div>
+
+
+                <!-- EMAIL OTP NOTE -->
+
+                <div class="otp-note">
+
+                    <i class="bi bi-info-circle"></i>
+
+                    A 6-digit verification code will be sent
+                    to your registered email address.
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 CAPTCHA
+            ================================================= -->
+
+            <div class="otp-box mt-3 mb-4">
+
+                <h6 class="fw-bold">
+
+                    <i class="bi bi-shield-lock"></i>
+                    Security Verification
+
+                </h6>
+
+                <p class="text-muted mb-3">
+                    Enter the CAPTCHA shown below.
+                </p>
+
+
+                <div class="row align-items-center">
+
+
+                    <div class="col-md-5 mb-2">
+
+                        <div
+                            id="captchaCode"
+                            class="captcha-code"
+                        ></div>
+
+                    </div>
+
+
+                    <div class="col-md-2 mb-2">
+
+                        <button
+                            type="button"
+                            class="btn btn-outline-secondary w-100"
+                            onclick="generateCaptcha()"
+                            title="Refresh CAPTCHA"
+                        >
+
+                            <i class="bi bi-arrow-clockwise"></i>
+
+                        </button>
+
+                    </div>
+
+
+                    <div class="col-md-5 mb-2">
+
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="captchaInput"
+                            name="captcha"
+                            placeholder="Enter CAPTCHA"
+                            maxlength="6"
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    id="captchaStatus"
+                    class="small mt-2"
+                ></div>
+
+            </div>
+
+
+            <!-- =================================================
+                 TERMS
+            ================================================= -->
+
+            <div class="form-check mt-3 mb-4">
+
+                <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="terms"
+                    name="terms"
+                    value="1"
+                >
+
+                <label
+                    class="form-check-label"
+                    for="terms"
+                >
+
+                    I agree to the terms and conditions
+                    of the Student Project Portal.
+
+                    <span class="required">*</span>
+
+                </label>
+
+            </div>
+
+
+            <!-- =================================================
+                 DJANGO MESSAGES
+            ================================================= -->
+
+            {% if messages %}
+
+                {% for message in messages %}
+
+                    <div
+                        class="alert alert-{{ message.tags }} alert-dismissible fade show"
+                    >
+
+                        {{ message }}
+
+                        <button
+                            type="button"
+                            class="btn-close"
+                            data-bs-dismiss="alert"
+                        ></button>
+
+                    </div>
+
+                {% endfor %}
+
+            {% endif %}
+
+
+            <!-- =================================================
+                 REGISTER
+            ================================================= -->
+
+            <div class="text-center">
+
+                <button
+                    type="submit"
+                    class="register-btn"
+                    id="registerBtn"
+                >
+
+                    <i class="bi bi-person-plus-fill"></i>
+                    Register Student
+
+                </button>
+
+            </div>
+
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer class="text-center py-4">
+
+    <p class="mb-1">
+        © 2026 Student Project Portal
+    </p>
+
+    <small>
+        Student Project Registration & Management Portal
+    </small>
+
+</footer>
+
+
+<!-- =====================================================
+     NORMAL JAVASCRIPT
+===================================================== -->
+
+<script>
+
+/* =====================================================
+   GLOBAL VARIABLES
+===================================================== */
+
+let otpSent = false;
+let otpVerified = false;
+
+let captchaText = "";
+
+let otpCountdown = null;
+let otpSeconds = 0;
+
+
+/* =====================================================
+   OTP STATUS HELPER
+===================================================== */
+
+function setOTPStatus(message, type = "info") {
+
+    const status =
+        document.getElementById("otpStatus");
+
+    if (type === "success") {
+
+        status.innerHTML =
+            '<span style="color:#16A34A;">' +
+            '<i class="bi bi-check-circle-fill"></i> ' +
+            message +
+            '</span>';
+
+    }
+    else if (type === "error") {
+
+        status.innerHTML =
+            '<span style="color:#DC2626;">' +
+            '<i class="bi bi-x-circle-fill"></i> ' +
+            message +
+            '</span>';
+
+    }
+    else {
+
+        status.innerHTML =
+            '<span style="color:#2563EB;">' +
+            '<i class="bi bi-info-circle-fill"></i> ' +
+            message +
+            '</span>';
+
+    }
+
+}
+
+
+/* =====================================================
+   GET CSRF TOKEN
+===================================================== */
+
+function getCSRFToken() {
+
+    const csrfInput =
+        document.querySelector(
+            '[name="csrfmiddlewaretoken"]'
+        );
+
+    return csrfInput
+        ? csrfInput.value
+        : "";
+
+}
+
+
+/* =====================================================
+   OTP TIMER
+===================================================== */
+
+function startOTPTimer() {
+
+    clearInterval(otpCountdown);
+
+    otpSeconds = 60;
+
+    const timer =
+        document.getElementById("otpTimer");
+
+    const sendButton =
+        document.getElementById("sendOtpBtn");
+
+    sendButton.disabled = true;
+
+    timer.textContent =
+        "You can resend OTP after 60 seconds.";
+
+    otpCountdown = setInterval(
+        function() {
+
+            otpSeconds--;
+
+            if (otpSeconds <= 0) {
+
+                clearInterval(otpCountdown);
+
+                timer.innerHTML =
+                    '<span style="color:#2563EB;">' +
+                    'You can send OTP again.' +
+                    '</span>';
+
+                sendButton.disabled = false;
+
+                return;
+            }
+
+            timer.textContent =
+                "Resend OTP available in " +
+                otpSeconds +
+                " seconds.";
+
+        },
+        1000
+    );
+
+}
+
+
+/* =====================================================
+   SEND OTP - DJANGO EMAIL
+===================================================== */
+
+async function sendOTP() {
+
+    const method =
+        document.getElementById(
+            "otpMethod"
+        ).value;
+
+    const mobileInput =
+        document.getElementById(
+            "mobile"
+        );
+
+    const mobile =
+        mobileInput.value.trim();
+
+    const emailInput =
+        document.getElementById(
+            "email"
+        );
+
+    const email =
+        emailInput.value.trim();
+
+    const sendButton =
+        document.getElementById(
+            "sendOtpBtn"
+        );
+
+    const target =
+        document.getElementById(
+            "otpTarget"
+        );
+
+
+    /* =================================================
+       METHOD VALIDATION
+    ================================================= */
+
+    if (method !== "email") {
+
+        alert(
+            "Please select Email Address."
+        );
+
+        return;
+    }
+
+
+    /* =================================================
+       MOBILE VALIDATION
+    ================================================= */
+
+    if (!/^[0-9]{10}$/.test(mobile)) {
+
+        alert(
+            "Please enter a valid 10 digit mobile number."
+        );
+
+        mobileInput.focus();
+
+        return;
+    }
+
+
+    /* =================================================
+       EMAIL VALIDATION
+    ================================================= */
+
+    if (
+        !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+    ) {
+
+        alert(
+            "Please enter a valid Email Address."
+        );
+
+        emailInput.focus();
+
+        return;
+    }
+
+
+    try {
+
+        sendButton.disabled = true;
+
+        sendButton.innerHTML =
+            '<i class="bi bi-hourglass-split"></i> Sending...';
+
+
+        target.value = email;
+
+
+        otpSent = false;
+        otpVerified = false;
+
+
+        /* =================================================
+           DJANGO EMAIL OTP REQUEST
+        ================================================= */
+
+        const response =
+            await fetch(
+                "{% url 'send_registration_otp' %}",
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json",
+
+                        "X-CSRFToken":
+                            getCSRFToken(),
+
+                        "X-Requested-With":
+                            "XMLHttpRequest"
+                    },
+
+                    body: JSON.stringify({
+
+                        mobile: mobile,
+
+                        email: email
+
+                    })
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (!response.ok || !data.success) {
+
+            throw new Error(
+                data.message ||
+                "Unable to send OTP."
+            );
+        }
+
+
+        /* =================================================
+           OTP SENT SUCCESSFULLY
+        ================================================= */
+
+        otpSent = true;
+
+        otpVerified = false;
+
+
+        setOTPStatus(
+            data.message ||
+            "OTP has been sent successfully to your email address.",
+            "info"
+        );
+
+
+        const otpInput =
+            document.getElementById("otp");
+
+
+        otpInput.value = "";
+
+        otpInput.readOnly = false;
+
+        otpInput.focus();
+
+
+        startOTPTimer();
+
+
+    }
+    catch (error) {
+
+        otpSent = false;
+
+        otpVerified = false;
+
+
+        console.error(
+            "Email OTP Send Error:",
+            error
+        );
+
+
+        setOTPStatus(
+            error.message ||
+            "Unable to send OTP. Please try again.",
+            "error"
+        );
+
+
+        sendButton.disabled = false;
+
+    }
+
+
+    sendButton.innerHTML =
+        '<i class="bi bi-envelope-check"></i> Send OTP';
+
+}
+
+
+/* =====================================================
+   VERIFY OTP - DJANGO EMAIL
+===================================================== */
+
+async function verifyOTP() {
+
+    const mobile =
+        document.getElementById(
+            "mobile"
+        ).value.trim();
+
+    const email =
+        document.getElementById(
+            "email"
+        ).value.trim();
+
+    const otp =
+        document.getElementById(
+            "otp"
+        ).value.trim();
+
+    const verifyButton =
+        document.getElementById(
+            "verifyOtpBtn"
+        );
+
+
+    /* =================================================
+       OTP SENT CHECK
+    ================================================= */
+
+    if (!otpSent) {
+
+        alert(
+            "Please click Send OTP first."
+        );
+
+        return;
+    }
+
+
+    /* =================================================
+       MOBILE VALIDATION
+    ================================================= */
+
+    if (!/^[0-9]{10}$/.test(mobile)) {
+
+        alert(
+            "Please enter a valid 10 digit mobile number."
+        );
+
+        return;
+    }
+
+
+    /* =================================================
+       EMAIL VALIDATION
+    ================================================= */
+
+    if (
+        !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+    ) {
+
+        alert(
+            "Please enter a valid Email Address."
+        );
+
+        return;
+    }
+
+
+    /* =================================================
+       OTP VALIDATION
+    ================================================= */
+
+    if (!/^[0-9]{6}$/.test(otp)) {
+
+        alert(
+            "Please enter a valid 6 digit OTP."
+        );
+
+        document.getElementById(
+            "otp"
+        ).focus();
+
+        return;
+    }
+
+
+    try {
+
+        verifyButton.disabled = true;
+
+        verifyButton.innerHTML =
+            '<i class="bi bi-hourglass-split"></i> Verifying...';
+
+
+        /* =================================================
+           DJANGO OTP VERIFY REQUEST
+        ================================================= */
+
+        const response =
+            await fetch(
+                "{% url 'verify_registration_otp' %}",
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json",
+
+                        "X-CSRFToken":
+                            getCSRFToken(),
+
+                        "X-Requested-With":
+                            "XMLHttpRequest"
+                    },
+
+                    body: JSON.stringify({
+
+                        mobile: mobile,
+
+                        email: email,
+
+                        otp: otp
+
+                    })
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (!response.ok || !data.success) {
+
+            throw new Error(
+                data.message ||
+                "Invalid OTP."
+            );
+        }
+
+
+        /* =================================================
+           OTP VERIFIED
+        ================================================= */
+
+        otpVerified = true;
+
+
+        setOTPStatus(
+            data.message ||
+            "Email address verified successfully.",
+            "success"
+        );
+
+
+        /* =================================================
+           LOCK EMAIL AFTER VERIFICATION
+        ================================================= */
+
+        document.getElementById(
+            "email"
+        ).readOnly = true;
+
+
+        document.getElementById(
+            "otpTarget"
+        ).value = email;
+
+
+        document.getElementById(
+            "otp"
+        ).readOnly = true;
+
+
+        verifyButton.disabled = true;
+
+
+        document.getElementById(
+            "sendOtpBtn"
+        ).disabled = true;
+
+
+        clearInterval(
+            otpCountdown
+        );
+
+
+        document.getElementById(
+            "otpTimer"
+        ).innerHTML =
+            '<span style="color:#16A34A;">' +
+            'Email verification completed.' +
+            '</span>';
+
+    }
+    catch (error) {
+
+        otpVerified = false;
+
+
+        console.error(
+            "Email OTP Verify Error:",
+            error
+        );
+
+
+        setOTPStatus(
+            error.message ||
+            "Invalid or expired OTP.",
+            "error"
+        );
+
+
+        verifyButton.disabled = false;
+
+    }
+
+
+    verifyButton.innerHTML =
+        '<i class="bi bi-check-circle"></i> Verify OTP';
+
+}
+
+
+/* =====================================================
+   BUTTON EVENTS
+===================================================== */
+
+document.getElementById(
+    "sendOtpBtn"
+).addEventListener(
+    "click",
+    sendOTP
+);
+
+
+document.getElementById(
+    "verifyOtpBtn"
+).addEventListener(
+    "click",
+    verifyOTP
+);
+
+
+/* =====================================================
+   OTP METHOD CHANGE
+===================================================== */
+
+document.getElementById(
+    "otpMethod"
+).addEventListener(
+    "change",
+    function() {
+
+        const method =
+            this.value;
+
+        const target =
+            document.getElementById(
+                "otpTarget"
+            );
+
+        const email =
+            document.getElementById(
+                "email"
+            ).value.trim();
+
+
+        if (method === "email") {
+
+            target.value = email;
+
+            target.placeholder =
+                "Email address will be used";
+
+        }
+        else {
+
+            target.value = "";
+
+            target.placeholder =
+                "Select Email Address";
+
+        }
+
+
+        /* =================================================
+           RESET OTP STATE
+        ================================================= */
+
+        otpSent = false;
+
+        otpVerified = false;
+
+
+        clearInterval(
+            otpCountdown
+        );
+
+
+        document.getElementById(
+            "otp"
+        ).value = "";
+
+
+        document.getElementById(
+            "otp"
+        ).readOnly = true;
+
+
+        document.getElementById(
+            "sendOtpBtn"
+        ).disabled = false;
+
+
+        document.getElementById(
+            "verifyOtpBtn"
+        ).disabled = false;
+
+
+        document.getElementById(
+            "otpTimer"
+        ).innerHTML = "";
+
+
+        setOTPStatus(
+            "Please click Send OTP.",
+            "info"
+        );
+
+    }
+);
+
+
+/* =====================================================
+   EMAIL CHANGE
+===================================================== */
+
+document.getElementById(
+    "email"
+).addEventListener(
+    "input",
+    function() {
+
+        const method =
+            document.getElementById(
+                "otpMethod"
+            ).value;
+
+
+        /*
+         * If email is changed,
+         * previous OTP verification cannot be trusted.
+         */
+
+        if (method === "email") {
+
+            document.getElementById(
+                "otpTarget"
+            ).value =
+                this.value.trim();
+
+        }
+
+
+        otpSent = false;
+
+        otpVerified = false;
+
+
+        clearInterval(
+            otpCountdown
+        );
+
+
+        document.getElementById(
+            "otp"
+        ).value = "";
+
+
+        document.getElementById(
+            "otp"
+        ).readOnly = true;
+
+
+        document.getElementById(
+            "sendOtpBtn"
+        ).disabled = false;
+
+
+        document.getElementById(
+            "verifyOtpBtn"
+        ).disabled = false;
+
+
+        document.getElementById(
+            "otpTimer"
+        ).innerHTML = "";
+
+
+        if (this.value.trim() !== "") {
+
+            setOTPStatus(
+                "Email address changed. Please send OTP again.",
+                "info"
+            );
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   MOBILE CHANGE
+===================================================== */
+
+document.getElementById(
+    "mobile"
+).addEventListener(
+    "input",
+    function() {
+
+        this.value =
+            this.value
+                .replace(/\D/g, "")
+                .slice(0, 10);
+
+
+        /*
+         * Mobile is also stored with the
+         * email OTP request.
+         *
+         * If mobile changes, previous verification
+         * cannot be trusted.
+         */
+
+        otpSent = false;
+
+        otpVerified = false;
+
+
+        clearInterval(
+            otpCountdown
+        );
+
+
+        document.getElementById(
+            "otp"
+        ).value = "";
+
+
+        document.getElementById(
+            "otp"
+        ).readOnly = true;
+
+
+        document.getElementById(
+            "sendOtpBtn"
+        ).disabled = false;
+
+
+        document.getElementById(
+            "verifyOtpBtn"
+        ).disabled = false;
+
+
+        document.getElementById(
+            "otpTimer"
+        ).innerHTML = "";
+
+
+        if (this.value.trim() !== "") {
+
+            setOTPStatus(
+                "Mobile number changed. Please send OTP again.",
+                "info"
+            );
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   OTP INPUT - ONLY NUMBERS
+===================================================== */
+
+document.getElementById(
+    "otp"
+).addEventListener(
+    "input",
+    function() {
+
+        this.value =
+            this.value
+                .replace(/\D/g, "")
+                .slice(0, 6);
+
+    }
+);
+
+
+/* =====================================================
+   CAPTCHA
+===================================================== */
+
+function generateCaptcha() {
+
+    const characters =
+        "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+
+
+    captchaText = "";
+
+
+    for (
+        let i = 0;
+        i < 6;
+        i++
+    ) {
+
+        captchaText +=
+            characters.charAt(
+
+                Math.floor(
+                    Math.random() *
+                    characters.length
+                )
+
+            );
+
+    }
+
+
+    document.getElementById(
+        "captchaCode"
+    ).textContent =
+        captchaText;
+
+
+    document.getElementById(
+        "captchaInput"
+    ).value = "";
+
+
+    document.getElementById(
+        "captchaStatus"
+    ).innerHTML = "";
+
+}
+
+
+generateCaptcha();
+
+
+/* =====================================================
+   GET VALUE
+===================================================== */
+
+function getValue(id) {
+
+    const element =
+        document.getElementById(id);
+
+
+    return element
+        ? element.value.trim()
+        : "";
+
+}
+
+
+/* =====================================================
+   FIELD ERROR
+===================================================== */
+
+function showFieldError(
+    id,
+    message
+) {
+
+    const element =
+        document.getElementById(id);
+
+
+    if (element) {
+
+        element.classList.add(
+            "is-invalid-custom"
+        );
+
+        element.focus();
+
+    }
+
+
+    alert(message);
+
+    return false;
+
+}
+
+
+/* =====================================================
+   CLEAR INVALID FIELDS
+===================================================== */
+
+function clearInvalidFields() {
+
+    document
+        .querySelectorAll(
+            ".is-invalid-custom"
+        )
+        .forEach(
+            function(element) {
+
+                element.classList.remove(
+                    "is-invalid-custom"
+                );
+
+            }
+        );
+
+}
+
+
+/* =====================================================
+   CAPTCHA INPUT UPPERCASE
+===================================================== */
+
+document.getElementById(
+    "captchaInput"
+).addEventListener(
+    "input",
+    function() {
+
+        this.value =
+            this.value
+                .toUpperCase()
+                .replace(
+                    /[^A-Z0-9]/g,
+                    ""
+                )
+                .slice(0, 6);
+
+    }
+);
+
+
+/* =====================================================
+   FORM SUBMIT
+===================================================== */
+
+document.getElementById(
+    "registrationForm"
+).addEventListener(
+    "submit",
+    function(event) {
+
+        event.preventDefault();
+
+
+        clearInvalidFields();
+
+
+        /* =============================================
+           PERSONAL DETAILS
+        ============================================= */
+
+        if (!getValue("fullName")) {
+
+            showFieldError(
+                "fullName",
+                "Please enter your Full Name."
+            );
+
+            return;
+        }
+
+
+        const mobile =
+            getValue("mobile");
+
+
+        if (!/^[0-9]{10}$/.test(mobile)) {
+
+            showFieldError(
+                "mobile",
+                "Please enter a valid 10 digit Mobile Number."
+            );
+
+            return;
+        }
+
+
+        const email =
+            getValue("email");
+
+
+        if (
+            !/^[^\s@]+@[^\s@]+\.[^\s@]+$/
+                .test(email)
+        ) {
+
+            showFieldError(
+                "email",
+                "Please enter a valid Email Address."
+            );
+
+            return;
+        }
+
+
+        if (!getValue("gender")) {
+
+            showFieldError(
+                "gender",
+                "Please select Gender."
+            );
+
+            return;
+        }
+
+
+        if (!getValue("address")) {
+
+            showFieldError(
+                "address",
+                "Please enter Address."
+            );
+
+            return;
+        }
+
+
+        if (!getValue("district")) {
+
+            showFieldError(
+                "district",
+                "Please enter District."
+            );
+
+            return;
+        }
+
+
+        if (!getValue("state")) {
+
+            showFieldError(
+                "state",
+                "Please enter State."
+            );
+
+            return;
+        }
+
+
+        /* =============================================
+           ACADEMIC DETAILS
+        ============================================= */
+
+        if (!getValue("course")) {
+
+            showFieldError(
+                "course",
+                "Please enter Course."
+            );
+
+            return;
+        }
+
+
+        if (!getValue("branch")) {
+
+            showFieldError(
+                "branch",
+                "Please enter Branch."
+            );
+
+            return;
+        }
+
+
+        if (!getValue("college")) {
+
+            showFieldError(
+                "college",
+                "Please enter College Name."
+            );
+
+            return;
+        }
+
+
+        if (!getValue("university")) {
+
+            showFieldError(
+                "university",
+                "Please enter University."
+            );
+
+            return;
+        }
+
+
+        if (!getValue("currentYear")) {
+
+            showFieldError(
+                "currentYear",
+                "Please enter Current Year."
+            );
+
+            return;
+        }
+
+
+        if (!getValue("semester")) {
+
+            showFieldError(
+                "semester",
+                "Please enter Current Semester."
+            );
+
+            return;
+        }
+
+
+        if (!getValue("academicYear")) {
+
+            showFieldError(
+                "academicYear",
+                "Please enter Academic Year."
+            );
+
+            return;
+        }
+
+
+        /* =============================================
+           ACCOUNT SECURITY
+        ============================================= */
+
+        const username =
+            getValue("username");
+
+
+        if (
+            !/^[A-Za-z0-9._-]{4,30}$/
+                .test(username)
+        ) {
+
+            showFieldError(
+                "username",
+                "Please enter a valid username. Use 4-30 letters, numbers, dot, underscore or hyphen."
+            );
+
+            return;
+        }
+
+
+        const password =
+            document.getElementById(
+                "password"
+            ).value;
+
+
+        const confirmPassword =
+            document.getElementById(
+                "confirmPassword"
+            ).value;
+
+
+        if (password.length < 8) {
+
+            showFieldError(
+                "password",
+                "Password must contain at least 8 characters."
+            );
+
+            return;
+        }
+
+
+        if (
+            password !==
+            confirmPassword
+        ) {
+
+            showFieldError(
+                "confirmPassword",
+                "Password and Confirm Password do not match."
+            );
+
+            return;
+        }
+
+
+        /* =============================================
+           EMAIL OTP VERIFICATION
+        ============================================= */
+
+        if (
+            document.getElementById(
+                "otpMethod"
+            ).value !== "email"
+        ) {
+
+            showFieldError(
+                "otpMethod",
+                "Please select Email Address for OTP verification."
+            );
+
+            return;
+        }
+
+
+        if (!otpSent) {
+
+            alert(
+                "Please click Send OTP before registration."
+            );
+
+            return;
+        }
+
+
+        if (!otpVerified) {
+
+            alert(
+                "Please verify Email OTP before registration."
+            );
+
+            return;
+        }
+
+
+        /*
+         * Extra frontend safety check:
+         *
+         * The email displayed in OTP target must
+         * match the current registration email.
+         */
+
+        if (
+            getValue("otpTarget").toLowerCase() !==
+            email.toLowerCase()
+        ) {
+
+            alert(
+                "Verified email address does not match the registration email address."
+            );
+
+            return;
+        }
+
+
+        /* =============================================
+           CAPTCHA
+        ============================================= */
+
+        const captchaInput =
+            getValue(
+                "captchaInput"
+            ).toUpperCase();
+
+
+        if (!captchaInput) {
+
+            showFieldError(
+                "captchaInput",
+                "Please enter the CAPTCHA."
+            );
+
+            return;
+        }
+
+
+        if (
+            captchaInput !==
+            captchaText
+        ) {
+
+            showFieldError(
+                "captchaInput",
+                "Invalid CAPTCHA. Please enter the correct CAPTCHA."
+            );
+
+            generateCaptcha();
+
+            return;
+        }
+
+
+        /* =============================================
+           TERMS
+        ============================================= */
+
+        const terms =
+            document.getElementById(
+                "terms"
+            );
+
+
+        if (!terms.checked) {
+
+            alert(
+                "Please agree to the Terms and Conditions."
+            );
+
+            terms.focus();
+
+            return;
+        }
+
+
+        /* =============================================
+           SUBMIT
+        ============================================= */
+
+        const registerButton =
+            document.getElementById(
+                "registerBtn"
+            );
+
+
+        registerButton.disabled = true;
+
+
+        registerButton.innerHTML =
+            '<i class="bi bi-hourglass-split"></i> ' +
+            'Registering...';
+
+
+        /*
+         * Email OTP verification is already completed
+         * through Django.
+         *
+         * Django register_view will again verify
+         * the session-side OTP verification.
+         */
+
+        this.submit();
+
+    }
+);
+
+</script>
+
+
+<!-- Bootstrap JS -->
+
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,2809 @@
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Project Details | Gurukrupa Agency</title>
+
+    <!-- Bootstrap -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+<style>
+
+    :root {
+        --background: #F5F7FB;
+        --sidebar: #172554;
+        --navbar: #FFFFFF;
+        --primary: #2563EB;
+        --secondary: #4F46E5;
+        --card: #FFFFFF;
+        --text: #111827;
+        --secondary-text: #64748B;
+        --border: #E2E8F0;
+        --success: #16A34A;
+        --warning: #F59E0B;
+        --danger: #EF4444;
+        --info: #0EA5E9;
+    }
+
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        background: var(--background);
+        color: var(--text);
+        font-family: Arial, sans-serif;
+    }
+
+    /* ================= SIDEBAR ================= */
+
+    .sidebar {
+        width: 250px;
+        height: 100vh;
+        position: fixed;
+        left: 0;
+        top: 0;
+
+        background: var(--sidebar);
+        color: white;
+
+        padding: 20px 15px;
+        overflow-y: auto;
+    }
+
+    .logo {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+
+        padding: 10px;
+        margin-bottom: 25px;
+    }
+
+    .logo-icon {
+        width: 45px;
+        height: 45px;
+
+        background: var(--primary);
+        border-radius: 10px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        font-weight: bold;
+        font-size: 18px;
+    }
+
+    .logo h5 {
+        margin: 0;
+        font-size: 14px;
+    }
+
+    .logo small {
+        color: #CBD5E1;
+    }
+
+    .menu-title {
+        color: #94A3B8;
+        font-size: 11px;
+
+        margin: 20px 10px 8px;
+
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .sidebar a {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+
+        color: #CBD5E1;
+        text-decoration: none;
+
+        padding: 11px 12px;
+        margin-bottom: 4px;
+
+        border-radius: 8px;
+
+        font-size: 14px;
+
+        transition: 0.2s;
+    }
+
+    .sidebar a:hover,
+    .sidebar a.active {
+        background: var(--primary);
+        color: white;
+    }
+
+    .sidebar a i {
+        font-size: 17px;
+    }
+
+    /* ================= MAIN ================= */
+
+    .main {
+        margin-left: 250px;
+        min-height: 100vh;
+    }
+
+    /* ================= NAVBAR ================= */
+
+    .navbar-custom {
+        height: 70px;
+
+        background: var(--navbar);
+
+        border-bottom: 1px solid var(--border);
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        padding: 0 30px;
+    }
+
+    .navbar-custom h4 {
+        margin: 0;
+
+        font-size: 20px;
+        font-weight: 600;
+    }
+
+    .student-info {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        font-size: 14px;
+    }
+
+    .profile-circle {
+        width: 40px;
+        height: 40px;
+
+        background: #DBEAFE;
+        color: var(--primary);
+
+        border-radius: 50%;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        font-weight: bold;
+    }
+
+    /* ================= CONTENT ================= */
+
+    .content {
+        padding: 30px;
+    }
+
+    .breadcrumb-text {
+        color: var(--secondary-text);
+        font-size: 14px;
+        margin-bottom: 25px;
+    }
+
+    /* ================= CARD ================= */
+
+    .form-card {
+        background: var(--card);
+
+        border: 1px solid var(--border);
+        border-radius: 12px;
+
+        padding: 28px;
+
+        margin-bottom: 25px;
+    }
+
+    .section-heading {
+        font-size: 17px;
+        font-weight: 600;
+
+        margin-bottom: 20px;
+        padding-bottom: 11px;
+
+        border-bottom: 1px solid var(--border);
+    }
+
+    .section-heading i {
+        color: var(--primary);
+        margin-right: 7px;
+    }
+
+    /* ================= FORM ================= */
+
+    .form-label {
+        font-size: 13px;
+        font-weight: 600;
+
+        color: var(--text);
+
+        margin-bottom: 7px;
+    }
+
+    .form-control,
+    .form-select {
+        border: 1px solid var(--border);
+
+        border-radius: 7px;
+
+        padding: 10px 12px;
+
+        font-size: 14px;
+
+        min-height: 44px;
+    }
+
+    textarea.form-control {
+        min-height: 120px;
+        resize: vertical;
+    }
+
+    .form-control:focus,
+    .form-select:focus {
+        border-color: var(--primary);
+
+        box-shadow:
+            0 0 0 3px rgba(37, 99, 235, 0.10);
+    }
+
+    .required {
+        color: var(--danger);
+    }
+
+    .help-text {
+        color: var(--secondary-text);
+        font-size: 12px;
+        margin-top: 5px;
+    }
+
+    /* ================= SEARCHABLE DROPDOWN ================= */
+
+    .search-select {
+        position: relative;
+        width: 100%;
+    }
+
+    .search-select-input {
+        width: 100%;
+        min-height: 44px;
+
+        background: white;
+
+        border: 1px solid var(--border);
+        border-radius: 7px;
+
+        padding: 10px 40px 10px 12px;
+
+        font-size: 14px;
+
+        cursor: pointer;
+
+        outline: none;
+    }
+
+    .search-select-input:focus {
+        border-color: var(--primary);
+
+        box-shadow:
+            0 0 0 3px rgba(37, 99, 235, 0.10);
+    }
+
+    .search-select-input:not([readonly]) {
+        cursor: text;
+    }
+
+    .dropdown-arrow {
+        position: absolute;
+
+        right: 14px;
+        top: 50%;
+
+        transform: translateY(-50%);
+
+        color: #64748B;
+
+        pointer-events: none;
+    }
+
+    .search-dropdown {
+        display: none;
+
+        position: absolute;
+
+        left: 0;
+        right: 0;
+
+        top: calc(100% + 5px);
+
+        background: white;
+
+        border: 1px solid var(--border);
+        border-radius: 8px;
+
+        box-shadow:
+            0 8px 20px rgba(15, 23, 42, 0.12);
+
+        z-index: 1000;
+
+        overflow: hidden;
+    }
+
+    .search-dropdown.show {
+        display: block;
+    }
+
+    .dropdown-search-box {
+        padding: 10px;
+
+        background: #F8FAFC;
+
+        border-bottom: 1px solid var(--border);
+    }
+
+    .dropdown-search-box input {
+        width: 100%;
+
+        border: 1px solid var(--border);
+
+        border-radius: 6px;
+
+        padding: 9px 10px;
+
+        font-size: 13px;
+
+        outline: none;
+    }
+
+    .dropdown-search-box input:focus {
+        border-color: var(--primary);
+    }
+
+    .dropdown-options {
+        max-height: 210px;
+        overflow-y: auto;
+    }
+
+    .dropdown-option {
+        padding: 10px 12px;
+
+        font-size: 14px;
+
+        cursor: pointer;
+
+        transition: 0.15s;
+    }
+
+    .dropdown-option:hover {
+        background: #EFF6FF;
+        color: var(--primary);
+    }
+
+    .custom-option {
+        padding: 11px 12px;
+
+        border-top: 1px solid var(--border);
+
+        background: #F8FAFC;
+
+        color: var(--primary);
+
+        font-size: 13px;
+
+        font-weight: 600;
+
+        cursor: pointer;
+    }
+
+    .custom-option:hover {
+        background: #EFF6FF;
+    }
+
+    .custom-option.disabled {
+        color: #94A3B8;
+        cursor: not-allowed;
+    }
+
+    .no-result {
+        padding: 11px 12px;
+
+        color: var(--secondary-text);
+
+        font-size: 13px;
+
+        text-align: center;
+    }
+
+    /* ================= PROJECT OUTPUT ================= */
+
+    .type-card {
+        border: 1px solid var(--border);
+        border-radius: 8px;
+
+        padding: 15px;
+
+        height: 100%;
+    }
+
+    .type-card label {
+        font-size: 14px;
+        font-weight: 500;
+
+        cursor: pointer;
+    }
+
+    /* ================= INFO NOTE ================= */
+
+    .info-note {
+        background: #EFF6FF;
+
+        border: 1px solid #BFDBFE;
+
+        color: #1E40AF;
+
+        padding: 13px 15px;
+
+        border-radius: 8px;
+
+        font-size: 13px;
+
+        margin-bottom: 25px;
+    }
+
+    /* ================= FILE UPLOAD ================= */
+
+    .file-upload-box {
+        border: 1px dashed #93C5FD;
+
+        background: #F8FAFC;
+
+        border-radius: 10px;
+
+        padding: 18px;
+    }
+
+    .file-upload-box .form-control {
+        background: white;
+    }
+
+    /* ================= BUTTON ================= */
+
+    .save-btn {
+        background: var(--primary);
+        color: white;
+
+        border: none;
+
+        padding: 11px 22px;
+
+        border-radius: 7px;
+
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+    .save-btn:hover {
+        background: #1D4ED8;
+        color: white;
+    }
+
+    .reset-btn {
+        background: white;
+        color: var(--text);
+
+        border: 1px solid var(--border);
+
+        padding: 11px 22px;
+
+        border-radius: 7px;
+
+        font-size: 14px;
+        font-weight: 600;
+
+        margin-right: 8px;
+    }
+
+    .reset-btn:hover {
+        background: #F8FAFC;
+    }
+
+    /* ================= RESPONSIVE ================= */
+
+    @media(max-width: 768px) {
+
+        .sidebar {
+            width: 210px;
+        }
+
+        .main {
+            margin-left: 210px;
+        }
+
+        .navbar-custom {
+            padding: 0 20px;
+        }
+
+        .content {
+            padding: 20px;
+        }
+
+    }
+
+</style>
+
+</head>
+
+<body>
+
+<!-- =====================================================
+     SIDEBAR
+===================================================== -->
+
+<div class="sidebar">
+
+    <div class="logo">
+
+        <div class="brand-icon">
+        <i class="bi bi-mortarboard-fill"></i>
+        </div>
+
+        <div>
+            <h5>GuruKrupa</h5>
+            <small>Student Portal</small>
+        </div>
+
+    </div>
+
+    <div class="menu-title">
+        Main Menu
+    </div>
+
+    <!-- Dashboard -->
+
+    <a href="{% url 'user_dashboard' %}">
+
+        <i class="bi bi-grid"></i>
+
+        Dashboard
+
+    </a>
+
+    <!-- Profile -->
+
+    <a href="{% url 'user_profile' %}">
+
+        <i class="bi bi-person"></i>
+
+        My Profile
+
+    </a>
+
+    <!-- Academic -->
+
+    <a href="{% url 'user_academic' %}">
+
+        <i class="bi bi-mortarboard"></i>
+
+        Academic & Qualification
+
+    </a>
+
+    <!-- Project -->
+
+    <a href="{% url 'user_project_details' %}" class="active">
+
+        <i class="bi bi-folder"></i>
+
+        Project Details
+
+    </a>
+
+    <!-- Quotation -->
+
+    <a href="#">
+
+        <i class="bi bi-receipt"></i>
+
+        Quotation
+
+    </a>
+
+    <!-- Payment -->
+
+    <a href="#">
+
+        <i class="bi bi-credit-card"></i>
+
+        Payment
+
+    </a>
+
+    <!-- Track Application -->
+
+    <a href="#">
+
+        <i class="bi bi-graph-up"></i>
+
+        Track Application
+
+    </a>
+
+    <div class="menu-title">
+
+        Account
+
+    </div>
+
+    <!-- Website -->
+
+    <a href="{% url 'home' %}">
+
+        <i class="bi bi-house"></i>
+
+        View Website
+
+    </a>
+
+    <!-- Logout -->
+
+    <a href="{% url 'user_logout' %}">
+
+        <i class="bi bi-box-arrow-right"></i>
+
+        Logout
+
+    </a>
+
+</div>
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<div class="main">
+
+    <!-- NAVBAR -->
+
+    <div class="navbar-custom">
+
+        <h4>
+            Project Details
+        </h4>
+
+        <div class="student-info">
+
+            <strong>
+                {{ profile.full_name }}
+            </strong>
+
+            <div class="profile-circle">
+
+                {{ profile.full_name|first|upper }}
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- CONTENT -->
+
+    <div class="content">
+
+        <div class="breadcrumb-text">
+
+            Dashboard / Project Details
+
+        </div>
+
+        <!-- DJANGO MESSAGES -->
+
+        {% if messages %}
+
+            {% for message in messages %}
+
+                <div
+                    class="alert alert-{{ message.tags }} alert-dismissible fade show"
+                    role="alert">
+
+                    {{ message }}
+
+                    <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="alert">
+                    </button>
+
+                </div>
+
+            {% endfor %}
+
+        {% endif %}
+
+        <!-- INFO -->
+
+        <div class="info-note">
+
+            <i class="bi bi-info-circle"></i>
+
+            Enter your project requirements carefully.
+            The submitted details will be reviewed by the admin
+            before quotation generation.
+
+        </div>
+
+        <!-- =====================================================
+             PROJECT FORM START
+        ====================================================== -->
+
+        <form
+            method="POST"
+            action="{% url 'user_project_details' %}"
+            enctype="multipart/form-data"
+            id="projectForm">
+
+            {% csrf_token %}
+
+            <!-- =====================================================
+                 BASIC PROJECT DETAILS
+            ====================================================== -->
+
+            <div class="form-card">
+
+                <div class="section-heading">
+
+                    <i class="bi bi-folder"></i>
+
+                    Basic Project Details
+
+                </div>
+
+                <div class="row g-4">
+
+                    <!-- PROJECT TITLE -->
+
+                    <div class="col-md-8">
+
+                        <label class="form-label">
+
+                            Project Title
+
+                            <span class="required">*</span>
+
+                        </label>
+
+                        <div class="search-select">
+
+                            <input
+                                type="text"
+                                class="search-select-input"
+                                id="projectTitle"
+                                name="project_title"
+                                value="{{ project.project_title|default:'' }}"
+                                placeholder="Select or search project title"
+                                readonly>
+
+                            <i class="bi bi-chevron-down dropdown-arrow"></i>
+
+                            <div class="search-dropdown">
+
+                                <div class="dropdown-search-box">
+
+                                    <input
+                                        type="text"
+                                        class="search-input"
+                                        placeholder="Select project type first...">
+
+                                </div>
+
+                                <div class="dropdown-options">
+                                </div>
+
+                                <div class="custom-option disabled">
+
+                                    <i class="bi bi-plus-circle"></i>
+
+                                    Use custom project title
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="help-text">
+
+                            Select Project Type first to see related project titles.
+
+                        </div>
+
+                    </div>
+
+                    <!-- PROJECT TYPE -->
+
+                    <div class="col-md-4">
+
+                        <label class="form-label">
+
+                            Project Type
+
+                            <span class="required">*</span>
+
+                        </label>
+
+                        <div class="search-select">
+
+                            <input
+                                type="text"
+                                class="search-select-input"
+                                id="projectType"
+                                name="project_type"
+                                value="{{ project.project_type|default:'' }}"
+                                placeholder="Select or search project type"
+                                readonly>
+
+                            <i class="bi bi-chevron-down dropdown-arrow"></i>
+
+                            <div class="search-dropdown">
+
+                                <div class="dropdown-search-box">
+
+                                    <input
+                                        type="text"
+                                        class="search-input"
+                                        placeholder="Search or enter project type...">
+
+                                </div>
+
+                                <div class="dropdown-options">
+
+                                    <div
+                                        class="dropdown-option"
+                                        data-value="Major Project">
+
+                                        Major Project
+
+                                    </div>
+
+                                    <div
+                                        class="dropdown-option"
+                                        data-value="Mini Project">
+
+                                        Mini Project
+
+                                    </div>
+
+                                    <div
+                                        class="dropdown-option"
+                                        data-value="Final Year Project">
+
+                                        Final Year Project
+
+                                    </div>
+
+                                    <div
+                                        class="dropdown-option"
+                                        data-value="Internship Project">
+
+                                        Internship Project
+
+                                    </div>
+
+                                    <div
+                                        class="dropdown-option"
+                                        data-value="Academic Project">
+
+                                        Academic Project
+
+                                    </div>
+
+                                    <div
+                                        class="dropdown-option"
+                                        data-value="Research Project">
+
+                                        Research Project
+
+                                    </div>
+
+                                    <div
+                                        class="dropdown-option"
+                                        data-value="MBA Project">
+
+                                        MBA Project
+
+                                    </div>
+
+                                    <!-- OTHER PROJECT -->
+
+                                    <div
+                                        class="dropdown-option"
+                                        data-value="Other Project">
+
+                                        Other Project
+
+                                    </div>
+
+                                </div>
+
+                                <div class="custom-option">
+
+                                    <i class="bi bi-plus-circle"></i>
+
+                                    Use custom project type
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <!-- DOMAIN -->
+
+                    <div class="col-md-6">
+
+                        <label class="form-label">
+
+                            Project Domain
+
+                            <span class="required">*</span>
+
+                        </label>
+
+                        <div class="search-select">
+
+                            <input
+                                type="text"
+                                class="search-select-input"
+                                id="domain"
+                                name="domain"
+                                value="{{ project.domain|default:'' }}"
+                                placeholder="Select or search domain"
+                                readonly>
+
+                            <i class="bi bi-chevron-down dropdown-arrow"></i>
+
+                            <div class="search-dropdown">
+
+                                <div class="dropdown-search-box">
+
+                                    <input
+                                        type="text"
+                                        class="search-input"
+                                        placeholder="Search or enter domain...">
+
+                                </div>
+
+                                <div class="dropdown-options">
+
+                                    <div
+                                        class="dropdown-option"
+                                        data-value="Web Development">
+
+                                        Web Development
+
+                                    </div>
+
+                                    <div
+                                        class="dropdown-option"
+                                        data-value="Python">
+
+                                        Python
+
+                                    </div>
+
+                                    <div
+                                        class="dropdown-option"
+                                        data-value="Java">
+
+                                        Java
+
+                                    </div>
+
+                                    <div
+                                        class="dropdown-option"
+                                        data-value="Artificial Intelligence">
+
+                                        Artificial Intelligence
+
+                                    </div>
+
+                                    <div
+                                        class="dropdown-option"
+                                        data-value="Machine Learning">
+
+                                        Machine Learning
+
+                                    </div>
+
+                                    <div
+                                        class="dropdown-option"
+                                        data-value="Data Science">
+
+                                        Data Science
+
+                                    </div>
+
+                                    <div
+                                        class="dropdown-option"
+                                        data-value="Cyber Security">
+
+                                        Cyber Security
+
+                                    </div>
+
+                                    <div
+                                        class="dropdown-option"
+                                        data-value="Android Development">
+
+                                        Android Development
+
+                                    </div>
+
+                                    <div
+                                        class="dropdown-option"
+                                        data-value="IoT">
+
+                                        IoT
+
+                                    </div>
+
+                                    <div
+                                        class="dropdown-option"
+                                        data-value="Cloud Computing">
+
+                                        Cloud Computing
+
+                                    </div>
+
+                                    <div
+                                        class="dropdown-option"
+                                        data-value="Blockchain">
+
+                                        Blockchain
+
+                                    </div>
+
+                                </div>
+
+                                <div class="custom-option">
+
+                                    <i class="bi bi-plus-circle"></i>
+
+                                    Use custom domain
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <!-- TECHNOLOGY -->
+
+                    <div class="col-md-6">
+
+                        <label class="form-label">
+
+                            Preferred Technology / Tech Stack
+
+                            <span class="required">*</span>
+
+                        </label>
+
+                        <input
+                            type="text"
+                            id="technology"
+                            name="technology"
+                            class="form-control"
+                            value="{{ project.technology|default:'' }}"
+                            placeholder="e.g. HTML, CSS, JavaScript, Python, MySQL">
+
+                        <div class="help-text">
+
+                            Enter technologies separated by comma.
+
+                        </div>
+
+                    </div>
+
+                    <!-- PROJECT GUIDE -->
+
+                    <div class="col-md-6">
+
+                        <label class="form-label">
+
+                            Project Guide / Faculty Name
+
+                        </label>
+
+                        <input
+                            type="text"
+                            id="guide"
+                            name="guide"
+                            class="form-control"
+                            value="{{ project.guide|default:'' }}"
+                            placeholder="Enter faculty / project guide name">
+
+                    </div>
+
+                    <!-- TEAM SIZE -->
+
+                    <div class="col-md-3">
+
+                        <label class="form-label">
+
+                            Team Size
+
+                            <span class="required">*</span>
+
+                        </label>
+
+                        <select
+                            id="teamSize"
+                            name="team_size"
+                            class="form-select">
+
+                            <option value="">
+                                Select Team Size
+                            </option>
+
+                            <option
+                                value="1"
+                                {% if project and project.team_size == 1 %}selected{% endif %}>
+                                1
+                            </option>
+
+                            <option
+                                value="2"
+                                {% if project and project.team_size == 2 %}selected{% endif %}>
+                                2
+                            </option>
+
+                            <option
+                                value="3"
+                                {% if project and project.team_size == 3 %}selected{% endif %}>
+                                3
+                            </option>
+
+                            <option
+                                value="4"
+                                {% if project and project.team_size == 4 %}selected{% endif %}>
+                                4
+                            </option>
+
+                            <option
+                                value="5"
+                                {% if project and project.team_size == 5 %}selected{% endif %}>
+                                5
+                            </option>
+
+                            <option
+                                value="6"
+                                {% if project and project.team_size == 6 %}selected{% endif %}>
+                                6
+                            </option>
+
+                            <option
+                                value="7"
+                                {% if project and project.team_size == 7 %}selected{% endif %}>
+                                7
+                            </option>
+
+                            <option
+                                value="8"
+                                {% if project and project.team_size == 8 %}selected{% endif %}>
+                                8
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                    <!-- DURATION -->
+
+                    <div class="col-md-3">
+
+                        <label class="form-label">
+
+                            Expected Duration
+
+                        </label>
+
+                        <div class="search-select">
+
+                            <input
+                                type="text"
+                                class="search-select-input"
+                                id="duration"
+                                name="duration"
+                                value="{{ project.duration|default:'' }}"
+                                placeholder="Select or search duration"
+                                readonly>
+
+                            <i class="bi bi-chevron-down dropdown-arrow"></i>
+
+                            <div class="search-dropdown">
+
+                                <div class="dropdown-search-box">
+
+                                    <input
+                                        type="text"
+                                        class="search-input"
+                                        placeholder="Search or enter duration...">
+
+                                </div>
+
+                                <div class="dropdown-options">
+
+                                    <div
+                                        class="dropdown-option"
+                                        data-value="1 Month">
+
+                                        1 Month
+
+                                    </div>
+
+                                    <div
+                                        class="dropdown-option"
+                                        data-value="2 Months">
+
+                                        2 Months
+
+                                    </div>
+
+                                    <div
+                                        class="dropdown-option"
+                                        data-value="3 Months">
+
+                                        3 Months
+
+                                    </div>
+
+                                    <div
+                                        class="dropdown-option"
+                                        data-value="4 Months">
+
+                                        4 Months
+
+                                    </div>
+
+                                    <div
+                                        class="dropdown-option"
+                                        data-value="6 Months">
+
+                                        6 Months
+
+                                    </div>
+
+                                    <div
+                                        class="dropdown-option"
+                                        data-value="1 Year">
+
+                                        1 Year
+
+                                    </div>
+
+                                    <!-- OTHER DURATION -->
+
+                                    <div
+                                        class="dropdown-option"
+                                        data-value="Other">
+
+                                        Other
+
+                                    </div>
+
+                                </div>
+
+                                <div class="custom-option">
+
+                                    <i class="bi bi-plus-circle"></i>
+
+                                    Use custom duration
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="help-text">
+
+                            Select a duration or choose Other to enter your own duration.
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- =====================================================
+                 PROJECT DESCRIPTION
+            ====================================================== -->
+
+            <div class="form-card">
+
+                <div class="section-heading">
+
+                    <i class="bi bi-card-text"></i>
+
+                    Project Description & Requirements
+
+                </div>
+
+                <div class="row g-4">
+
+                    <!-- DESCRIPTION -->
+
+                    <div class="col-12">
+
+                        <label class="form-label">
+
+                            Project Description
+
+                            <span class="required">*</span>
+
+                        </label>
+
+                        <textarea
+                            id="description"
+                            name="description"
+                            class="form-control"
+                            placeholder="Describe your project idea, purpose and expected outcome...">{{ project.description|default:'' }}</textarea>
+
+                        <div class="help-text">
+
+                            Briefly explain what your project is about.
+
+                        </div>
+
+                    </div>
+
+                    <!-- REQUIREMENTS -->
+
+                    <div class="col-12">
+
+                        <label class="form-label">
+
+                            Project Requirements
+
+                            <span class="required">*</span>
+
+                        </label>
+
+                        <textarea
+                            id="requirements"
+                            name="requirements"
+                            class="form-control"
+                            placeholder="Enter features, modules, functionality and other requirements...">{{ project.requirements|default:'' }}</textarea>
+
+                        <div class="help-text">
+
+                            Mention the important modules and features
+                            you want in the project.
+
+                        </div>
+
+                    </div>
+
+                    <!-- ADDITIONAL -->
+
+                    <div class="col-12">
+
+                        <label class="form-label">
+
+                            Additional Instructions / Requirements
+
+                        </label>
+
+                        <textarea
+                            id="additional"
+                            name="additional"
+                            class="form-control"
+                            placeholder="Any additional instructions, college-specific requirements or special requests...">{{ project.additional|default:'' }}</textarea>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- =====================================================
+                 COLLEGE / PROJECT GUIDELINES UPLOAD
+            ====================================================== -->
+
+            <div class="form-card">
+
+                <div class="section-heading">
+
+                    <i class="bi bi-cloud-arrow-up"></i>
+
+                    College / Project Guidelines & Files
+
+                </div>
+
+                <div class="info-note">
+
+                    <i class="bi bi-info-circle"></i>
+
+                    Upload your college project guidelines,
+                    project format, instructions or any other
+                    reference files.
+
+                    <br>
+
+                    <strong>
+                        Accepted formats:
+                    </strong>
+
+                    PDF, DOC, DOCX, PPT, PPTX, XLS, XLSX,
+                    JPG, JPEG, PNG.
+
+                </div>
+
+                <div class="row g-4">
+
+                    <!-- GUIDELINE FILE -->
+
+                    <div class="col-md-8">
+
+                        <div class="file-upload-box">
+
+                            <label class="form-label">
+
+                                College / Project Guidelines File
+
+                            </label>
+
+                            <input
+                                type="file"
+                                name="guideline_file"
+                                id="guidelineFile"
+                                class="form-control"
+                                accept=".pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.jpg,.jpeg,.png">
+
+                            <div class="help-text">
+
+                                Upload college guidelines,
+                                project format or official instructions.
+
+                            </div>
+
+                            {% if project and project.guideline_file %}
+
+                                <div class="mt-2">
+
+                                    <small>
+
+                                        Current file:
+
+                                        <a
+                                            href="{{ project.guideline_file.url }}"
+                                            target="_blank">
+
+                                            {{ project.guideline_file.name }}
+
+                                        </a>
+
+                                    </small>
+
+                                </div>
+
+                            {% endif %}
+
+                        </div>
+
+                    </div>
+
+                    <!-- FILE DESCRIPTION -->
+
+                    <div class="col-md-4">
+
+                        <label class="form-label">
+
+                            File Description
+
+                        </label>
+
+                        <input
+                            type="text"
+                            name="file_description"
+                            id="fileDescription"
+                            class="form-control"
+                            value="{{ project.file_description|default:'' }}"
+                            placeholder="e.g. Project Guidelines">
+
+                        <div class="help-text">
+
+                            Mention what this file contains.
+
+                        </div>
+
+                    </div>
+
+                    <!-- ADDITIONAL FILE -->
+
+                    <div class="col-md-8">
+
+                        <div class="file-upload-box">
+
+                            <label class="form-label">
+
+                                Additional Reference File
+
+                            </label>
+
+                            <input
+                                type="file"
+                                name="additional_file"
+                                id="additionalFile"
+                                class="form-control"
+                                accept=".pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.jpg,.jpeg,.png">
+
+                            <div class="help-text">
+
+                                Optional: Upload any additional
+                                project-related reference file.
+
+                            </div>
+
+                            {% if project and project.additional_file %}
+
+                                <div class="mt-2">
+
+                                    <small>
+
+                                        Current file:
+
+                                        <a
+                                            href="{{ project.additional_file.url }}"
+                                            target="_blank">
+
+                                            {{ project.additional_file.name }}
+
+                                        </a>
+
+                                    </small>
+
+                                </div>
+
+                            {% endif %}
+
+                        </div>
+
+                    </div>
+
+                    <!-- ADDITIONAL DESCRIPTION -->
+
+                    <div class="col-md-4">
+
+                        <label class="form-label">
+
+                            Additional File Description
+
+                        </label>
+
+                        <input
+                            type="text"
+                            name="additional_file_description"
+                            id="additionalFileDescription"
+                            class="form-control"
+                            value="{{ project.additional_file_description|default:'' }}"
+                            placeholder="e.g. Project Format">
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- =====================================================
+                 PROJECT DELIVERABLES
+            ====================================================== -->
+
+            <div class="form-card">
+
+                <div class="section-heading">
+
+                    <i class="bi bi-file-earmark-check"></i>
+
+                    Required Project Deliverables
+
+                </div>
+
+                <div class="row g-3">
+
+                    <!-- SOURCE CODE -->
+
+                    <div class="col-md-4">
+
+                        <div class="type-card">
+
+                            <input
+                                type="checkbox"
+                                id="sourceCode"
+                                name="source_code"
+                                class="form-check-input me-2"
+                                {% if not project or project.source_code %}checked{% endif %}>
+
+                            <label for="sourceCode">
+
+                                Source Code
+
+                            </label>
+
+                        </div>
+
+                    </div>
+
+                    <!-- DOCUMENTATION -->
+
+                    <div class="col-md-4">
+
+                        <div class="type-card">
+
+                            <input
+                                type="checkbox"
+                                id="documentation"
+                                name="documentation"
+                                class="form-check-input me-2"
+                                {% if not project or project.documentation %}checked{% endif %}>
+
+                            <label for="documentation">
+
+                                Project Documentation
+
+                            </label>
+
+                        </div>
+
+                    </div>
+
+                    <!-- PPT -->
+
+                    <div class="col-md-4">
+
+                        <div class="type-card">
+
+                            <input
+                                type="checkbox"
+                                id="ppt"
+                                name="ppt"
+                                class="form-check-input me-2"
+                                {% if not project or project.ppt %}checked{% endif %}>
+
+                            <label for="ppt">
+
+                                Project PPT
+
+                            </label>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- =====================================================
+                 BUTTONS
+            ====================================================== -->
+
+            <div class="form-card">
+
+                <div class="d-flex justify-content-end flex-wrap gap-2">
+
+                    <!-- DOWNLOAD EXCEL -->
+
+                    <a
+                        href="{% url 'download_project_excel' %}"
+                        class="reset-btn"
+                        style="text-decoration: none;">
+
+                        <i class="bi bi-file-earmark-excel"></i>
+
+                        Download Project List Excel
+
+                    </a>
+
+                    <!-- RESET -->
+
+                    <button
+                        type="button"
+                        class="reset-btn"
+                        onclick="resetProjectForm()">
+
+                        Reset
+
+                    </button>
+
+                    <!-- SAVE -->
+
+                    <button
+                        type="submit"
+                        class="save-btn">
+
+                        <i class="bi bi-check-circle"></i>
+
+                        Save & Continue
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+<script>
+
+/* =====================================================
+   RELATED PROJECT TITLES
+===================================================== */
+
+const projectList = {
+
+    "Major Project": [
+
+        "Hospital Management System",
+        "Student Management System",
+        "College Management System",
+        "E-Commerce Website",
+        "Online Examination System",
+        "Library Management System",
+        "Inventory Management System",
+        "Employee Management System",
+        "Project Management System",
+        "CRM Management System"
+
+    ],
+
+    "Mini Project": [
+
+        "Calculator Application",
+        "Expense Tracker",
+        "Student Management System",
+        "To-Do Application",
+        "Weather Application",
+        "Blog Website",
+        "Portfolio Website",
+        "Online Quiz Application",
+        "Library Management System",
+        "Attendance Management System"
+
+    ],
+
+    "Final Year Project": [
+
+        "Hospital Management System",
+        "College Management System",
+        "E-Commerce Management System",
+        "Student Project Management Portal",
+        "ERP Management System",
+        "Online Learning Management System",
+        "Job Portal",
+        "Employee Management System",
+        "Inventory Management System",
+        "Hotel Management System"
+
+    ],
+
+    "Internship Project": [
+
+        "Web Development Project",
+        "Full Stack Development Project",
+        "React Web Application",
+        "Django Web Application",
+        "MERN Stack Application",
+        "CRM Application",
+        "ERP Application",
+        "E-Commerce Website",
+        "Portfolio Website",
+        "Business Website"
+
+    ],
+
+    "Academic Project": [
+
+        "Student Management System",
+        "Library Management System",
+        "Attendance Management System",
+        "College Management System",
+        "Employee Management System",
+        "Inventory Management System",
+        "Online Examination System",
+        "Course Management System",
+        "Result Management System",
+        "Fee Management System"
+
+    ],
+
+    "Research Project": [
+
+        "Market Research",
+        "Consumer Behaviour Study",
+        "Customer Satisfaction Analysis",
+        "Employee Satisfaction Analysis",
+        "Business Performance Analysis",
+        "Digital Marketing Research",
+        "Financial Market Analysis",
+        "Sales Performance Analysis",
+        "HR Analytics",
+        "Business Data Analysis"
+
+    ],
+
+    /* =====================================================
+       MBA PROJECTS
+    ===================================================== */
+
+    "MBA Project": [
+
+        /* ================= GENERAL MBA ================= */
+
+        "Marketing Management Project",
+        "Financial Management Project",
+        "Human Resource Management Project",
+        "Operations Management Project",
+        "Supply Chain Management Project",
+        "International Business Project",
+        "Business Analytics Project",
+        "Strategic Management Project",
+        "Customer Relationship Management Project",
+        "Digital Marketing Project",
+        "Consumer Behaviour Analysis",
+        "Market Research Project",
+        "Sales Management Project",
+        "Retail Management Project",
+        "Banking & Finance Project",
+        "Investment Management Project",
+        "Performance Management Project",
+        "Recruitment & Selection Project",
+        "Employee Satisfaction Survey",
+        "Training & Development Project",
+
+        /* ================= MBA SPECIALIZATIONS ================= */
+
+        "BA – Business Analytics",
+        "Marketing – Marketing Management",
+        "Finance – Financial Management",
+        "HRM – Human Resource Management",
+        "PHM – Pharmaceutical Management",
+        "ABM – Agri-Business Management",
+        "OSCM – Operations & Supply Chain Management"
+
+    ],
+
+    /* =====================================================
+       OTHER PROJECT
+    ===================================================== */
+
+    "Other Project": [
+
+        "Custom Project"
+
+    ]
+
+};
+
+
+/* =====================================================
+   PROJECT TYPE OPTIONS
+===================================================== */
+
+const projectTypeOptions = [
+
+    "Major Project",
+    "Mini Project",
+    "Final Year Project",
+    "Internship Project",
+    "Academic Project",
+    "Research Project",
+    "MBA Project",
+    "Other Project"
+
+];
+
+
+/* =====================================================
+   LOAD RELATED PROJECT TITLES
+===================================================== */
+
+function loadProjectTitles(projectType, clearTitle = false) {
+
+    const projectTitle =
+        document.getElementById("projectTitle");
+
+    const titleContainer =
+        projectTitle.closest(".search-select");
+
+    const optionsContainer =
+        titleContainer.querySelector(".dropdown-options");
+
+    const customOption =
+        titleContainer.querySelector(".custom-option");
+
+    const searchInput =
+        titleContainer.querySelector(".search-input");
+
+
+    if (clearTitle) {
+
+        projectTitle.value = "";
+
+        projectTitle.readOnly = true;
+
+    }
+
+
+    optionsContainer.innerHTML = "";
+
+
+    const titles =
+        projectList[projectType] || [];
+
+
+    titles.forEach(function(title) {
+
+        const option =
+            document.createElement("div");
+
+        option.className =
+            "dropdown-option";
+
+        option.setAttribute(
+            "data-value",
+            title
+        );
+
+        option.textContent =
+            title;
+
+
+        option.addEventListener(
+            "click",
+            function(event) {
+
+                event.stopPropagation();
+
+                projectTitle.value =
+                    title;
+
+                projectTitle.readOnly =
+                    true;
+
+                titleContainer
+                    .querySelector(".search-dropdown")
+                    .classList.remove("show");
+
+                searchInput.value = "";
+
+                customOption.classList.add(
+                    "disabled"
+                );
+
+            }
+        );
+
+
+        optionsContainer.appendChild(
+            option
+        );
+
+    });
+
+
+    /* Other Project साठी custom title */
+
+    if (projectType === "Other Project") {
+
+        customOption.classList.remove(
+            "disabled"
+        );
+
+        searchInput.placeholder =
+            "Enter your custom project title...";
+
+    } else {
+
+        customOption.classList.add(
+            "disabled"
+        );
+
+        searchInput.placeholder =
+            "Search project title...";
+
+    }
+
+}
+
+
+/* =====================================================
+   SEARCHABLE DROPDOWN
+===================================================== */
+
+document
+    .querySelectorAll(".search-select")
+    .forEach(function(container) {
+
+        const mainInput =
+            container.querySelector(
+                ".search-select-input"
+            );
+
+        const dropdown =
+            container.querySelector(
+                ".search-dropdown"
+            );
+
+        const searchInput =
+            container.querySelector(
+                ".search-input"
+            );
+
+        const optionsContainer =
+            container.querySelector(
+                ".dropdown-options"
+            );
+
+        const customOption =
+            container.querySelector(
+                ".custom-option"
+            );
+
+        const isProjectTitle =
+            mainInput.id === "projectTitle";
+
+        const isProjectType =
+            mainInput.id === "projectType";
+
+        const isDuration =
+            mainInput.id === "duration";
+
+
+        /* =================================================
+           OPEN DROPDOWN
+        ================================================= */
+
+        mainInput.addEventListener(
+            "click",
+            function(event) {
+
+                event.stopPropagation();
+
+                if (
+                    isDuration &&
+                    mainInput.readOnly === false
+                ) {
+
+                    return;
+
+                }
+
+                if (
+                    isProjectTitle &&
+                    !document
+                        .getElementById("projectType")
+                        .value
+                        .trim()
+                ) {
+
+                    alert(
+                        "Please select Project Type first."
+                    );
+
+                    return;
+
+                }
+
+                document
+                    .querySelectorAll(
+                        ".search-dropdown.show"
+                    )
+                    .forEach(
+                        function(other) {
+
+                            if (
+                                other !== dropdown
+                            ) {
+
+                                other.classList.remove(
+                                    "show"
+                                );
+
+                            }
+
+                        }
+                    );
+
+
+                dropdown.classList.toggle(
+                    "show"
+                );
+
+
+                if (
+                    dropdown.classList.contains(
+                        "show"
+                    )
+                ) {
+
+                    searchInput.value = "";
+
+
+                    const currentOptions =
+                        dropdown.querySelectorAll(
+                            ".dropdown-option"
+                        );
+
+
+                    currentOptions.forEach(
+                        function(option) {
+
+                            option.style.display =
+                                "block";
+
+                        }
+                    );
+
+
+                    if (isDuration) {
+
+                        customOption.classList.remove(
+                            "disabled"
+                        );
+
+                    }
+
+                    else {
+
+                        customOption.classList.add(
+                            "disabled"
+                        );
+
+
+                        if (
+                            isProjectTitle &&
+                            document
+                                .getElementById(
+                                    "projectType"
+                                )
+                                .value ===
+                            "Other Project"
+                        ) {
+
+                            customOption.classList.remove(
+                                "disabled"
+                            );
+
+                        }
+
+                    }
+
+
+                    setTimeout(
+                        function() {
+
+                            searchInput.focus();
+
+                        },
+                        50
+                    );
+
+                }
+
+            }
+        );
+
+
+        /* =================================================
+           SEARCH
+        ================================================= */
+
+        searchInput.addEventListener(
+            "input",
+            function() {
+
+                const searchValue =
+                    searchInput.value
+                        .toLowerCase()
+                        .trim();
+
+
+                let found = false;
+
+
+                const currentOptions =
+                    dropdown.querySelectorAll(
+                        ".dropdown-option"
+                    );
+
+
+                currentOptions.forEach(
+                    function(option) {
+
+                        const optionText =
+                            option.textContent
+                                .toLowerCase();
+
+
+                        if (
+                            optionText.includes(
+                                searchValue
+                            )
+                        ) {
+
+                            option.style.display =
+                                "block";
+
+                            found = true;
+
+                        }
+
+                        else {
+
+                            option.style.display =
+                                "none";
+
+                        }
+
+                    }
+                );
+
+
+                if (isDuration) {
+
+                    customOption.classList.remove(
+                        "disabled"
+                    );
+
+                }
+
+                else if (
+                    searchValue !== ""
+                ) {
+
+                    customOption.classList.remove(
+                        "disabled"
+                    );
+
+                }
+
+                else {
+
+                    if (
+                        isProjectTitle &&
+                        document
+                            .getElementById(
+                                "projectType"
+                            )
+                            .value ===
+                        "Other Project"
+                    ) {
+
+                        customOption.classList.remove(
+                            "disabled"
+                        );
+
+                    }
+
+                    else {
+
+                        customOption.classList.add(
+                            "disabled"
+                        );
+
+                    }
+
+                }
+
+
+                let noResult =
+                    dropdown.querySelector(
+                        ".no-result"
+                    );
+
+
+                if (
+                    !found &&
+                    searchValue !== ""
+                ) {
+
+                    if (!noResult) {
+
+                        noResult =
+                            document.createElement(
+                                "div"
+                            );
+
+                        noResult.className =
+                            "no-result";
+
+                        noResult.textContent =
+                            "No matching option found";
+
+
+                        optionsContainer.appendChild(
+                            noResult
+                        );
+
+                    }
+
+                }
+
+                else {
+
+                    if (noResult) {
+
+                        noResult.remove();
+
+                    }
+
+                }
+
+            }
+        );
+
+
+        /* =================================================
+           EXISTING STATIC OPTIONS
+        ================================================= */
+
+        container
+            .querySelectorAll(
+                ".dropdown-option"
+            )
+            .forEach(
+                function(option) {
+
+                    option.addEventListener(
+                        "click",
+                        function(event) {
+
+                            event.stopPropagation();
+
+
+                            const selectedValue =
+                                option.getAttribute(
+                                    "data-value"
+                                );
+
+
+                            /* =========================
+                               PROJECT TYPE
+                            ========================= */
+
+                            if (
+                                isProjectType
+                            ) {
+
+                                const oldProjectType =
+                                    mainInput.value;
+
+
+                                mainInput.value =
+                                    selectedValue;
+
+
+                                mainInput.readOnly =
+                                    true;
+
+
+                                if (
+                                    oldProjectType !==
+                                    selectedValue
+                                ) {
+
+                                    loadProjectTitles(
+                                        selectedValue,
+                                        true
+                                    );
+
+                                }
+
+                                else {
+
+                                    loadProjectTitles(
+                                        selectedValue,
+                                        false
+                                    );
+
+                                }
+
+                            }
+
+
+                            /* =========================
+                               DURATION
+                            ========================= */
+
+                            else if (
+                                isDuration &&
+                                selectedValue === "Other"
+                            ) {
+
+                                mainInput.value = "";
+
+                                mainInput.readOnly =
+                                    false;
+
+                                mainInput.placeholder =
+                                    "Enter custom duration";
+
+                                dropdown.classList.remove(
+                                    "show"
+                                );
+
+                                searchInput.value = "";
+
+                                customOption.classList.remove(
+                                    "disabled"
+                                );
+
+                                mainInput.focus();
+
+                                return;
+
+                            }
+
+
+                            /* =========================
+                               OTHER DROPDOWNS
+                            ========================= */
+
+                            else {
+
+                                mainInput.value =
+                                    selectedValue;
+
+                                mainInput.readOnly =
+                                    true;
+
+                            }
+
+
+                            dropdown.classList.remove(
+                                "show"
+                            );
+
+                            searchInput.value = "";
+
+
+                            if (!isDuration) {
+
+                                customOption.classList.add(
+                                    "disabled"
+                                );
+
+                            }
+
+                        }
+                    );
+
+                }
+            );
+
+
+        /* =================================================
+           CUSTOM OPTION
+        ================================================= */
+
+        customOption.addEventListener(
+            "click",
+            function(event) {
+
+                event.stopPropagation();
+
+
+                if (
+                    customOption.classList.contains(
+                        "disabled"
+                    )
+                ) {
+
+                    return;
+
+                }
+
+
+                const customValue =
+                    searchInput.value.trim();
+
+
+                /* =================================================
+                   DURATION CUSTOM INPUT
+                ================================================= */
+
+                if (isDuration) {
+
+                    if (customValue !== "") {
+
+                        mainInput.value =
+                            customValue;
+
+                    }
+
+                    else {
+
+                        mainInput.value = "";
+
+                    }
+
+
+                    mainInput.readOnly =
+                        false;
+
+                    mainInput.placeholder =
+                        "Enter custom duration";
+
+
+                    dropdown.classList.remove(
+                        "show"
+                    );
+
+
+                    searchInput.value = "";
+
+
+                    mainInput.focus();
+
+                    return;
+
+                }
+
+
+                /* =================================================
+                   PROJECT TITLE + OTHER PROJECT
+                ================================================= */
+
+                if (
+                    isProjectTitle &&
+                    document
+                        .getElementById(
+                            "projectType"
+                        )
+                        .value ===
+                    "Other Project" &&
+                    customValue === ""
+                ) {
+
+                    mainInput.value = "";
+
+                    mainInput.readOnly = false;
+
+                    dropdown.classList.remove(
+                        "show"
+                    );
+
+                    mainInput.focus();
+
+                    return;
+
+                }
+
+
+                if (
+                    customValue === ""
+                ) {
+
+                    return;
+
+                }
+
+
+                mainInput.value =
+                    customValue;
+
+
+                mainInput.readOnly =
+                    false;
+
+
+                dropdown.classList.remove(
+                    "show"
+                );
+
+
+                searchInput.value = "";
+
+
+                customOption.classList.add(
+                    "disabled"
+                );
+
+            }
+        );
+
+    });
+
+
+/* =====================================================
+   INITIAL LOAD
+===================================================== */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function() {
+
+        const projectType =
+            document
+                .getElementById(
+                    "projectType"
+                )
+                .value
+                .trim();
+
+
+        if (projectType) {
+
+            loadProjectTitles(
+                projectType,
+                false
+            );
+
+        }
+
+
+        /* Existing custom duration */
+
+        const durationInput =
+            document.getElementById(
+                "duration"
+            );
+
+
+        const standardDurations = [
+            "1 Month",
+            "2 Months",
+            "3 Months",
+            "4 Months",
+            "6 Months",
+            "1 Year"
+        ];
+
+
+        if (
+            durationInput.value.trim() !== "" &&
+            !standardDurations.includes(
+                durationInput.value.trim()
+            )
+        ) {
+
+            durationInput.readOnly = false;
+
+            durationInput.placeholder =
+                "Enter custom duration";
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   CLOSE DROPDOWN WHEN CLICK OUTSIDE
+===================================================== */
+
+document.addEventListener(
+    "click",
+    function() {
+
+        document
+            .querySelectorAll(
+                ".search-dropdown.show"
+            )
+            .forEach(
+                function(dropdown) {
+
+                    dropdown.classList.remove(
+                        "show"
+                    );
+
+                }
+            );
+
+    }
+);
+
+
+/* =====================================================
+   RESET
+===================================================== */
+
+function resetProjectForm() {
+
+    if (
+        confirm(
+            "Are you sure you want to reset the project form?"
+        )
+    ) {
+
+        document
+            .getElementById(
+                "projectForm"
+            )
+            .reset();
+
+
+        const titleContainer =
+            document
+                .getElementById(
+                    "projectTitle"
+                )
+                .closest(
+                    ".search-select"
+                );
+
+
+        const optionsContainer =
+            titleContainer.querySelector(
+                ".dropdown-options"
+            );
+
+
+        optionsContainer.innerHTML = "";
+
+
+        document
+            .getElementById(
+                "projectTitle"
+            )
+            .readOnly = true;
+
+
+        /* Duration पुन्हा readonly करा */
+
+        const durationInput =
+            document.getElementById(
+                "duration"
+            );
+
+
+        durationInput.readOnly = true;
+
+        durationInput.placeholder =
+            "Select or search duration";
+
+    }
+
+}
+
+</script>
+
+</body>
+</html>
+
